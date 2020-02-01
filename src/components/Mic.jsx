@@ -34,7 +34,7 @@ export default class Mic extends Component {
       <div>
         <ReactMic
           record={this.state.record}
-          className="sound-wave"
+          className="sound-wave block"
           onStop={this.onStop}
           onData={this.onData}
           strokeColor="#000000"

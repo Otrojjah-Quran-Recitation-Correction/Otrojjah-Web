@@ -6,13 +6,14 @@ import "./components/NavBar";
 import Home from "./components/Home";
 import A7kam from "./components/A7kam";
 import Login from "./components/Login";
-import SideBar from "./components/SideBar";
+import Shea5 from "./components/Shea5";
 
 function App() {
   return (
     <React.Fragment>
       <Route path="/A7kam" component={A7kam}></Route>
       <Route path="/Login" component={Login}></Route>
+      <Route path="/Shea5" component={Shea5}></Route>
       <Route exact path="/" component={Home}></Route>
     </React.Fragment>
   );
