@@ -39,7 +39,7 @@ export default class Mic extends Component {
     data.append("hokm", "ahmed32.wav");
     data.append("record", recordedBlob.blob);
 
-    http.post("http://localhost:3000/api/client", client);
+    http.post("http://localhost:3000/api/client", data);
   }
 
   render() {
