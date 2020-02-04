@@ -6,7 +6,13 @@ export default class Mic extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      record: false
+      record: false,
+      client: {
+        recordName: "",
+        ayah: "",
+        hokm: "",
+        record: ""
+      }
     };
   }
 
@@ -41,7 +47,7 @@ export default class Mic extends Component {
       <div>
         <ReactMic
           record={this.state.record}
-          className="sound-wave"
+          className="sound-wave block"
           onStop={this.onStop}
           onData={this.onData}
           strokeColor="#000000"
@@ -51,7 +57,7 @@ export default class Mic extends Component {
         <button onClick={this.startRecording} type="button">
           Start
         </button>
-        <form encType="multipart/form-data" method="post">
+        <form encType="multipart/form-data" method="post" action="#" id="#">
           <button onClick={this.stopRecording} type="button">
             Stop
           </button>

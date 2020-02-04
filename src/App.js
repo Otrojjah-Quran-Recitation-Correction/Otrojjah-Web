@@ -8,6 +8,7 @@ import A7kam from "./components/A7kam";
 import Login from "./components/Login";
 import SideBar from "./components/SideBar";
 import AdminPanel from "./components/AdminPanel";
+import Shea5 from "./components/Shea5";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/adminPanel" component={AdminPanel}></Route>
       <Route path="/A7kam" component={A7kam}></Route>
       <Route path="/Login" component={Login}></Route>
+      <Route path="/Shea5" component={Shea5}></Route>
       <Route exact path="/" component={Home}></Route>
     </React.Fragment>
   );

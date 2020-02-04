@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import SideBar from "./SideBar";
 import Mic from "./Mic";
+import ReactPlayer from "react-player";
 
 class A7kam extends Component {
   state = {};
+
   render() {
     return (
       <React.Fragment>
@@ -35,7 +37,7 @@ class A7kam extends Component {
                 <div className="card-body">
                   <audio controls>
                     <source
-                      src="./audio/Abdul_Basit_Mujawwad_128kbps.111000.mp3"
+                      src="https://docs.google.com/uc?export=download&id=12qmkQtz-Fojjl0zUgYkT_1cCUI5hhZy4"
                       type="audio/mpeg"
                     />
                   </audio>

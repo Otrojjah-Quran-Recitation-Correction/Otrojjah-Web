@@ -13,6 +13,16 @@ class SideBar extends Component {
             </Link>
           </li>
           <li className="nav-item">
+            <Link className="nav-link" to="/Shea5">
+              Labeling
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/A7kam">
+              A7kam
+            </Link>
+          </li>
+          <li className="nav-item">
             <Link className="nav-link" to="/#discription">
               Discription
             </Link>
