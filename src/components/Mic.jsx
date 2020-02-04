@@ -1,5 +1,6 @@
 import { ReactMic } from "react-mic";
 import React, { Component } from "react";
+import http from "../services/httpServices";
 
 export default class Mic extends Component {
   constructor(props) {
@@ -26,7 +27,13 @@ export default class Mic extends Component {
   }
 
   onStop(recordedBlob) {
-    console.log("recordedBlob is: ", recordedBlob);
+    const data = new FormData();
+    data.append("record", recordedBlob.blob);
+    data.append("recordName", "ahmed");
+    data.append("ayah", "naran_thaat");
+    data.append("hokm", "Ekhfaa");
+
+    http.post("http://localhost:3001/api/client", data);
   }
 
   render() {
@@ -44,9 +51,11 @@ export default class Mic extends Component {
         <button onClick={this.startRecording} type="button">
           Start
         </button>
-        <button onClick={this.stopRecording} type="button">
-          Stop
-        </button>
+        <form encType="multipart/form-data" method="post">
+          <button onClick={this.stopRecording} type="button">
+            Stop
+          </button>
+        </form>
       </div>
     );
   }
