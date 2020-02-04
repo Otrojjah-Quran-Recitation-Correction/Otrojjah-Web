@@ -33,18 +33,12 @@ export default class Mic extends Component {
   }
 
   onStop(recordedBlob) {
-    console.log("recordedBlob is: ", recordedBlob);
-    console.log(recordedBlob.blob);
     var data = new FormData();
-    data.append("filename", "ahmed32.wav");
+    data.append("recordName", "ahmed32.wav");
+    data.append("ayah:", "ahmed32.wav");
+    data.append("hokm", "ahmed32.wav");
     data.append("record", recordedBlob.blob);
-    console.log(data.getAll);
-    var client = {
-      recordName: "ahmed32.wav",
-      ayah: "naran_thaat",
-      hokm: "Ekhfaa",
-      record: data
-    };
+
     http.post("http://localhost:3000/api/client", client);
   }
 
