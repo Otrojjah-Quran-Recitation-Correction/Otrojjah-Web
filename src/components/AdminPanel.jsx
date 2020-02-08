@@ -1,25 +1,26 @@
 import React, { Component } from "react";
 import Form from "../components/Form";
 //import AdminSideBar from "./AdminSideBar/AdminSideBar.jsx";
+import Client from "./Client";
 
 class AdminPanel extends Component {
   state = {};
   render() {
     return (
       <React.Fragment>
-        <div class="row">
-          <div class="col-3">
+        <div className="row">
+          <div className="col-3">
             <div>
               <h3>Admin Panel</h3>
             </div>
             <div
-              class="nav flex-column nav-pills"
+              className="nav flex-column nav-pills"
               id="v-pills-tab"
               role="tablist"
               aria-orientation="vertical"
             >
               <a
-                class="nav-link active"
+                className="nav-link active"
                 id="v-pills-users-tab"
                 data-toggle="pill"
                 href="#v-pills-users"
@@ -30,7 +31,7 @@ class AdminPanel extends Component {
                 Users
               </a>
               <a
-                class="nav-link"
+                className="nav-link"
                 id="v-pills-clients-tab"
                 data-toggle="pill"
                 href="#v-pills-clients"
@@ -41,7 +42,7 @@ class AdminPanel extends Component {
                 Clients
               </a>
               <a
-                class="nav-link"
+                className="nav-link"
                 id="v-pills-shaikh-tab"
                 data-toggle="pill"
                 role="tab"
@@ -51,7 +52,7 @@ class AdminPanel extends Component {
                 Shaikh
               </a>
               <a
-                class="nav-link"
+                className="nav-link"
                 id="v-pills-register-tab"
                 data-toggle="pill"
                 role="tab"
@@ -62,10 +63,10 @@ class AdminPanel extends Component {
               </a>
             </div>
           </div>
-          <div class="col-9">
-            <div class="tab-content" id="v-pills-tabContent">
+          <div className="col-9">
+            <div className="tab-content" id="v-pills-tabContent">
               <div
-                class="tab-pane fade show active"
+                className="tab-pane fade show active"
                 id="v-pills-users"
                 role="tabpanel"
                 aria-labelledby="v-pills-users-tab"
@@ -73,27 +74,19 @@ class AdminPanel extends Component {
                 ...
               </div>
               <div
-                class="tab-pane fade"
+                className="tab-pane fade"
                 id="v-pills-clients"
                 role="tabpanel"
                 aria-labelledby="v-pills-clients-tab"
               >
                 <div className="container row">
                   <div className="col">
-                    <audio controls>
-                      <source
-                        src="https://docs.google.com/uc?export=download&id=12qmkQtz-Fojjl0zUgYkT_1cCUI5hhZy4"
-                        type="audio/mpeg"
-                      />
-                    </audio>
-                  </div>
-                  <div className="col">
-                    <button className="btn btn-danger">Delete</button>
+                    <Client></Client>
                   </div>
                 </div>
               </div>
               <div
-                class="tab-pane fade"
+                className="tab-pane fade"
                 id="v-pills-shaikh"
                 role="tabpanel"
                 aria-labelledby="v-pills-shaikh-tab"
@@ -113,7 +106,7 @@ class AdminPanel extends Component {
                 </div>
               </div>
               <div
-                class="tab-pane fade"
+                className="tab-pane fade"
                 id="v-pills-register"
                 role="tabpanel"
                 aria-labelledby="v-pills-register-tab"

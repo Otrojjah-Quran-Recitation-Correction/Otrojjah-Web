@@ -38,6 +38,7 @@ export default class Mic extends Component {
     data.append("recordName", "ahmed");
     data.append("ayah", "naran_thaat");
     data.append("hokm", "Ekhfaa");
+    data.append("folderId", "1pOwfE7sRocgA_ncqu_SXEs1z8-xXjqKP"); //todo change this hard coded
 
     http.post("http://localhost:3001/api/client", data);
   }

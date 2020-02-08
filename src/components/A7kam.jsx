@@ -37,7 +37,7 @@ class A7kam extends Component {
                 <div className="card-body">
                   <audio controls>
                     <source
-                      src="https://docs.google.com/uc?export=download&id=12qmkQtz-Fojjl0zUgYkT_1cCUI5hhZy4"
+                      src="https://drive.google.com/uc?id=1ATdKmd6dsj2jB7nj5abyEER19xEGTGWH&export=download"
                       type="audio/mpeg"
                     />
                   </audio>
