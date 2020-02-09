@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Form from "../components/Form";
 //import AdminSideBar from "./AdminSideBar/AdminSideBar.jsx";
 import Client from "./Client";
+import User from "./User";
 
 class AdminPanel extends Component {
   state = {};
@@ -71,7 +72,7 @@ class AdminPanel extends Component {
                 role="tabpanel"
                 aria-labelledby="v-pills-users-tab"
               >
-                ...
+                <User></User>
               </div>
               <div
                 className="tab-pane fade"

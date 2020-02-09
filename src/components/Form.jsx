@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
-import { addUser } from "../services/Users";
+import { addUser } from "../services/usersServices";
 
 class Form extends Component {
   state = {
@@ -74,7 +74,7 @@ class Form extends Component {
         phoneNumber: "",
         isShaikh: true
       };
-      window.location = "/adminPanal";
+      window.location = "/adminPanel";
       this.setState({ user });
     }
   };

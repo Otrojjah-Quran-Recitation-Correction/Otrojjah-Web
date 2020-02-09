@@ -33,7 +33,7 @@ class Client extends Component {
 
     return (
       <div>
-        <p>Showing {totalCount} movies in the database.</p>
+        <p>Showing {totalCount} clients in the database.</p>
         <ClientsTable clients={clients}></ClientsTable>
         <Pagination
           itemsCount={totalCount}
@@ -41,7 +41,6 @@ class Client extends Component {
           currentPage={currentPage}
           onPageChange={this.handlePageChange}
         />
-        ;
       </div>
     );
   }
