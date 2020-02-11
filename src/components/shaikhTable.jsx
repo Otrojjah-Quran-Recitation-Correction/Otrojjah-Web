@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Table from "./common/table";
 import { Link } from "react-router-dom";
+import Table from "./common/table";
 
-class ClientsTable extends Component {
+class ShaikhTable extends Component {
   columns = [
     {
       label: "record",
@@ -12,13 +12,13 @@ class ClientsTable extends Component {
         </audio>
       )
     },
-    { label: "recordName" },
+    { label: "shaikhName" },
     { label: "ayah" },
     { label: "hokm" },
     {
       label: "edit",
       content: item => (
-        <Link to={`/editClient/${item._id}`}>
+        <Link to={`/editShaikhRecord/${item._id}`}>
           <button className="btn btn-info btn-sm">Edit</button>
         </Link>
       )
@@ -37,10 +37,9 @@ class ClientsTable extends Component {
   ];
 
   render() {
-    const { clients } = this.props;
-
-    return <Table columns={this.columns} data={clients} />;
+    const { shaikhRecords } = this.props;
+    return <Table columns={this.columns} data={shaikhRecords} />;
   }
 }
 
-export default ClientsTable;
+export default ShaikhTable;

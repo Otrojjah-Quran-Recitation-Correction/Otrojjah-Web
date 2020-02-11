@@ -13,7 +13,7 @@ class SideBar extends Component {
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/Shea5">
+            <Link className="nav-link" to="/label">
               Labeling
             </Link>
           </li>

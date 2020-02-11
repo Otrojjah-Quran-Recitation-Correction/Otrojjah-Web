@@ -35,7 +35,7 @@ export default class Mic extends Component {
   onStop(recordedBlob) {
     const data = new FormData();
     data.append("record", recordedBlob.blob);
-    data.append("recordName", "ahmed");
+    data.append("recordName", "ahmed123456");
     data.append("ayah", "naran_thaat");
     data.append("hokm", "Ekhfaa");
 

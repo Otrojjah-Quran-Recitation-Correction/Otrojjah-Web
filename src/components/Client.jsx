@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Pagination from "./common/pagination";
 import ClientsTable from "./clientsTable";
 import { paginate } from "../utils/paginate";
-import { getClients } from "../services/clientsServices";
+import { getClients, deleteClient } from "../services/clientsServices";
 
 class Client extends Component {
   state = {
@@ -26,6 +26,12 @@ class Client extends Component {
     return { totalCount: data.length, data: clients };
   };
 
+  handleDelete = async client => {
+    const clients = this.state.clients.filter(e => e._id !== client._id);
+    this.setState({ clients });
+    await deleteClient(client);
+  };
+
   render() {
     const { pageSize, currentPage } = this.state;
 
@@ -33,8 +39,11 @@ class Client extends Component {
 
     return (
       <div>
-        <p>Showing {totalCount} clients in the database.</p>
-        <ClientsTable clients={clients}></ClientsTable>
+        <p>Showing {totalCount} client records in the database.</p>
+        <ClientsTable
+          clients={clients}
+          handleDelete={this.handleDelete}
+        ></ClientsTable>
         <Pagination
           itemsCount={totalCount}
           pageSize={pageSize}

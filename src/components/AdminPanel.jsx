@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import RegisterForm from "./registerUserForm";
-//import AdminSideBar from "./AdminSideBar/AdminSideBar.jsx";
 import Client from "./client";
 import User from "./user";
+import Shaikh from "./shaikh";
 
 class AdminPanel extends Component {
   state = {};
@@ -62,7 +61,9 @@ class AdminPanel extends Component {
                 role="tabpanel"
                 aria-labelledby="v-pills-users-tab"
               >
-                <User></User>
+                <div className="container">
+                  <User></User>
+                </div>
               </div>
               <div
                 className="tab-pane fade"
@@ -70,10 +71,8 @@ class AdminPanel extends Component {
                 role="tabpanel"
                 aria-labelledby="v-pills-clients-tab"
               >
-                <div className="container row">
-                  <div className="col">
-                    <Client></Client>
-                  </div>
+                <div className="container">
+                  <Client></Client>
                 </div>
               </div>
               <div
@@ -82,18 +81,8 @@ class AdminPanel extends Component {
                 role="tabpanel"
                 aria-labelledby="v-pills-shaikh-tab"
               >
-                <div className="container row">
-                  <div className="col">
-                    <audio controls>
-                      <source
-                        src="https://docs.google.com/uc?export=download&id=12qmkQtz-Fojjl0zUgYkT_1cCUI5hhZy4"
-                        type="audio/mpeg"
-                      />
-                    </audio>
-                  </div>
-                  <div className="col">
-                    <button className="btn btn-danger">Delete</button>
-                  </div>
+                <div className="container">
+                  <Shaikh></Shaikh>
                 </div>
               </div>
             </div>
