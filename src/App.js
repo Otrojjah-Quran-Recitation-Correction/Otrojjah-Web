@@ -1,23 +1,24 @@
 import React from "react";
-import logo from "./logo.svg";
 import { Route } from "react-router-dom";
 import "./App.css";
-import "./components/NavBar";
-import Home from "./components/Home";
-import A7kam from "./components/A7kam";
-import Login from "./components/Login";
-import EditForm from "./components/EditForm";
-import AdminPanel from "./components/AdminPanel";
-import Shea5 from "./components/Shea5";
+import "./components/navBar";
+import Home from "./components/home";
+import A7kam from "./components/a7kam";
+import Login from "./components/login";
+import EditUserForm from "./components/editUserForm";
+import AdminPanel from "./components/adminPanel";
+import Shea5 from "./components/shea5";
+import RegisterUserForm from "./components/registerUserForm";
 
 function App() {
   return (
     <React.Fragment>
       <Route path="/adminPanel" component={AdminPanel}></Route>
-      <Route path="/edit/:id" component={EditForm}></Route>
-      <Route path="/A7kam" component={A7kam}></Route>
-      <Route path="/Login" component={Login}></Route>
-      <Route path="/Shea5" component={Shea5}></Route>
+      <Route path="/registerUser" component={RegisterUserForm}></Route>
+      <Route path="/editUser/:id" component={EditUserForm}></Route>
+      <Route path="/a7kam" component={A7kam}></Route>
+      <Route path="/login" component={Login}></Route>
+      <Route path="/shea5" component={Shea5}></Route>
       <Route exact path="/" component={Home}></Route>
     </React.Fragment>
   );

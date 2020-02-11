@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Pagination from "./common/Pagination";
-import UsersTable from "./UsersTable";
+import { Link } from "react-router-dom";
+import Pagination from "./common/pagination";
+import UsersTable from "./usersTable";
 import { paginate } from "../utils/paginate";
 import { getUsers, deleteUser } from "../services/usersServices";
 
@@ -34,13 +35,16 @@ class User extends Component {
   };
 
   render() {
-    const { pageSize, currentPage, user } = this.state;
+    const { pageSize, currentPage } = this.state;
 
     const { totalCount, data: users } = this.getPagedData();
 
     return (
       <div>
         <p>Showing {totalCount} users in the database.</p>
+        <Link to={`/registerUser`}>
+          <button className="my-2 btn btn-warning">Add User</button>
+        </Link>
         <UsersTable users={users} handleDelete={this.handleDelete}></UsersTable>
         <Pagination
           itemsCount={totalCount}

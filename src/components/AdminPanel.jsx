@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Form from "../components/Form";
+import RegisterForm from "./registerUserForm";
 //import AdminSideBar from "./AdminSideBar/AdminSideBar.jsx";
-import Client from "./Client";
-import User from "./User";
+import Client from "./client";
+import User from "./user";
 
 class AdminPanel extends Component {
   state = {};
@@ -52,16 +52,6 @@ class AdminPanel extends Component {
               >
                 Shaikh
               </a>
-              <a
-                className="nav-link"
-                id="v-pills-register-tab"
-                data-toggle="pill"
-                role="tab"
-                aria-controls="v-pills-register"
-                href="#v-pills-register"
-              >
-                Register
-              </a>
             </div>
           </div>
           <div className="col-9">
@@ -105,14 +95,6 @@ class AdminPanel extends Component {
                     <button className="btn btn-danger">Delete</button>
                   </div>
                 </div>
-              </div>
-              <div
-                className="tab-pane fade"
-                id="v-pills-register"
-                role="tabpanel"
-                aria-labelledby="v-pills-register-tab"
-              >
-                <Form></Form>
               </div>
             </div>
           </div>

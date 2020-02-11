@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SideBar from "./SideBar";
+import SideBar from "./sideBar";
 
 class Shea5 extends Component {
   state = {};

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import SideBar from "./SideBar";
-import { loginUser } from "../services/Login";
+import SideBar from "./sideBar";
+import { loginUser } from "../services/loginServices";
 import jwt_decode from "jwt-decode";
 import Joi from "joi-browser";
 

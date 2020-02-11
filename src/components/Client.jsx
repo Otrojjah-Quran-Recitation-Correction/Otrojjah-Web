@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Pagination from "./common/Pagination";
-import ClientsTable from "./ClientsTable";
+import Pagination from "./common/pagination";
+import ClientsTable from "./clientsTable";
 import { paginate } from "../utils/paginate";
-import { getClients } from "../services/clientsService";
+import { getClients } from "../services/clientsServices";
 
 class Client extends Component {
   state = {

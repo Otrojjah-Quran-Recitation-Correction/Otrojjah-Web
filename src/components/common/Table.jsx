@@ -1,6 +1,6 @@
 import React from "react";
-import TableHeader from "../TableHeader";
-import TableBody from "../TableBody";
+import TableHeader from "./tableHeader";
+import TableBody from "./tableBody";
 
 const Table = ({ columns, data }) => {
   return (

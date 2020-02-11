@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import SideBar from "./SideBar";
-import Mic from "./Mic";
+import SideBar from "./sideBar";
+import Mic from "./mic";
 import ReactPlayer from "react-player";
 
 class A7kam extends Component {

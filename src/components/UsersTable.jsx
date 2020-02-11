@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Table from "./common/Table";
+import Table from "./common/table";
 
 class UsersTable extends Component {
   columns = [
@@ -10,7 +10,7 @@ class UsersTable extends Component {
     {
       label: "edit",
       content: item => (
-        <Link to={`/edit/${item._id}`}>
+        <Link to={`/editUser/${item._id}`}>
           <button className="btn btn-info btn-sm">Edit</button>
         </Link>
       )
