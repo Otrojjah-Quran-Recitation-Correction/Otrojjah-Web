@@ -48,7 +48,7 @@ class EditUserForm extends Form {
     const newUser = {
       name: data.name,
       email: data.email,
-      password: null,
+      password: "",
       phoneNumber: data.phoneNumber,
       isShaikh: true
     };

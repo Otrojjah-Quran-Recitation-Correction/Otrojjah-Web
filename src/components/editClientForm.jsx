@@ -8,21 +8,18 @@ class EditClientForm extends Form {
     data: {
       recordName: "",
       ayah: "",
-      hokm: "",
-      link: ""
+      hokm: ""
     },
     errors: {
       recordName: "",
       ayah: "",
-      hokm: "",
-      link: ""
+      hokm: ""
     }
   };
   schema = {
     recordName: Joi.string().required(),
     ayah: Joi.string().required(),
-    hokm: Joi.string().required(),
-    link: Joi.string()
+    hokm: Joi.string().required()
   };
 
   async componentDidMount() {
@@ -30,8 +27,7 @@ class EditClientForm extends Form {
     const newClient = {
       recordName: data.recordName,
       ayah: data.ayah,
-      hokm: data.hokm,
-      link: data.link
+      hokm: data.hokm
     };
     this.setState({ data: newClient });
   }
@@ -52,7 +48,6 @@ class EditClientForm extends Form {
           {this.renderInput("recordName", "RecordName")}
           {this.renderInput("ayah", "Ayah")}
           {this.renderInput("hokm", "Hokm")}
-          {this.renderInput("link", "Link")}
           {this.renderButton("Edit")}
         </form>
       </div>

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import SideBar from "./sideBar";
 import { getRandomClient, updateLabel } from "../services/labelServices";
-import Audio from "./audio";
 
 class Label extends Component {
   state = {
@@ -46,7 +45,13 @@ class Label extends Component {
             <div className="container col-10">
               <h5>Hokm:{hokm}</h5>
               <h5>Ayah:{ayah}</h5>
-              <Audio link={link}></Audio>
+              {link && (
+                <div>
+                  <audio controls style={{ display: "block" }}>
+                    <source src={link} type="audio/wav" />
+                  </audio>
+                </div>
+              )}
               <form onSubmit={this.handleTrue}>
                 <button className="mt-1 mr-2 btn btn-primary btn-sm">
                   true

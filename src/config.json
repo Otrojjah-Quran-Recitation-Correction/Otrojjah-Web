@@ -1,5 +1,4 @@
 {
-  "apiUrl": "http://localhost:3001/api/shaikh",
   "loginUrl": "http://localhost:3001/api/auth",
   "usersUrl": "http://localhost:3001/api/users",
   "clientsUrl": "http://localhost:3001/api/client",

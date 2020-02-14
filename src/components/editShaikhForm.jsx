@@ -11,21 +11,18 @@ class EditShaikhForm extends Form {
     data: {
       shaikhName: "",
       ayah: "",
-      hokm: "",
-      link: ""
+      hokm: ""
     },
     errors: {
       shaikhName: "",
       ayah: "",
-      hokm: "",
-      link: ""
+      hokm: ""
     }
   };
   schema = {
     shaikhName: Joi.string().required(),
     ayah: Joi.string().required(),
-    hokm: Joi.string().required(),
-    link: Joi.string()
+    hokm: Joi.string().required()
   };
 
   async componentDidMount() {
@@ -33,8 +30,7 @@ class EditShaikhForm extends Form {
     const newShaikh = {
       shaikhName: data.shaikhName,
       ayah: data.ayah,
-      hokm: data.hokm,
-      link: data.link
+      hokm: data.hokm
     };
     this.setState({ data: newShaikh });
   }
@@ -55,7 +51,6 @@ class EditShaikhForm extends Form {
           {this.renderInput("shaikhName", "ShaikhName")}
           {this.renderInput("ayah", "Ayah")}
           {this.renderInput("hokm", "Hokm")}
-          {this.renderInput("link", "Link")}
           {this.renderButton("Edit")}
         </form>
       </div>
