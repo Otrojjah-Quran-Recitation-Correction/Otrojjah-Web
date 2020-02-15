@@ -28,3 +28,7 @@ export function updateClient(client, id) {
       return error.response.data;
     });
 }
+
+export function addClient(client) {
+  return http.post(clientsUrl, client);
+}

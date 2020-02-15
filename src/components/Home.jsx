@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import NavBar from "./navBar";
 import { Link } from "react-router-dom";
 
 class Home extends Component {
   state = {};
+
   render() {
     return (
       <React.Fragment>
-        <NavBar></NavBar>
-        <div id="home" className="my-5 container">
+        <div id="home" className="my-5 pt-5 container">
           <div className="text-center my-5">
             <h1>Welcome To </h1>
             <div>
@@ -28,7 +27,7 @@ class Home extends Component {
             </Link>
           </div>
         </div>
-        <div id="discription" className="my-5 container">
+        <div id="discription" className="my-5 pt-5 container">
           <div className="text-center my-5">
             <h1>Discription</h1>
             <div>
@@ -46,7 +45,7 @@ class Home extends Component {
             <button className="btn btn-primary my-5">Get Started</button>
           </div>
         </div>
-        <div id="demo" className="my-5 container">
+        <div id="demo" className="my-5 pt-5 container">
           <div className="text-center my-5">
             <h1>Demo</h1>
             <div>
@@ -64,7 +63,7 @@ class Home extends Component {
             <button className="btn btn-primary my-5">Get Started</button>
           </div>
         </div>
-        <div id="about" className="my-5 container">
+        <div id="about" className="my-5 pt-5 container">
           <div className="text-center my-5">
             <h1>About</h1>
             <div>

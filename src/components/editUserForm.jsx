@@ -65,7 +65,7 @@ class EditUserForm extends Form {
 
   render() {
     return (
-      <div className="container">
+      <div className="container my-5 bt-3">
         <h1>Edit Form</h1>
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("name", "Name")}

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import SideBar from "./sideBar";
 import { getRandomClient, updateLabel } from "../services/labelServices";
 
 class Label extends Component {
@@ -39,10 +38,9 @@ class Label extends Component {
     const { ayah, hokm, link } = this.state.client;
     return (
       <React.Fragment>
-        <div className="row">
-          <SideBar></SideBar>
+        <div className="container my-5 pt-5">
           {this.state.client && (
-            <div className="container col-10">
+            <div className="container">
               <h5>Hokm:{hokm}</h5>
               <h5>Ayah:{ayah}</h5>
               {link && (

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import SideBar from "./sideBar";
 import { loginUser } from "../services/loginServices";
 import Joi from "joi-browser";
+import jwt_decode from "jwt-decode";
 
 class Login extends Component {
   state = {
@@ -12,7 +12,8 @@ class Login extends Component {
     errors: {
       email: "",
       password: ""
-    }
+    },
+    user: ""
   };
 
   schema = {
@@ -41,20 +42,25 @@ class Login extends Component {
     const errors = this.validate();
     this.setState({ errors: errors || {} });
     if (errors) return console.log(errors);
-    const { data: jwt } = await loginUser(
+    const jwt = await loginUser(
       this.state.login.email,
       this.state.login.password
     );
-    localStorage.setItem("token", jwt);
-    console.log(jwt);
-    const login = {
-      email: "",
-      password: ""
-    };
-    this.setState({
-      login
-    });
-    //window.location = "/";
+    if (jwt) {
+      console.log(jwt.data);
+      localStorage.setItem("token", jwt.data);
+      const login = {
+        email: "",
+        password: ""
+      };
+      const user = jwt_decode(jwt.data);
+      this.setState({
+        login
+      });
+      user.isShaikh
+        ? (window.location = "/label")
+        : (window.location = "/adminPanel");
+    }
   };
 
   handleChange = e => {
@@ -70,58 +76,53 @@ class Login extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="row">
-          <SideBar></SideBar>
-          <form onSubmit={this.handleLogin}>
-            <div className="col-10 container py-5 mt-5">
-              <h1 className="text-center">Login</h1>
-              <form className="p-4 m-auto">
-                <div className="form-group">
-                  <label htmlFor="exampleDropdownFormEmail2">
-                    Email address
-                  </label>
-                  <input
-                    placeholder="Email"
-                    className="form-control mb-3"
-                    type="text"
-                    id="email"
-                    name="email"
-                    onChange={this.handleChange}
-                    value={this.state.login.email}
-                    error={this.state.errors.email}
-                  ></input>
-                  {this.state.errors.email && (
-                    <div className="alert alert-danger">
-                      {this.state.errors.email}
-                    </div>
-                  )}
-                </div>
-                <div className="form-group">
-                  <label htmlFor="exampleDropdownFormPassword2">Password</label>
-                  <input
-                    placeholder="Password"
-                    className="form-control mb-3"
-                    type="password"
-                    id="password"
-                    name="password"
-                    onChange={this.handleChange}
-                    value={this.state.login.password}
-                    error={this.state.errors.password}
-                  ></input>
-                  {this.state.errors.password && (
-                    <div className="alert alert-danger">
-                      {this.state.errors.password}
-                    </div>
-                  )}
-                </div>
-                <div className="form-group"></div>
-                <button type="submit" className="btn btn-primary">
-                  Sign in
-                </button>
-              </form>
-            </div>
-          </form>
-        </div>
+        <form onSubmit={this.handleLogin}>
+          <div className="col-10 container py-5 mt-5">
+            <h1 className="text-center">Login</h1>
+            <form className="p-4 m-auto">
+              <div className="form-group">
+                <label htmlFor="exampleDropdownFormEmail2">Email address</label>
+                <input
+                  placeholder="Email"
+                  className="form-control mb-3"
+                  type="text"
+                  id="email"
+                  name="email"
+                  onChange={this.handleChange}
+                  value={this.state.login.email}
+                  error={this.state.errors.email}
+                ></input>
+                {this.state.errors.email && (
+                  <div className="alert alert-danger">
+                    {this.state.errors.email}
+                  </div>
+                )}
+              </div>
+              <div className="form-group">
+                <label htmlFor="exampleDropdownFormPassword2">Password</label>
+                <input
+                  placeholder="Password"
+                  className="form-control mb-3"
+                  type="password"
+                  id="password"
+                  name="password"
+                  onChange={this.handleChange}
+                  value={this.state.login.password}
+                  error={this.state.errors.password}
+                ></input>
+                {this.state.errors.password && (
+                  <div className="alert alert-danger">
+                    {this.state.errors.password}
+                  </div>
+                )}
+              </div>
+              <div className="form-group"></div>
+              <button type="submit" className="btn btn-primary">
+                Sign in
+              </button>
+            </form>
+          </div>
+        </form>
       </React.Fragment>
     );
   }

@@ -8,8 +8,8 @@ class AdminPanel extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="row">
-          <div className="col-3">
+        <div className="row ml-0">
+          <div className="col-3 my-5 pt-3">
             <div>
               <h3>Admin Panel</h3>
             </div>
@@ -28,7 +28,7 @@ class AdminPanel extends Component {
                 aria-controls="v-pills-users"
                 aria-selected="true"
               >
-                Users
+                users
               </a>
               <a
                 className="nav-link"
@@ -53,7 +53,7 @@ class AdminPanel extends Component {
               </a>
             </div>
           </div>
-          <div className="col-9">
+          <div className="col-9 my-5 pt-3">
             <div className="tab-content" id="v-pills-tabContent">
               <div
                 className="tab-pane fade show active"

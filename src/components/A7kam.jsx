@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import SideBar from "./sideBar";
+import React from "react";
 import Mic from "./mic";
 import Joi from "joi-browser";
 import Form from "./common/form";
@@ -19,9 +18,11 @@ class A7kam extends Form {
       hokm: "",
       link: ""
     },
-    shiokh: [],
+    validateError: "",
+    shiokhRecords: [],
     a7kam: [{ hokm: "Ekhfaa" }],
-    ayat: [{ ayah: "naran_thaat" }, { ayah: "mn_masad" }]
+    ayat: [{ ayah: "naran_thaat" }, { ayah: "mn_masad" }],
+    ayahRecords: []
   };
   schema = {
     shaikhName: Joi.string().required(),
@@ -31,44 +32,54 @@ class A7kam extends Form {
   };
 
   async componentDidMount() {
-    const { data: shiokh } = await getShaikhRecords();
-    this.setState({ shiokh });
+    const { data: shiokhRecords } = await getShaikhRecords();
+    this.setState({ shiokhRecords });
   }
 
-  handleAyah = ayah => {
+  handleAyah = (ayah, hokm) => {
+    const validateError = "";
     const data = { ...this.state.data };
+
     data.link = "";
+    data.shaikhName = "";
+    data.hokm = hokm;
     data.ayah = ayah.ayah;
-    this.setState({ data });
+
+    const ayahRecords = this.state.shiokhRecords.filter(
+      e => e.ayah === data.ayah
+    );
+    this.setState({ data, validateError, ayahRecords });
   };
 
-  isShaya5 = () => {
+  validateShaikhAyah = () => {
     const data = { ...this.state.data };
-    data.link = "";
-    this.setState({ data });
     if (data.shaikhName && data.ayah) {
-      const shiokh = this.state.shiokh.filter(
-        e => e.shaikhName == data.shaikhName
+      const validateError = "";
+      const shaikh = this.state.ayahRecords.filter(
+        e => e.shaikhName === data.shaikhName
       );
-
-      const shaikh = shiokh.filter(e => e.ayah == data.ayah);
       data.link = shaikh[0].link;
-      console.log(data);
-      this.setState({ data });
+      this.setState({ data, validateError });
       return true;
+    } else if (data.ayah) {
+      const validateError = "Please Select a Shaikh";
+      this.setState({ validateError });
+      return false;
+    } else {
+      const validateError = "Please Select Ayah";
+      this.setState({ validateError });
+      return false;
     }
-    return false;
   };
 
   render() {
-    const { shiokh, a7kam, data, ayat } = this.state;
+    const { a7kam, data, ayat, validateError, ayahRecords } = this.state;
     return (
       <React.Fragment>
-        <div className="row">
-          <SideBar></SideBar>
-          <div className="accordion col-10" id="accordionExample">
+        <div className="pt-5">
+          <div className="accordion pt-3 my-5 container " id="accordionExample">
             {a7kam.map(hokm => (
-              <div className="card">
+              <div key={hokm.hokm} className="card">
                 <div className="card-header" id="headingOne">
                   <h2 className="mb-0">
                     <button
@@ -91,21 +102,33 @@ class A7kam extends Form {
                   data-parent="#accordionExample"
                 >
                   <div className="card-body">
-                    <form>
-                      {this.renderSelect("shaikhName", "shaikhName", shiokh)}
-                    </form>
                     {ayat.map(ayah => (
                       <button
-                        onClick={() => this.handleAyah(ayah)}
-                        className="btn btn-info mr-2"
+                        key={ayah.ayah}
+                        onClick={() => this.handleAyah(ayah, hokm.hokm)}
+                        className="btn btn-info ml-2"
                       >
                         {ayah.ayah}
                       </button>
                     ))}
+                    {data.ayah && (
+                      <form>
+                        {this.renderSelect(
+                          "shaikhName",
+                          "shaikhName",
+                          ayahRecords
+                        )}
+                      </form>
+                    )}
                     <div>
+                      {validateError && (
+                        <div className="alert alert-danger">
+                          {validateError}
+                        </div>
+                      )}
                       <button
                         className="btn btn-dark my-2"
-                        onClick={this.isShaya5}
+                        onClick={this.validateShaikhAyah}
                       >
                         Start
                       </button>
@@ -115,7 +138,7 @@ class A7kam extends Form {
                         <audio controls>
                           <source src={data.link} type="audio/wav" />
                         </audio>
-                        <Mic></Mic>
+                        <Mic hokm={hokm.hokm} ayah={data.ayah}></Mic>
                       </div>
                     )}
                   </div>

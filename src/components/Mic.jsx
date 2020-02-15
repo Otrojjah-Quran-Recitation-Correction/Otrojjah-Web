@@ -1,6 +1,6 @@
 import { ReactMic } from "react-mic";
 import React, { Component } from "react";
-import http from "../services/httpServices";
+import { addClient } from "../services/clientsServices";
 
 export default class Mic extends Component {
   constructor(props) {
@@ -29,18 +29,19 @@ export default class Mic extends Component {
   };
 
   onData(recordedBlob) {
-    console.log("chunk of real-time data is: ", recordedBlob);
+    //console.log("chunk of real-time data is: ", recordedBlob);
   }
 
-  onStop(recordedBlob) {
+  onStop = recordedBlob => {
     const data = new FormData();
+    const { hokm, ayah } = this.props;
     data.append("record", recordedBlob.blob);
     data.append("recordName", "ahmed123456");
-    data.append("ayah", "naran_thaat");
-    data.append("hokm", "Ekhfaa");
+    data.append("ayah", ayah);
+    data.append("hokm", hokm);
 
-    http.post("http://localhost:3001/api/client", data);
-  }
+    addClient(data);
+  };
 
   render() {
     return (
