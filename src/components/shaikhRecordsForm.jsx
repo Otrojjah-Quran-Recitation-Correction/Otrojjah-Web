@@ -14,7 +14,8 @@ class ShaikhRecordsForm extends Form {
       folderId: "",
       ayah: "",
       hokm: ""
-    }
+    },
+    jwt: ""
   };
   schema = {
     folderId: Joi.string().required(),
@@ -22,8 +23,13 @@ class ShaikhRecordsForm extends Form {
     hokm: Joi.string().required()
   };
 
+  componentDidMount() {
+    const jwt = localStorage.getItem("token");
+    this.setState({ jwt });
+  }
   doSubmit = async () => {
-    const err = await downloadRecords(this.state.data);
+    const jwt = this.state.jwt;
+    const err = await downloadRecords(this.state.data, jwt);
     if (!err) {
       window.location = "/adminPanel";
     }

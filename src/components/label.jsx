@@ -8,18 +8,21 @@ class Label extends Component {
       ayah: "",
       hokm: "",
       link: ""
-    }
+    },
+    jwt: ""
   };
 
   async componentDidMount() {
     const { data: client } = await getRandomClient();
-    this.setState({ client });
+    const jwt = localStorage.getItem("token");
+    this.setState({ client, jwt });
   }
 
   handleTrue = async () => {
     const client = { ...this.state.client };
+    const jwt = this.state.jwt;
     client.correct = true;
-    const err = await updateLabel(client, client._id);
+    const err = await updateLabel(client, client._id, jwt);
     if (!err) {
       window.location = "/label";
     }
@@ -27,13 +30,14 @@ class Label extends Component {
 
   handleFalse = async () => {
     const client = { ...this.state.client };
+    const jwt = this.state.jwt;
     client.correct = false;
-    const err = await updateLabel(client, client._id);
+    const err = await updateLabel(client, client._id, jwt);
     if (!err) {
       window.location = "/label";
     }
   };
-  //audio not working
+
   render() {
     const { ayah, hokm, link } = this.state.client;
     return (

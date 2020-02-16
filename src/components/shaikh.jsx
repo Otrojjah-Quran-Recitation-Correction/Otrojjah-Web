@@ -35,8 +35,9 @@ class Shaikh extends Component {
     const shaikhRecords = this.state.shaikhRecords.filter(
       e => e._id !== shaikhRecord._id
     );
+    const jwt = this.props.jwt;
     this.setState({ shaikhRecords });
-    await deleteShaikhRecord(shaikhRecord);
+    await deleteShaikhRecord(shaikhRecord, jwt);
   };
 
   render() {

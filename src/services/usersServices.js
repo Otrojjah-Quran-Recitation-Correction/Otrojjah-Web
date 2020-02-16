@@ -13,13 +13,19 @@ export function getUser(id) {
   return http.get(userUrl(id));
 }
 
-export function deleteUser(user) {
-  return http.delete(userUrl(user._id), user);
+export function getUserData(user) {
+  return http.get(userUrl("me"), user);
 }
 
-export function updateUser(user, id) {
+export function deleteUser(user, jwt) {
+  return http.delete(userUrl(user._id), user, {
+    headers: { "x-auth-token": jwt }
+  });
+}
+
+export function updateUser(user, id, jwt) {
   return http
-    .put(userUrl(id), user)
+    .put(userUrl(id), user, { headers: { "x-auth-token": jwt } })
     .then(function(response) {
       console.log(response);
     })
@@ -29,9 +35,9 @@ export function updateUser(user, id) {
     });
 }
 
-export function addUser(user) {
+export function addUser(user, jwt) {
   return http
-    .post(usersUrl, user)
+    .post(usersUrl, user, { headers: { "x-auth-token": jwt } })
     .then(function(response) {
       console.log(response);
     })

@@ -14,7 +14,8 @@ class EditClientForm extends Form {
       recordName: "",
       ayah: "",
       hokm: ""
-    }
+    },
+    jwt: ""
   };
   schema = {
     recordName: Joi.string().required(),
@@ -24,17 +25,19 @@ class EditClientForm extends Form {
 
   async componentDidMount() {
     const { data } = await getClient(this.props.match.params.id);
+    const jwt = localStorage.getItem("token");
     const newClient = {
       recordName: data.recordName,
       ayah: data.ayah,
       hokm: data.hokm
     };
-    this.setState({ data: newClient });
+    this.setState({ data: newClient, jwt });
   }
 
   doSubmit = async () => {
     const client = { ...this.state.data };
-    const err = await updateClient(client, this.props.match.params.id);
+    const jwt = this.state.jwt;
+    const err = await updateClient(client, this.props.match.params.id, jwt);
     if (!err) {
       this.props.history.push("/adminPanel");
     }

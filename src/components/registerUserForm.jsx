@@ -17,7 +17,8 @@ class RegisterUserForm extends Form {
       email: "",
       password: "",
       phoneNumber: ""
-    }
+    },
+    jwt: ""
   };
   schema = {
     name: Joi.string()
@@ -43,8 +44,14 @@ class RegisterUserForm extends Form {
     isShaikh: Joi.boolean()
   };
 
+  componentDidMount() {
+    const jwt = localStorage.getItem("token");
+    this.setState({ jwt });
+  }
+
   doSubmit = async () => {
-    const err = await addUser(this.state.data);
+    const jwt = this.state.jwt;
+    const err = await addUser(this.state.data, jwt);
     if (!err) {
       window.location = "/adminPanel";
     }

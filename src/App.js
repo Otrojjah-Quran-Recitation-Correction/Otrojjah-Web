@@ -25,7 +25,7 @@ class App extends Component {
       this.setState({ jwt });
       const user = jwt_decode(jwt);
       const userRole = user.isShaikh ? "shaikh" : "admin";
-      this.setState({ userRole });
+      this.setState({ userRole, user });
     } catch (ex) {}
   }
 
@@ -36,28 +36,36 @@ class App extends Component {
 
   render() {
     const { userRole } = this.state;
-    console.log(userRole);
     return (
       <React.Fragment>
         <NavBar userRole={userRole} handleLogOut={this.handleLogOut}></NavBar>
         <Switch>
-          {userRole == "admin" && (
-            <React.Fragment>
-              <Route path="/adminPanel" component={AdminPanel}></Route>
-
-              <Route path="/registerUser" component={RegisterUserForm}></Route>
-              <Route
-                path="/downloadShaikhRecords"
-                component={ShaikhRecordsForm}
-              ></Route>
-              <Route path="/editUser/:id" component={EditUserForm}></Route>
-              <Route path="/editClient/:id" component={EditClientForm}></Route>
-              <Route
-                path="/editShaikhRecord/:id"
-                component={EditShaikhForm}
-              ></Route>
-            </React.Fragment>
+          {userRole === "admin" && (
+            <Route path="/adminPanel" component={AdminPanel}></Route>
           )}
+
+          {userRole === "admin" && (
+            <Route path="/registerUser" component={RegisterUserForm}></Route>
+          )}
+          {userRole === "admin" && (
+            <Route
+              path="/downloadShaikhRecords"
+              component={ShaikhRecordsForm}
+            ></Route>
+          )}
+          {userRole === "admin" && (
+            <Route path="/editUser/:id" component={EditUserForm}></Route>
+          )}
+          {userRole === "admin" && (
+            <Route path="/editClient/:id" component={EditClientForm}></Route>
+          )}
+          {userRole === "admin" && (
+            <Route
+              path="/editShaikhRecord/:id"
+              component={EditShaikhForm}
+            ></Route>
+          )}
+
           {userRole && <Route path="/label" component={Label}></Route>}
           <Route path="/a7kam" component={A7kam}></Route>
           {!userRole && <Route path="/login" component={Login}></Route>}

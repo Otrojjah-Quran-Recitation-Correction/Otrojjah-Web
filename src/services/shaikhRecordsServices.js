@@ -13,13 +13,15 @@ export function getShaikhRecord(id) {
   return http.get(shaikhUrl(id));
 }
 
-export function deleteShaikhRecord(shaikh) {
-  return http.delete(shaikhUrl(shaikh._id), shaikh);
+export function deleteShaikhRecord(shaikh, jwt) {
+  return http.delete(shaikhUrl(shaikh._id), shaikh, {
+    headers: { "x-auth-token": jwt }
+  });
 }
 
-export function updateShaikhRecord(shaikh, id) {
+export function updateShaikhRecord(shaikh, id, jwt) {
   return http
-    .put(shaikhUrl(id), shaikh)
+    .put(shaikhUrl(id), shaikh, { headers: { "x-auth-token": jwt } })
     .then(function(response) {
       console.log(response);
     })
@@ -29,9 +31,9 @@ export function updateShaikhRecord(shaikh, id) {
     });
 }
 
-export function downloadRecords(data) {
+export function downloadRecords(data, jwt) {
   return http
-    .post(uploadFolderUrl, data)
+    .post(uploadFolderUrl, data, { headers: { "x-auth-token": jwt } })
     .then(function(response) {
       console.log(response);
     })

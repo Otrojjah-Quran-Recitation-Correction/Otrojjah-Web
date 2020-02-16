@@ -28,8 +28,9 @@ class Client extends Component {
 
   handleDelete = async client => {
     const clients = this.state.clients.filter(e => e._id !== client._id);
+    const jwt = this.props.jwt;
     this.setState({ clients });
-    await deleteClient(client);
+    await deleteClient(client, jwt);
   };
 
   render() {

@@ -30,8 +30,9 @@ class User extends Component {
 
   handleDelete = async user => {
     const users = this.state.users.filter(e => e._id !== user._id);
+    const jwt = this.props.jwt;
     this.setState({ users });
-    await deleteUser(user);
+    await deleteUser(user, jwt);
   };
 
   render() {

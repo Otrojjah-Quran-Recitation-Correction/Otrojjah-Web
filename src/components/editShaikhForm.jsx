@@ -17,7 +17,8 @@ class EditShaikhForm extends Form {
       shaikhName: "",
       ayah: "",
       hokm: ""
-    }
+    },
+    jwt: ""
   };
   schema = {
     shaikhName: Joi.string().required(),
@@ -27,17 +28,23 @@ class EditShaikhForm extends Form {
 
   async componentDidMount() {
     const { data } = await getShaikhRecord(this.props.match.params.id);
+    const jwt = localStorage.getItem("token");
     const newShaikh = {
       shaikhName: data.shaikhName,
       ayah: data.ayah,
       hokm: data.hokm
     };
-    this.setState({ data: newShaikh });
+    this.setState({ data: newShaikh, jwt });
   }
-  //not working
+
   doSubmit = async () => {
     const shaikh = { ...this.state.data };
-    const err = await updateShaikhRecord(shaikh, this.props.match.params.id);
+    const jwt = this.state.jwt;
+    const err = await updateShaikhRecord(
+      shaikh,
+      this.props.match.params.id,
+      jwt
+    );
     if (!err) {
       this.props.history.push("/adminPanel");
     }

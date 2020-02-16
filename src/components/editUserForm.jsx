@@ -17,7 +17,8 @@ class EditUserForm extends Form {
       email: "",
       password: "",
       phoneNumber: ""
-    }
+    },
+    jwt: ""
   };
   schema = {
     name: Joi.string()
@@ -45,6 +46,7 @@ class EditUserForm extends Form {
 
   async componentDidMount() {
     const { data } = await getUser(this.props.match.params.id);
+    const jwt = localStorage.getItem("token");
     const newUser = {
       name: data.name,
       email: data.email,
@@ -52,12 +54,13 @@ class EditUserForm extends Form {
       phoneNumber: data.phoneNumber,
       isShaikh: true
     };
-    this.setState({ data: newUser });
+    this.setState({ data: newUser, jwt });
   }
 
   doSubmit = async () => {
     const user = { ...this.state.data };
-    const err = await updateUser(user, this.props.match.params.id);
+    const jwt = this.state.jwt;
+    const err = await updateUser(user, this.props.match.params.id, jwt);
     if (!err) {
       this.props.history.push("/adminPanel");
     }

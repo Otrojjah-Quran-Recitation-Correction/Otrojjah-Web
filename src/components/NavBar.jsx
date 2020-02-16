@@ -36,13 +36,13 @@ class NavBar extends Component {
               Label
             </a>
           )}
-          {userRole == "admin" && (
+          {userRole === "admin" && (
             <a className="nav-item nav-link" href="/adminPanel">
               Admin Panel
             </a>
           )}
           {userRole && (
-            <Link onClick={this.props.handleLogOut} className="nav-link">
+            <Link to="/" onClick={this.props.handleLogOut} className="nav-link">
               Logout <span className="sr-only">(current)</span>
             </Link>
           )}

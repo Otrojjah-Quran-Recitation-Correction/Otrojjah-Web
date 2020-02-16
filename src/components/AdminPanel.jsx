@@ -4,8 +4,15 @@ import User from "./user";
 import Shaikh from "./shaikh";
 
 class AdminPanel extends Component {
-  state = {};
+  state = { jwt: "" };
+
+  componentDidMount() {
+    const jwt = localStorage.getItem("token");
+    this.setState({ jwt });
+  }
+
   render() {
+    const { jwt } = this.state;
     return (
       <React.Fragment>
         <div className="row ml-0">
@@ -62,7 +69,7 @@ class AdminPanel extends Component {
                 aria-labelledby="v-pills-users-tab"
               >
                 <div className="container">
-                  <User></User>
+                  <User jwt={jwt}></User>
                 </div>
               </div>
               <div
@@ -72,7 +79,7 @@ class AdminPanel extends Component {
                 aria-labelledby="v-pills-clients-tab"
               >
                 <div className="container">
-                  <Client></Client>
+                  <Client jwt={jwt}></Client>
                 </div>
               </div>
               <div
@@ -82,7 +89,7 @@ class AdminPanel extends Component {
                 aria-labelledby="v-pills-shaikh-tab"
               >
                 <div className="container">
-                  <Shaikh></Shaikh>
+                  <Shaikh jwt={jwt}></Shaikh>
                 </div>
               </div>
             </div>

@@ -13,9 +13,9 @@ export function getRandomClient() {
   return http.get(clientUrl("random"));
 }
 
-export function updateLabel(client, id) {
+export function updateLabel(client, id, jwt) {
   return http
-    .put(labelUrl(id), client)
+    .put(labelUrl(id), client, { headers: { "x-auth-token": jwt } })
     .then(function(response) {
       console.log(response);
     })
