@@ -1,18 +1,15 @@
 import { ReactMic } from "react-mic";
 import React, { Component } from "react";
 import { addClient } from "../services/clientsServices";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMicrophone, faStopCircle } from "@fortawesome/free-solid-svg-icons";
 
 export default class Mic extends Component {
   constructor(props) {
     super(props);
     this.state = {
       record: false,
-      client: {
-        recordName: "",
-        ayah: "",
-        hokm: "",
-        record: ""
-      }
+      blobUrl: ""
     };
   }
 
@@ -39,8 +36,10 @@ export default class Mic extends Component {
     data.append("recordName", "ahmed123456");
     data.append("ayah", ayah);
     data.append("hokm", hokm);
-
+    //const blobUrl = URL.createObjectURL(recordedBlob.blob);
+    const blobUrl = recordedBlob.blob;
     addClient(data);
+    this.setState({ blobUrl });
   };
 
   render() {
@@ -48,21 +47,31 @@ export default class Mic extends Component {
       <div>
         <ReactMic
           record={this.state.record}
-          className="sound-wave block"
+          className="block record"
           onStop={this.onStop}
           onData={this.onData}
-          strokeColor="#000000"
+          strokeColor="#fff"
           mimeType="audio/wav"
-          backgroundColor="#FF4081"
+          backgroundColor="#000"
         />
-        <button onClick={this.startRecording} type="button">
-          Start
-        </button>
+
         <form encType="multipart/form-data" method="post" action="#" id="#">
-          <button onClick={this.stopRecording} type="button">
-            Stop
-          </button>
+          <FontAwesomeIcon
+            className="ml-2 recordicon"
+            onClick={this.startRecording}
+            icon={faMicrophone}
+          />
+          <FontAwesomeIcon
+            className="ml-2 recordicon"
+            onClick={this.stopRecording}
+            icon={faStopCircle}
+          />
         </form>
+        <audio
+          className="Audio recordAudio"
+          controls
+          src={this.state.blobUrl}
+        ></audio>
       </div>
     );
   }

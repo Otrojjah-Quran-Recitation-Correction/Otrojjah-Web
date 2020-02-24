@@ -4,6 +4,7 @@ import "./App.css";
 import "./components/navBar";
 import Home from "./components/home";
 import A7kam from "./components/a7kam";
+import Shar7 from "./components/shar7";
 import Login from "./components/login";
 import NotFound from "./components/notFound";
 import EditUserForm from "./components/editUserForm";
@@ -65,10 +66,10 @@ class App extends Component {
               component={EditShaikhForm}
             ></Route>
           )}
-
           {userRole && <Route path="/label" component={Label}></Route>}
-          <Route path="/a7kam" component={A7kam}></Route>
           {!userRole && <Route path="/login" component={Login}></Route>}
+          <Route path="/a7kam/:id" component={Shar7}></Route>
+          <Route path="/a7kam" component={A7kam}></Route>
           <Route path="/not-found" component={NotFound} />
           <Route exact path="/" component={Home}></Route>
           {userRole && <Redirect to="/not-found" />}

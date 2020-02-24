@@ -1,8 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Mic from "./mic";
 import Joi from "joi-browser";
 import Form from "./common/form";
 import { getShaikhRecords } from "../services/shaikhRecordsServices";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMicrophone, faStopCircle } from "@fortawesome/free-solid-svg-icons";
 
 class A7kam extends Form {
   state = {
@@ -18,10 +21,15 @@ class A7kam extends Form {
       hokm: "",
       link: ""
     },
-    validateError: "",
+    recordError: "",
     shiokhRecords: [],
     a7kam: [{ hokm: "Ekhfaa" }],
-    ayat: [{ ayah: "naran_thaat" }, { ayah: "mn_masad" }],
+    ayat: [
+      { ayah: "naran_thaat" },
+      { ayah: "naran_thaat" },
+      { ayah: "naran_thaat" },
+      { ayah: "naran_thaat" }
+    ],
     ayahRecords: []
   };
   schema = {
@@ -37,10 +45,9 @@ class A7kam extends Form {
   }
 
   handleAyah = (ayah, hokm) => {
-    const validateError = "";
+    const recordError = "";
     const data = { ...this.state.data };
 
-    data.link = "";
     data.shaikhName = "";
     data.hokm = hokm;
     data.ayah = ayah.ayah;
@@ -48,38 +55,38 @@ class A7kam extends Form {
     const ayahRecords = this.state.shiokhRecords.filter(
       e => e.ayah === data.ayah
     );
-    this.setState({ data, validateError, ayahRecords });
+    this.setState({ data, recordError, ayahRecords });
   };
 
   validateShaikhAyah = () => {
     const data = { ...this.state.data };
     if (data.shaikhName && data.ayah) {
-      const validateError = "";
+      const recordError = "";
       const shaikh = this.state.ayahRecords.filter(
         e => e.shaikhName === data.shaikhName
       );
       data.link = shaikh[0].link;
-      this.setState({ data, validateError });
+      this.setState({ data, recordError });
       return true;
     } else if (data.ayah) {
-      const validateError = "Please Select a Shaikh";
-      this.setState({ validateError });
+      const recordError = "من فضلك اختر شيخ";
+      this.setState({ recordError });
       return false;
     } else {
-      const validateError = "Please Select Ayah";
-      this.setState({ validateError });
+      const recordError = "من فضلك اختر اية";
+      this.setState({ recordError });
       return false;
     }
   };
 
   render() {
-    const { a7kam, data, ayat, validateError, ayahRecords } = this.state;
+    const { a7kam, data, ayat, recordError, ayahRecords } = this.state;
     return (
       <React.Fragment>
         <div className="pt-5">
           <div className="accordion pt-3 my-5 container " id="accordionExample">
             {a7kam.map(hokm => (
-              <div key={hokm.hokm} className="card">
+              <div key={hokm.hokm} className="card mainComponent">
                 <div className="card-header" id="headingOne">
                   <h2 className="mb-0">
                     <button
@@ -90,7 +97,7 @@ class A7kam extends Form {
                       aria-expanded="true"
                       aria-controls="collapseOne"
                     >
-                      {hokm.hokm}
+                      حكم {hokm.hokm}
                     </button>
                   </h2>
                 </div>
@@ -101,46 +108,83 @@ class A7kam extends Form {
                   aria-labelledby="headingOne"
                   data-parent="#accordionExample"
                 >
-                  <div className="card-body">
-                    {ayat.map(ayah => (
-                      <button
-                        key={ayah.ayah}
-                        onClick={() => this.handleAyah(ayah, hokm.hokm)}
-                        className="btn btn-info ml-2"
-                      >
-                        {ayah.ayah}
-                      </button>
-                    ))}
-                    {data.ayah && (
-                      <form>
-                        {this.renderSelect(
-                          "shaikhName",
-                          "shaikhName",
-                          ayahRecords
-                        )}
-                      </form>
-                    )}
-                    <div>
-                      {validateError && (
-                        <div className="alert alert-danger">
-                          {validateError}
-                        </div>
+                  <div className="container mt-2 mr-2">
+                    <p>
+                      تعرف اكثر عن حكم {hokm.hokm}
+                      <Link to={`/a7kam/${hokm.hokm}`}> من هنا</Link>
+                    </p>{" "}
+                  </div>
+                  <div className="container row">
+                    <div className="col-2"></div>
+                    <div className="card-body text-center col-8">
+                      <p>اختر الاية</p>
+                      {ayat.map(ayah => (
+                        <button
+                          key={ayah.ayah}
+                          onClick={() => this.handleAyah(ayah, hokm.hokm)}
+                          className="btn btn-info ml-2 aya"
+                        >
+                          {ayah.ayah}
+                        </button>
+                      ))}
+                      {data.ayah && (
+                        <form className="mt-3">
+                          {this.renderSelect(
+                            "shaikhName",
+                            "اختر الشيخ",
+                            ayahRecords
+                          )}
+                        </form>
                       )}
-                      <button
-                        className="btn btn-dark my-2"
-                        onClick={this.validateShaikhAyah}
-                      >
-                        Start
-                      </button>
-                    </div>
-                    {data.link && (
-                      <div>
-                        <audio controls>
-                          <source src={data.link} type="audio/wav" />
-                        </audio>
-                        <Mic hokm={hokm.hokm} ayah={data.ayah}></Mic>
+
+                      {recordError && (
+                        <div className="alert alert-danger">{recordError}</div>
+                      )}
+                      <div className=" my-2">
+                        <button
+                          className="btn btn-dark my-2"
+                          onClick={this.validateShaikhAyah}
+                        >
+                          ابدء
+                        </button>
                       </div>
-                    )}
+
+                      <div>
+                        {data.ayah && data.link && (
+                          <div>
+                            <p>استمع جيدا الى التسجيل الاتى.</p>
+                            <audio
+                              className="Audio"
+                              src={data.link}
+                              controls
+                            ></audio>
+                            <p className="my-2">
+                              الان اضغط على
+                              {
+                                <FontAwesomeIcon
+                                  className="mx-1"
+                                  icon={faMicrophone}
+                                />
+                              }{" "}
+                              وابدء بالقراءة كما سمعت فى التسجيل ثم اضغط على
+                              {
+                                <FontAwesomeIcon
+                                  className="mx-1"
+                                  icon={faStopCircle}
+                                />
+                              }{" "}
+                              بعد انتهائك من التسجيل.
+                            </p>
+                            <Mic
+                              className="mt-2"
+                              hokm={hokm.hokm}
+                              ayah={data.ayah}
+                            ></Mic>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="col-2"></div>
                   </div>
                 </div>
               </div>

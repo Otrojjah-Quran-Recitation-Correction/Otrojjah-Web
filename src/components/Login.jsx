@@ -76,53 +76,68 @@ class Login extends Component {
   render() {
     return (
       <React.Fragment>
-        <form onSubmit={this.handleLogin}>
-          <div className="col-10 container py-5 mt-5">
-            <h1 className="text-center">Login</h1>
-            <form className="p-4 m-auto">
-              <div className="form-group">
-                <label htmlFor="exampleDropdownFormEmail2">Email address</label>
-                <input
-                  placeholder="Email"
-                  className="form-control mb-3"
-                  type="text"
-                  id="email"
-                  name="email"
-                  onChange={this.handleChange}
-                  value={this.state.login.email}
-                  error={this.state.errors.email}
-                ></input>
-                {this.state.errors.email && (
-                  <div className="alert alert-danger">
-                    {this.state.errors.email}
-                  </div>
-                )}
-              </div>
-              <div className="form-group">
-                <label htmlFor="exampleDropdownFormPassword2">Password</label>
-                <input
-                  placeholder="Password"
-                  className="form-control mb-3"
-                  type="password"
-                  id="password"
-                  name="password"
-                  onChange={this.handleChange}
-                  value={this.state.login.password}
-                  error={this.state.errors.password}
-                ></input>
-                {this.state.errors.password && (
-                  <div className="alert alert-danger">
-                    {this.state.errors.password}
-                  </div>
-                )}
-              </div>
-              <div className="form-group"></div>
-              <button type="submit" className="btn btn-primary">
-                Sign in
-              </button>
-            </form>
+        <div className="py-5 mt-5">
+          <div className="container">
+            <div className="row">
+              <div className="col"></div>
+              <form
+                onSubmit={this.handleLogin}
+                className="login p-4 col m-auto"
+              >
+                <h1>تسجيل الدخول</h1>
+                <div className="form-group pt-4">
+                  <label htmlFor="exampleDropdownFormEmail2">
+                    البريد الالكترونى
+                  </label>
+                  <input
+                    placeholder="البريد الالكترونى"
+                    className="form-control mb-3"
+                    type="text"
+                    id="email"
+                    name="email"
+                    onChange={this.handleChange}
+                    value={this.state.login.email}
+                    error={this.state.errors.email}
+                  ></input>
+                  {this.state.errors.email && (
+                    <div className="alert alert-danger">
+                      {this.state.errors.email}
+                    </div>
+                  )}
+                </div>
+                <div className="form-group">
+                  <label htmlFor="exampleDropdownFormPassword2">
+                    كلمة السر
+                  </label>
+                  <input
+                    placeholder="كلمة السر"
+                    className="form-control mb-3"
+                    type="password"
+                    id="password"
+                    name="password"
+                    onChange={this.handleChange}
+                    value={this.state.login.password}
+                    error={this.state.errors.password}
+                  ></input>
+                  {this.state.errors.password && (
+                    <div className="alert alert-danger">
+                      {this.state.errors.password}
+                    </div>
+                  )}
+                </div>
+                <div className="form-group"></div>
+                <button
+                  type="submit"
+                  style={{ width: "100%" }}
+                  className="btn btn-primary"
+                >
+                  دخول
+                </button>
+              </form>
+              <div className="col"></div>
+            </div>
           </div>
-        </form>
+        </div>
       </React.Fragment>
     );
   }

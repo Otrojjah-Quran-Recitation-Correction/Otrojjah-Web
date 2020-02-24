@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { getRandomClient, updateLabel } from "../services/labelServices";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 class Label extends Component {
   state = {
@@ -39,32 +41,49 @@ class Label extends Component {
   };
 
   render() {
-    const { ayah, hokm, link } = this.state.client;
+    const { ayah, hokm, link, recordName } = this.state.client;
     return (
       <React.Fragment>
         <div className="container my-5 pt-5">
           {this.state.client && (
-            <div className="container">
-              <h5>Hokm:{hokm}</h5>
-              <h5>Ayah:{ayah}</h5>
-              {link && (
-                <div>
-                  <audio controls style={{ display: "block" }}>
-                    <source src={link} type="audio/wav" />
-                  </audio>
+            <div className="row  pt-5">
+              <div className="col"></div>
+              <div className="col label">
+                <div className="text-center mb-5">
+                  <h5>الحكم:{hokm}</h5>
+                  <h5>الاية:{ayah}</h5>
                 </div>
-              )}
-              <form onSubmit={this.handleTrue}>
-                <button className="mt-1 mr-2 btn btn-primary btn-sm">
-                  true
-                </button>
-              </form>
-              <form onSubmit={this.handleFalse}>
-                <button className="mt-1 btn btn-danger btn-sm">false</button>
-              </form>
+                <audio
+                  title={recordName}
+                  className="Audio mt-3"
+                  controls
+                  style={{ display: "block" }}
+                  src={link}
+                ></audio>
+                <div className="container my-2">
+                  <div className="row">
+                    <FontAwesomeIcon
+                      className="labelicon ml-1 btn btn-success col"
+                      onClick={this.handleTrue}
+                      icon={faCheck}
+                    />
+
+                    <FontAwesomeIcon
+                      className="labelicon mr-1 btn btn-danger col"
+                      onClick={this.handleFalse}
+                      icon={faTimes}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="col"></div>
             </div>
           )}
-          {!this.state.client && <h1>There is no records to be labeled</h1>}
+          {!this.state.client && (
+            <h1 className="text-center py-5">
+              لا يوجد تسجيلات الان ليتم تقييمها!
+            </h1>
+          )}
         </div>
       </React.Fragment>
     );
