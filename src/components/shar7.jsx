@@ -12,7 +12,7 @@ class Shar7 extends Component {
     const { hokm } = this.state;
     return (
       <React.Fragment>
-        {hokm === "Ekhfaa" && (
+        {hokm === "الإخفاء" && (
           <div className="pt-5 my-5">
             <div className="container mainComponent">
               <h1>حكم {hokm}</h1>

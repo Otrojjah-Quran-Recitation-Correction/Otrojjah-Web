@@ -77,15 +77,27 @@ class NavBar extends Component {
               >
                 <a
                   className="dropdown-item text-right a7kam-item"
-                  href="/a7kam/Ekhfaa"
+                  href="/a7kam/الإظهار"
                 >
-                  الاخفاء
+                  الإظهار
                 </a>
                 <a
                   className="dropdown-item text-right a7kam-item"
-                  href="/a7kam/Ekhfaa"
+                  href="/a7kam/الإدغام"
                 >
-                  الاخفاء
+                  الإدغام
+                </a>
+                <a
+                  className="dropdown-item text-right a7kam-item"
+                  href="/a7kam/الإقلاب"
+                >
+                  الإقلاب
+                </a>
+                <a
+                  className="dropdown-item text-right a7kam-item"
+                  href="/a7kam/الإخفاء"
+                >
+                  الإخفاء
                 </a>
               </div>
             </li>

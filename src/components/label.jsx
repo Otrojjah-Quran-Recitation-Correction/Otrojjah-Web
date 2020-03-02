@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { getRandomClient, updateLabel } from "../services/labelServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import http from "../services/httpServices";
 
 class Label extends Component {
   state = {
@@ -11,13 +12,46 @@ class Label extends Component {
       hokm: "",
       link: ""
     },
-    jwt: ""
+    jwt: "",
+    file: "",
+    blobUrl: ""
+  };
+
+  b64toBlob = (b64Data, contentType, sliceSize) => {
+    contentType = contentType || "image/png";
+    sliceSize = sliceSize || 512;
+
+    var byteCharacters = b64Data;
+    var byteArrays = [];
+
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      var byteNumbers = new Array(slice.length);
+      for (var i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      var byteArray = new Uint8Array(byteNumbers);
+
+      byteArrays.push(byteArray);
+    }
+    var blob = new Blob(byteArrays, { type: contentType });
+    return blob;
   };
 
   async componentDidMount() {
     const { data: client } = await getRandomClient();
     const jwt = localStorage.getItem("token");
-    this.setState({ client, jwt });
+
+    // fetch("http://localhost:5000/image/c69e565930adc90d9a7c82c14e7b1121", {
+    //   method: "GET"
+    // })
+    //   .then(re => re.blob())
+    //   .then(blob => URL.createObjectURL(blob))
+    //   .then(blobUrl => this.setState({ blobUrl }));
+
+    this.setState({ jwt, client });
   }
 
   handleTrue = async () => {

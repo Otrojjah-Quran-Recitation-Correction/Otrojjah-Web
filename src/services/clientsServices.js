@@ -1,5 +1,5 @@
 import http from "./httpServices";
-import { clientsUrl } from "../config.json";
+import { clientsUrl, uploadFolderUrl } from "../config.json";
 
 function clientUrl(id) {
   return `${clientsUrl}/${id}`;
@@ -33,4 +33,16 @@ export function updateClient(client, id, jwt) {
 
 export function addClient(client) {
   return http.post(clientsUrl, client);
+}
+
+export function downloadRecords(data, jwt) {
+  return http
+    .post(uploadFolderUrl, data, { headers: { "x-auth-token": jwt } })
+    .then(function(response) {
+      console.log(response);
+    })
+    .catch(function(error) {
+      alert(error.response.data);
+      return error.response.data;
+    });
 }

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Pagination from "./common/pagination";
 import ClientsTable from "./clientsTable";
 import { paginate } from "../utils/paginate";
@@ -41,6 +42,9 @@ class Client extends Component {
     return (
       <div>
         <p>Showing {totalCount} client records in the database.</p>
+        <Link to={`/downloadClientRecords`}>
+          <button className="my-2 btn btn-warning">Add Records</button>
+        </Link>
         <ClientsTable
           clients={clients}
           handleDelete={this.handleDelete}

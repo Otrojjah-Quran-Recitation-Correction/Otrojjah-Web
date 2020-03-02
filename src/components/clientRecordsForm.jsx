@@ -1,45 +1,37 @@
 import React from "react";
 import Joi from "joi-browser";
-import { updateClient, getClient } from "../services/clientsServices";
+import { downloadRecords } from "../services/clientsServices";
 import Form from "./common/form";
 
-class EditClientForm extends Form {
+class ClientRecordsForm extends Form {
   state = {
     data: {
-      recordName: "",
+      folderId: "",
       ayah: "",
       hokm: ""
     },
     errors: {
-      recordName: "",
+      folderId: "",
       ayah: "",
       hokm: ""
     },
     jwt: ""
   };
   schema = {
-    recordName: Joi.string().required(),
+    folderId: Joi.string().required(),
     ayah: Joi.string().required(),
     hokm: Joi.string().required()
   };
 
-  async componentDidMount() {
-    const { data } = await getClient(this.props.match.params.id);
+  componentDidMount() {
     const jwt = localStorage.getItem("token");
-    const newClient = {
-      recordName: data.recordName,
-      ayah: data.ayah,
-      hokm: data.hokm
-    };
-    this.setState({ data: newClient, jwt });
+    this.setState({ jwt });
   }
-
   doSubmit = async () => {
-    const client = { ...this.state.data };
     const jwt = this.state.jwt;
-    const err = await updateClient(client, this.props.match.params.id, jwt);
+    const err = await downloadRecords(this.state.data, jwt);
     if (!err) {
-      this.props.history.push("/adminPanel");
+      window.location = "/adminPanel";
     }
   };
 
@@ -50,12 +42,12 @@ class EditClientForm extends Form {
           <div className="row">
             <div className="col-2"></div>
             <div className="col-8 my-5">
-              <h1>Edit Form</h1>
+              <h1>Download Records Form</h1>
               <form onSubmit={this.handleSubmit}>
-                {this.renderInput("recordName", "RecordName")}
+                {this.renderInput("folderId", "FolderId")}
                 {this.renderInput("ayah", "Ayah")}
                 {this.renderInput("hokm", "Hokm")}
-                {this.renderButton("Edit")}
+                {this.renderButton("Download")}
               </form>
             </div>
             <div className="col-2"></div>
@@ -66,4 +58,4 @@ class EditClientForm extends Form {
   }
 }
 
-export default EditClientForm;
+export default ClientRecordsForm;

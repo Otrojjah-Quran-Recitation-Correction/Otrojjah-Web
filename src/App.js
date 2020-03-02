@@ -14,6 +14,7 @@ import AdminPanel from "./components/adminPanel";
 import Label from "./components/label";
 import RegisterUserForm from "./components/registerUserForm";
 import ShaikhRecordsForm from "./components/shaikhRecordsForm";
+import ClientRecordsForm from "./components/clientRecordsForm";
 import NavBar from "./components/navBar";
 import jwt_decode from "jwt-decode";
 
@@ -52,6 +53,12 @@ class App extends Component {
             <Route
               path="/downloadShaikhRecords"
               component={ShaikhRecordsForm}
+            ></Route>
+          )}
+          {userRole === "admin" && (
+            <Route
+              path="/downloadClientRecords"
+              component={ClientRecordsForm}
             ></Route>
           )}
           {userRole === "admin" && (

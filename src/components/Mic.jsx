@@ -36,8 +36,9 @@ export default class Mic extends Component {
     data.append("recordName", "ahmed123456");
     data.append("ayah", ayah);
     data.append("hokm", hokm);
-    //const blobUrl = URL.createObjectURL(recordedBlob.blob);
-    const blobUrl = recordedBlob.blob;
+    console.log(recordedBlob.blob);
+    const blobUrl = URL.createObjectURL(recordedBlob.blob);
+    console.log(recordedBlob.blob.text());
     addClient(data);
     this.setState({ blobUrl });
   };

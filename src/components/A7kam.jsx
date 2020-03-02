@@ -23,12 +23,64 @@ class A7kam extends Form {
     },
     recordError: "",
     shiokhRecords: [],
-    a7kam: [{ hokm: "Ekhfaa" }],
-    ayat: [
-      { ayah: "naran_thaat" },
-      { ayah: "naran_thaat" },
-      { ayah: "naran_thaat" },
-      { ayah: "naran_thaat" }
+    a7kam: [
+      {
+        hokm: "الإظهار",
+        ayat: [
+          "وَمَنْ أَعْرَضَ",
+          "جَنَّاتٍ أَلْفَافًا",
+          "مِّنْهُم",
+          "قَوْمٍ هَادٍ",
+          "مِنْ عَاصِمٍ",
+          "شَيْءٍ عَلِيمٌ",
+          " يَنْحِتُونَ",
+          "عَزِيزٌ حَكِيمٌ",
+          "مِنْ غِسْلِينٍ",
+          "عَفُوًّا غَفُورًا",
+          "مِّنْ خَشْيَةِ",
+          "ذَرَّةٍ خَيْرًا"
+        ]
+      },
+      {
+        hokm: "الإدغام",
+        ayat: [
+          "مِن نَّفْعِهِمَا",
+          "يَوْمَئِذٍ نَّاعِمَةٌ",
+          "مِّن مَّاءٍ",
+          "لِيَكُونَا مِنَ",
+          "مِن وَلِيٍّ",
+          "وَلِيٍّ وَلَا",
+          "فَمَنْ يَعْمَلْ",
+          "خَيْرًا يَرَهُ",
+          "مِّن لَّدُنْهُ",
+          "هُدًى لِّلْمُتَّقِينَ",
+          "مِنْ رَبّهمْ",
+          "غَفُورٌ رَّحِيمٌ"
+        ]
+      },
+      { hokm: "الإقلاب", ayat: ["مِنْ بَنِي", "بَصِيرٌ بِالْعِبَادِ"] },
+      {
+        hokm: "الإخفاء",
+        ayat: [
+          "مَنصُورًا",
+          "مَّن ذَا",
+          "الْإِنسَانُ",
+          "لَيَئُوسٌ كَفُورٌ",
+          "فَأَنجَيْنَاكُمْ",
+          "مِن شَيْءٍ",
+          "مِّن قَبْلِهِ",
+          "أَندَادًا",
+          "يَنطِقُونَ",
+          "أَنزَلْنَا",
+          "شَيْءٍ فَإِنَّ",
+          "وَأَنتُمْ",
+          "مِنْ ضَعْفٍ",
+          "تَنظُرُونَ",
+          "مَّنثُورًا",
+          "تمهيدًا ثُمَّ",
+          "naran_thaat"
+        ]
+      }
     ],
     ayahRecords: []
   };
@@ -50,7 +102,7 @@ class A7kam extends Form {
 
     data.shaikhName = "";
     data.hokm = hokm;
-    data.ayah = ayah.ayah;
+    data.ayah = ayah;
 
     const ayahRecords = this.state.shiokhRecords.filter(
       e => e.ayah === data.ayah
@@ -80,22 +132,22 @@ class A7kam extends Form {
   };
 
   render() {
-    const { a7kam, data, ayat, recordError, ayahRecords } = this.state;
+    const { a7kam, data, recordError, ayahRecords } = this.state;
     return (
       <React.Fragment>
         <div className="pt-5">
           <div className="accordion pt-3 my-5 container " id="accordionExample">
             {a7kam.map(hokm => (
-              <div key={hokm.hokm} className="card mainComponent">
-                <div className="card-header" id="headingOne">
+              <div key={hokm.hokm} className="card mainComponent my-2">
+                <div className="card-header" id={`hokm${hokm.hokm}`}>
                   <h2 className="mb-0">
                     <button
                       className="btn btn-link"
                       type="button"
                       data-toggle="collapse"
-                      data-target="#collapseOne"
+                      data-target={`#${hokm.hokm}`}
                       aria-expanded="true"
-                      aria-controls="collapseOne"
+                      aria-controls={hokm.hokm}
                     >
                       حكم {hokm.hokm}
                     </button>
@@ -103,9 +155,9 @@ class A7kam extends Form {
                 </div>
 
                 <div
-                  id="collapseOne"
-                  className="collapse show"
-                  aria-labelledby="headingOne"
+                  id={hokm.hokm}
+                  className={`collapse ${hokm.hokm == "الإظهار" && "show"}`}
+                  aria-labelledby={`hokm${hokm.hokm}`}
                   data-parent="#accordionExample"
                 >
                   <div className="container mt-2 mr-2">
@@ -118,13 +170,13 @@ class A7kam extends Form {
                     <div className="col-2"></div>
                     <div className="card-body text-center col-8">
                       <p>اختر الاية</p>
-                      {ayat.map(ayah => (
+                      {hokm.ayat.map(ayah => (
                         <button
-                          key={ayah.ayah}
+                          key={ayah}
                           onClick={() => this.handleAyah(ayah, hokm.hokm)}
-                          className="btn btn-info ml-2 aya"
+                          className="btn btn-info  m-2 aya"
                         >
-                          {ayah.ayah}
+                          {ayah}
                         </button>
                       ))}
                       {data.ayah && (
@@ -177,7 +229,7 @@ class A7kam extends Form {
                             </p>
                             <Mic
                               className="mt-2"
-                              hokm={hokm.hokm}
+                              hokm={hokm}
                               ayah={data.ayah}
                             ></Mic>
                           </div>

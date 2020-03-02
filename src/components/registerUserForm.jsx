@@ -59,15 +59,23 @@ class RegisterUserForm extends Form {
 
   render() {
     return (
-      <div className="container my-5 bt-3">
-        <h1>Regiseration Form</h1>
-        <form onSubmit={this.handleSubmit}>
-          {this.renderInput("name", "Name")}
-          {this.renderInput("email", "Email", "email")}
-          {this.renderInput("password", "Password", "password")}
-          {this.renderInput("phoneNumber", "PhoneNumber", "number")}
-          {this.renderButton("Add")}
-        </form>
+      <div className=" py-5">
+        <div className="container mainComponent my-5 bt-5">
+          <div className="row">
+            <div className="col-2"></div>
+            <div className="col-8 my-5">
+              <h1>Regiseration Form</h1>
+              <form onSubmit={this.handleSubmit}>
+                {this.renderInput("name", "Name")}
+                {this.renderInput("email", "Email", "email")}
+                {this.renderInput("password", "Password", "password")}
+                {this.renderInput("phoneNumber", "PhoneNumber", "number")}
+                {this.renderButton("Add")}
+              </form>
+            </div>
+            <div className="col-2"></div>
+          </div>
+        </div>
       </div>
     );
   }
