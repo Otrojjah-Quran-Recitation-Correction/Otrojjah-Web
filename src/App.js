@@ -15,6 +15,9 @@ import Label from "./components/label";
 import RegisterUserForm from "./components/registerUserForm";
 import ShaikhRecordsForm from "./components/shaikhRecordsForm";
 import ClientRecordsForm from "./components/clientRecordsForm";
+import ProtectedRoute from "./components/common/protectedRoute";
+import ShaikhRoute from "./components/common/shaikhRoute";
+import LoginRoute from "./components/common/loginRoute";
 import NavBar from "./components/navBar";
 import jwt_decode from "jwt-decode";
 
@@ -24,10 +27,9 @@ class App extends Component {
   componentDidMount() {
     try {
       const jwt = localStorage.getItem("token");
-      this.setState({ jwt });
       const user = jwt_decode(jwt);
       const userRole = user.isShaikh ? "shaikh" : "admin";
-      this.setState({ userRole, user });
+      this.setState({ jwt, userRole, user });
     } catch (ex) {}
   }
 
@@ -42,44 +44,40 @@ class App extends Component {
       <React.Fragment>
         <NavBar userRole={userRole} handleLogOut={this.handleLogOut}></NavBar>
         <Switch>
-          {userRole === "admin" && (
-            <Route path="/adminPanel" component={AdminPanel}></Route>
-          )}
-
-          {userRole === "admin" && (
-            <Route path="/registerUser" component={RegisterUserForm}></Route>
-          )}
-          {userRole === "admin" && (
-            <Route
-              path="/downloadShaikhRecords"
-              component={ShaikhRecordsForm}
-            ></Route>
-          )}
-          {userRole === "admin" && (
-            <Route
-              path="/downloadClientRecords"
-              component={ClientRecordsForm}
-            ></Route>
-          )}
-          {userRole === "admin" && (
-            <Route path="/editUser/:id" component={EditUserForm}></Route>
-          )}
-          {userRole === "admin" && (
-            <Route path="/editClient/:id" component={EditClientForm}></Route>
-          )}
-          {userRole === "admin" && (
-            <Route
-              path="/editShaikhRecord/:id"
-              component={EditShaikhForm}
-            ></Route>
-          )}
-          {userRole && <Route path="/label" component={Label}></Route>}
-          {!userRole && <Route path="/login" component={Login}></Route>}
-          <Route path="/a7kam/:id" component={Shar7}></Route>
-          <Route path="/a7kam" component={A7kam}></Route>
+          <ProtectedRoute
+            path="/adminPanel"
+            component={AdminPanel}
+          ></ProtectedRoute>
+          <ProtectedRoute
+            path="/registerUser"
+            component={RegisterUserForm}
+          ></ProtectedRoute>
+          <ProtectedRoute
+            path="/downloadShaikhRecords"
+            component={ShaikhRecordsForm}
+          ></ProtectedRoute>
+          <ProtectedRoute
+            path="/downloadClientRecords"
+            component={ClientRecordsForm}
+          ></ProtectedRoute>
+          <ProtectedRoute
+            path="/editUser/:id"
+            component={EditUserForm}
+          ></ProtectedRoute>
+          <ProtectedRoute
+            path="/editClient/:id"
+            component={EditClientForm}
+          ></ProtectedRoute>
+          <ProtectedRoute
+            path="/editShaikhRecord/:id"
+            component={EditShaikhForm}
+          ></ProtectedRoute>
+          <ShaikhRoute path="/label" component={Label}></ShaikhRoute>
+          <LoginRoute path="/login" component={Login}></LoginRoute>
+          <Route path="/احكام/:id" component={Shar7}></Route>
+          <Route path="/احكام" component={A7kam}></Route>
           <Route path="/not-found" component={NotFound} />
           <Route exact path="/" component={Home}></Route>
-          {userRole && <Redirect to="/not-found" />}
         </Switch>
       </React.Fragment>
     );

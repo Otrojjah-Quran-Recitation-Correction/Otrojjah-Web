@@ -1,5 +1,6 @@
 import http from "./httpServices";
 import { usersUrl } from "../config.json";
+import jwt_decode from "jwt-decode";
 
 function userUrl(id) {
   return `${usersUrl}/${id}`;
@@ -45,4 +46,13 @@ export function addUser(user, jwt) {
       alert(error.response.data);
       return error.response.data;
     });
+}
+
+export function getUserRole() {
+  const jwt = localStorage.getItem("token");
+  if (jwt) {
+    const user = jwt_decode(jwt);
+    return user.isShaikh ? "shaikh" : "admin";
+  }
+  return "client";
 }

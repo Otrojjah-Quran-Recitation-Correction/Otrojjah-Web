@@ -1,90 +1,41 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import Mic from "./mic";
+import { getShaikhRecords } from "../services/shaikhRecordsServices";
 
 class Home extends Component {
-  state = {};
+  state = {
+    records: [],
+    record: {
+      hokm: "",
+      ayah: "",
+      link: ""
+    }
+  };
+
+  async componentDidMount() {
+    const { data: records } = await getShaikhRecords();
+    const randomNum = Math.floor(Math.random() * records.length);
+    const record = records[randomNum];
+    this.setState({ records, record });
+  }
 
   render() {
+    const { hokm, ayah, link } = this.state.record;
     return (
       <React.Fragment>
-        <main className="mainComponent container">
-          <div
-            id="home"
-            style={{ marginTop: "55px" }}
-            className="pt-5 container"
-          >
-            <div className="text-center my-5">
-              <h1>Welcome To </h1>
+        <div className="py-5"></div>
+        <main className="mainComponent container my-5 py-5">
+          <div className="row">
+            <div className="col-2"></div>
+            <div className="col-8 text-center">
               <div>
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                non cupidatat skateboard dolor brunch. Food truck quinoa
-                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua
-                put a bird on it squid single-origin coffee nulla assumenda
-                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-                wes anderson cred nesciunt sapiente ea proident. Ad vegan
-                excepteur butcher vice lomo. Leggings occaecat craft beer
-                farm-to-table, raw denim aesthetic synth nesciunt you probably
-                haven't heard of them accusamus labore sustainable VHS.
+                <h3>حكم:{hokm}</h3>
+                <h3>اية :{ayah}</h3>
               </div>
-              <Link to="/A7kam" className="btn btn-primary my-5">
-                Get Started
-              </Link>
+              <audio className="Audio" src={link} controls></audio>
+              <Mic hokm={hokm} ayah={ayah}></Mic>
             </div>
-          </div>
-          <div id="discription" className="my-5 pt-5 container">
-            <div className="text-center my-5">
-              <h1>Discription</h1>
-              <div>
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                non cupidatat skateboard dolor brunch. Food truck quinoa
-                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua
-                put a bird on it squid single-origin coffee nulla assumenda
-                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-                wes anderson cred nesciunt sapiente ea proident. Ad vegan
-                excepteur butcher vice lomo. Leggings occaecat craft beer
-                farm-to-table, raw denim aesthetic synth nesciunt you probably
-                haven't heard of them accusamus labore sustainable VHS.
-              </div>
-              <button className="btn btn-primary my-5">Get Started</button>
-            </div>
-          </div>
-          <div id="demo" className="my-5 pt-5 container">
-            <div className="text-center my-5">
-              <h1>Demo</h1>
-              <div>
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                non cupidatat skateboard dolor brunch. Food truck quinoa
-                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua
-                put a bird on it squid single-origin coffee nulla assumenda
-                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-                wes anderson cred nesciunt sapiente ea proident. Ad vegan
-                excepteur butcher vice lomo. Leggings occaecat craft beer
-                farm-to-table, raw denim aesthetic synth nesciunt you probably
-                haven't heard of them accusamus labore sustainable VHS.
-              </div>
-              <button className="btn btn-primary my-5">Get Started</button>
-            </div>
-          </div>
-          <div id="about" className="my-5 pt-5 container">
-            <div className="text-center my-5">
-              <h1>About</h1>
-              <div>
-                Anim pariatur cliche reprehenderit, enim eiusmod high life
-                accusamus terry richardson ad squid. 3 wolf moon officia aute,
-                non cupidatat skateboard dolor brunch. Food truck quinoa
-                nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua
-                put a bird on it squid single-origin coffee nulla assumenda
-                shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-                wes anderson cred nesciunt sapiente ea proident. Ad vegan
-                excepteur butcher vice lomo. Leggings occaecat craft beer
-                farm-to-table, raw denim aesthetic synth nesciunt you probably
-                haven't heard of them accusamus labore sustainable VHS.
-              </div>
-              <button className="btn btn-primary my-5">Get Started</button>
-            </div>
+            <div className="col-2"></div>
           </div>
         </main>
       </React.Fragment>

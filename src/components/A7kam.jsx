@@ -59,6 +59,7 @@ class A7kam extends Form {
         ]
       },
       { hokm: "الإقلاب", ayat: ["مِنْ بَنِي", "بَصِيرٌ بِالْعِبَادِ"] },
+      { hokm: "Ekhfaa", ayat: ["naran_thaat"] },
       {
         hokm: "الإخفاء",
         ayat: [
@@ -163,7 +164,7 @@ class A7kam extends Form {
                   <div className="container mt-2 mr-2">
                     <p>
                       تعرف اكثر عن حكم {hokm.hokm}
-                      <Link to={`/a7kam/${hokm.hokm}`}> من هنا</Link>
+                      <Link to={`/احكام/${hokm.hokm}`}> من هنا</Link>
                     </p>{" "}
                   </div>
                   <div className="container row">

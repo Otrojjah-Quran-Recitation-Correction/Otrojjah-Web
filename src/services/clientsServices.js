@@ -36,6 +36,8 @@ export function addClient(client) {
 }
 
 export function downloadRecords(data, jwt) {
+  data.type = "clinet";
+  console.log(data);
   return http
     .post(uploadFolderUrl, data, { headers: { "x-auth-token": jwt } })
     .then(function(response) {

@@ -9,13 +9,17 @@ export default class Mic extends Component {
     super(props);
     this.state = {
       record: false,
-      blobUrl: ""
+      blobUrl: "",
+      recordedBlob: "",
+      btnClass: "btn btn-info disabled normalcursor"
     };
   }
 
   startRecording = () => {
+    const btnClass = "btn btn-info disabled normalcursor";
     this.setState({
-      record: true
+      record: true,
+      btnClass
     });
   };
 
@@ -30,17 +34,27 @@ export default class Mic extends Component {
   }
 
   onStop = recordedBlob => {
-    const data = new FormData();
-    const { hokm, ayah } = this.props;
-    data.append("record", recordedBlob.blob);
-    data.append("recordName", "ahmed123456");
-    data.append("ayah", ayah);
-    data.append("hokm", hokm);
-    console.log(recordedBlob.blob);
     const blobUrl = URL.createObjectURL(recordedBlob.blob);
-    console.log(recordedBlob.blob.text());
-    addClient(data);
-    this.setState({ blobUrl });
+    const btnClass = "btn btn-info";
+    this.setState({ recordedBlob, blobUrl, btnClass });
+  };
+
+  saveRecord = () => {
+    let recordedBlob = this.state.recordedBlob;
+    if (recordedBlob) {
+      console.log("here");
+      const data = new FormData();
+      const { hokm, ayah } = this.props;
+      data.append("record", recordedBlob.blob);
+      data.append("recordName", "ahmed123456");
+      data.append("ayah", ayah);
+      data.append("hokm", hokm);
+      addClient(data);
+      const blobUrl = "";
+      const btnClass = "btn btn-info disabled normalcursor";
+      recordedBlob = "";
+      this.setState({ blobUrl, recordedBlob, btnClass });
+    }
   };
 
   render() {
@@ -73,6 +87,10 @@ export default class Mic extends Component {
           controls
           src={this.state.blobUrl}
         ></audio>
+
+        <button onClick={this.saveRecord} className={this.state.btnClass}>
+          تقييم
+        </button>
       </div>
     );
   }

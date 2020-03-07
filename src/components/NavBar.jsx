@@ -8,7 +8,7 @@ class NavBar extends Component {
     return (
       <nav className="navBar navbar navbar-expand-lg navbar-dark  fixed-top mb-5 ltr">
         <a className="navbar-brand ml-2" href="/">
-          Navbar
+          اترجة
         </a>
         {userRole && (
           <a
@@ -16,7 +16,7 @@ class NavBar extends Component {
             style={{ cursor: "pointer" }}
             className="navbar-brand "
           >
-            Logout <span className="sr-only">(current)</span>
+            تسجيل الخروج <span className="sr-only">(current)</span>
           </a>
         )}
         <button
@@ -34,31 +34,17 @@ class NavBar extends Component {
           <ul className="navbar-nav ml-auto rtl">
             <li className="nav-item active">
               <a className="nav-link" href="/">
-                Home <span className="sr-only">(current)</span>
+                الرئيسية <span className="sr-only">(current)</span>
               </a>
             </li>
             <li className="nav-item">
               {!userRole && (
                 <a className="nav-link" href="/login">
-                  Login
+                  تسجيل الدخول
                 </a>
               )}
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/#discription">
-                Discription
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/#demo">
-                Demo
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/#about">
-                About
-              </a>
-            </li>
+
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
@@ -77,25 +63,25 @@ class NavBar extends Component {
               >
                 <a
                   className="dropdown-item text-right a7kam-item"
-                  href="/a7kam/الإظهار"
+                  href="/احكام"
                 >
                   الإظهار
                 </a>
                 <a
                   className="dropdown-item text-right a7kam-item"
-                  href="/a7kam/الإدغام"
+                  href="/احكام"
                 >
                   الإدغام
                 </a>
                 <a
                   className="dropdown-item text-right a7kam-item"
-                  href="/a7kam/الإقلاب"
+                  href="/احكام"
                 >
                   الإقلاب
                 </a>
                 <a
                   className="dropdown-item text-right a7kam-item"
-                  href="/a7kam/الإخفاء"
+                  href="/احكام"
                 >
                   الإخفاء
                 </a>
@@ -104,7 +90,7 @@ class NavBar extends Component {
             <li className="nav-item">
               {userRole && (
                 <a className="nav-link" href="/label">
-                  Label
+                  تقييم
                 </a>
               )}
             </li>

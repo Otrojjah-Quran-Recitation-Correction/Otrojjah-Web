@@ -32,6 +32,7 @@ export function updateShaikhRecord(shaikh, id, jwt) {
 }
 
 export function downloadRecords(data, jwt) {
+  data.type = "shaikh";
   return http
     .post(uploadFolderUrl, data, { headers: { "x-auth-token": jwt } })
     .then(function(response) {
