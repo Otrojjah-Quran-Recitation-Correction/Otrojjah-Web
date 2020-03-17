@@ -3,33 +3,39 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import "./App.css";
 import "./components/navBar";
 import Home from "./components/home";
-import A7kam from "./components/a7kam";
-import Shar7 from "./components/shar7";
+import Rules from "./components/rules";
 import Login from "./components/login";
 import NotFound from "./components/notFound";
-import EditUserForm from "./components/editUserForm";
-import EditClientForm from "./components/editClientForm";
-import EditShaikhForm from "./components/editShaikhForm";
 import AdminPanel from "./components/adminPanel";
+import ShowLetters from "./components/showLetters";
+import ShowSubRules from "./components/showSubRules";
+import ShowVerses from "./components/showVerses";
+import ShowRecords from "./components/showRecords";
+import ShowRecordLabel from "./components/showRecordLabel";
 import Label from "./components/label";
 import RegisterUserForm from "./components/registerUserForm";
-import ShaikhRecordsForm from "./components/shaikhRecordsForm";
-import ClientRecordsForm from "./components/clientRecordsForm";
+import EditUserForm from "./components/editUserForm";
+import AddRuleForm from "./components/addRuleForm";
+import EditRuleForm from "./components/editRuleForm";
+import AddVerseForm from "./components/addVerseForm";
+import EditVerseForm from "./components/editVerseForm";
 import ProtectedRoute from "./components/common/protectedRoute";
 import ShaikhRoute from "./components/common/shaikhRoute";
 import LoginRoute from "./components/common/loginRoute";
 import NavBar from "./components/navBar";
+import { getRoot } from "./services/rulesServices";
 import jwt_decode from "jwt-decode";
 
 class App extends Component {
-  state = { jwt: "", userRole: "" };
+  state = { jwt: "", userRole: "", root: {} };
 
-  componentDidMount() {
+  async componentDidMount() {
     try {
       const jwt = localStorage.getItem("token");
       const user = jwt_decode(jwt);
       const userRole = user.isShaikh ? "shaikh" : "admin";
-      this.setState({ jwt, userRole, user });
+      const { data: root } = await getRoot();
+      this.setState({ jwt, userRole, user, root });
     } catch (ex) {}
   }
 
@@ -42,7 +48,11 @@ class App extends Component {
     const { userRole } = this.state;
     return (
       <React.Fragment>
-        <NavBar userRole={userRole} handleLogOut={this.handleLogOut}></NavBar>
+        <NavBar
+          root={this.state.root}
+          userRole={userRole}
+          handleLogOut={this.handleLogOut}
+        ></NavBar>
         <Switch>
           <ProtectedRoute
             path="/adminPanel"
@@ -53,31 +63,52 @@ class App extends Component {
             component={RegisterUserForm}
           ></ProtectedRoute>
           <ProtectedRoute
-            path="/downloadShaikhRecords"
-            component={ShaikhRecordsForm}
-          ></ProtectedRoute>
-          <ProtectedRoute
-            path="/downloadClientRecords"
-            component={ClientRecordsForm}
-          ></ProtectedRoute>
-          <ProtectedRoute
             path="/editUser/:id"
             component={EditUserForm}
           ></ProtectedRoute>
           <ProtectedRoute
-            path="/editClient/:id"
-            component={EditClientForm}
+            path="/addRule/:id"
+            component={AddRuleForm}
           ></ProtectedRoute>
           <ProtectedRoute
-            path="/editShaikhRecord/:id"
-            component={EditShaikhForm}
+            path="/editRule/:id"
+            component={EditRuleForm}
+          ></ProtectedRoute>
+          <ProtectedRoute
+            path="/addVerse/:id"
+            component={AddVerseForm}
+          ></ProtectedRoute>
+          <ProtectedRoute
+            path="/editVerse/:id"
+            component={EditVerseForm}
+          ></ProtectedRoute>
+          <ProtectedRoute
+            path="/showLetters/:id"
+            component={ShowLetters}
+          ></ProtectedRoute>
+          <ProtectedRoute
+            path="/showSubRules/:id"
+            component={ShowSubRules}
+          ></ProtectedRoute>
+          <ProtectedRoute
+            path="/showVerses/:id"
+            component={ShowVerses}
+          ></ProtectedRoute>
+          <ProtectedRoute
+            path="/showClientRecords/:id"
+            component={ShowRecords}
+          ></ProtectedRoute>
+          <ProtectedRoute
+            path="/showRecordLabel/:id"
+            component={ShowRecordLabel}
           ></ProtectedRoute>
           <ShaikhRoute path="/label" component={Label}></ShaikhRoute>
           <LoginRoute path="/login" component={Login}></LoginRoute>
-          <Route path="/احكام/:id" component={Shar7}></Route>
-          <Route path="/احكام" component={A7kam}></Route>
+          <Route path="/احكام/:id" component={Rules}></Route>
+          <Route path="/احكام" component={Rules}></Route>
           <Route path="/not-found" component={NotFound} />
           <Route exact path="/" component={Home}></Route>
+          <Redirect to="/not-found"></Redirect>
         </Switch>
       </React.Fragment>
     );

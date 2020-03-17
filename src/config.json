@@ -1,8 +1,7 @@
 {
-  "loginUrl": "http://localhost:3001/api/auth",
-  "usersUrl": "http://localhost:3001/api/users",
-  "clientsUrl": "http://localhost:3001/api/client",
-  "shaikhsUrl": "http://localhost:3001/api/shaikh",
-  "uploadFolderUrl": "http://localhost:3001/api/uploadFolder",
-  "labelsUrl": "http://localhost:3001/api/label"
+  "loginUrl": "https://otrojjah-api.herokuapp.com/api/auth",
+  "usersUrl": "https://otrojjah-api.herokuapp.com/api/user",
+  "rulesUrl": "https://otrojjah-api.herokuapp.com/api/rule",
+  "versesUrl": "https://otrojjah-api.herokuapp.com/api/verse",
+  "recordsUrl": "https://otrojjah-api.herokuapp.com/api/record"
 }

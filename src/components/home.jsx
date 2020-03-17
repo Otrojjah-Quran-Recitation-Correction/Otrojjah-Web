@@ -1,26 +1,16 @@
 import React, { Component } from "react";
 import Mic from "./mic";
-import { getShaikhRecords } from "../services/shaikhRecordsServices";
 
 class Home extends Component {
   state = {
     records: [],
-    record: {
-      hokm: "",
-      ayah: "",
-      link: ""
-    }
+    record: { verseId: "5e6d3c353fac71001710ec3c", filePath: "" }
   };
 
-  async componentDidMount() {
-    const { data: records } = await getShaikhRecords();
-    const randomNum = Math.floor(Math.random() * records.length);
-    const record = records[randomNum];
-    this.setState({ records, record });
-  }
+  async componentDidMount() {}
 
   render() {
-    const { hokm, ayah, link } = this.state.record;
+    const { verseId, filePath } = this.state.record;
     return (
       <React.Fragment>
         <div className="py-5"></div>
@@ -29,11 +19,11 @@ class Home extends Component {
             <div className="col-2"></div>
             <div className="col-8 text-center">
               <div>
-                <h3>حكم:{hokm}</h3>
-                <h3>اية :{ayah}</h3>
+                <h3>حكم:</h3>
+                <h3>اية :</h3>
               </div>
-              <audio className="Audio" src={link} controls></audio>
-              <Mic hokm={hokm} ayah={ayah}></Mic>
+              <audio className="Audio" src={filePath} controls></audio>
+              <Mic verseId={verseId}></Mic>
             </div>
             <div className="col-2"></div>
           </div>

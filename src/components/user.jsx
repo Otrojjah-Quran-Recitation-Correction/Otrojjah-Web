@@ -14,7 +14,8 @@ class User extends Component {
   };
 
   async componentDidMount() {
-    const { data: users } = await getUsers();
+    const jwt = localStorage.getItem("token");
+    const { data: users } = await getUsers(jwt);
     this.setState({ users });
   }
 

@@ -1,26 +1,23 @@
 import React from "react";
 import Joi from "joi-browser";
-import { downloadRecords } from "../services/shaikhRecordsServices";
+import { addVerse } from "../services/versesServices";
 import Form from "./common/form";
 
-class ShaikhRecordsForm extends Form {
+class AddVerseForm extends Form {
   state = {
     data: {
-      folderId: "",
-      ayah: "",
-      hokm: ""
+      name: "",
+      surah: ""
     },
     errors: {
-      folderId: "",
-      ayah: "",
-      hokm: ""
+      name: "",
+      surah: ""
     },
     jwt: ""
   };
   schema = {
-    folderId: Joi.string().required(),
-    ayah: Joi.string().required(),
-    hokm: Joi.string().required()
+    name: Joi.string().required(),
+    surah: Joi.string()
   };
 
   componentDidMount() {
@@ -29,7 +26,9 @@ class ShaikhRecordsForm extends Form {
   }
   doSubmit = async () => {
     const jwt = this.state.jwt;
-    const err = await downloadRecords(this.state.data, jwt);
+    const data = { ...this.state.data };
+    data.ruleId = this.props.match.params.id;
+    const err = await addVerse(data, jwt);
     if (!err) {
       window.location = "/adminPanel";
     }
@@ -42,12 +41,11 @@ class ShaikhRecordsForm extends Form {
           <div className="row">
             <div className="col-2"></div>
             <div className="col-8 my-5">
-              <h1>Download Records Form</h1>
+              <h1>Add Verse</h1>
               <form onSubmit={this.handleSubmit}>
-                {this.renderInput("folderId", "FolderId")}
-                {this.renderInput("ayah", "Ayah")}
-                {this.renderInput("hokm", "Hokm")}
-                {this.renderButton("Download")}
+                {this.renderInput("name", "VerseName")}
+                {this.renderInput("surah", "Surah")}
+                {this.renderButton("Add")}
               </form>
             </div>
             <div className="col-2"></div>
@@ -58,4 +56,4 @@ class ShaikhRecordsForm extends Form {
   }
 }
 
-export default ShaikhRecordsForm;
+export default AddVerseForm;

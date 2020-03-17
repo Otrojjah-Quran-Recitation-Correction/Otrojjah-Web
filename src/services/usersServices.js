@@ -6,12 +6,16 @@ function userUrl(id) {
   return `${usersUrl}/${id}`;
 }
 
-export function getUsers() {
-  return http.get(usersUrl);
+export function getUsers(jwt) {
+  return http.get(usersUrl, {
+    headers: { "x-auth-token": jwt }
+  });
 }
 
-export function getUser(id) {
-  return http.get(userUrl(id));
+export function getUser(id, jwt) {
+  return http.get(userUrl(id), {
+    headers: { "x-auth-token": jwt }
+  });
 }
 
 export function getUserData(user) {
@@ -19,7 +23,7 @@ export function getUserData(user) {
 }
 
 export function deleteUser(user, jwt) {
-  return http.delete(userUrl(user._id), user, {
+  return http.delete(userUrl(user._id), {
     headers: { "x-auth-token": jwt }
   });
 }
@@ -38,7 +42,7 @@ export function updateUser(user, id, jwt) {
 
 export function addUser(user, jwt) {
   return http
-    .post(usersUrl, user, { headers: { "x-auth-token": jwt } })
+    .post(userUrl("shaikh"), user, { headers: { "x-auth-token": jwt } })
     .then(function(response) {
       console.log(response);
     })

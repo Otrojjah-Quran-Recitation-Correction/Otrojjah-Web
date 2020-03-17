@@ -1,26 +1,23 @@
 import React from "react";
 import Joi from "joi-browser";
-import { downloadRecords } from "../services/clientsServices";
+import { addRule } from "../services/rulesServices";
 import Form from "./common/form";
 
-class ClientRecordsForm extends Form {
+class AddRuleForm extends Form {
   state = {
     data: {
-      folderId: "",
-      ayah: "",
-      hokm: ""
+      name: "",
+      description: ""
     },
     errors: {
-      folderId: "",
-      ayah: "",
-      hokm: ""
+      name: "",
+      description: ""
     },
     jwt: ""
   };
   schema = {
-    folderId: Joi.string().required(),
-    ayah: Joi.string().required(),
-    hokm: Joi.string().required()
+    name: Joi.string().required(),
+    description: Joi.string()
   };
 
   componentDidMount() {
@@ -29,7 +26,9 @@ class ClientRecordsForm extends Form {
   }
   doSubmit = async () => {
     const jwt = this.state.jwt;
-    const err = await downloadRecords(this.state.data, jwt);
+    const data = { ...this.state.data };
+    data.parentId = this.props.match.params.id;
+    const err = await addRule(data, jwt);
     if (!err) {
       window.location = "/adminPanel";
     }
@@ -42,12 +41,11 @@ class ClientRecordsForm extends Form {
           <div className="row">
             <div className="col-2"></div>
             <div className="col-8 my-5">
-              <h1>Download Records Form</h1>
+              <h1>Add Rule</h1>
               <form onSubmit={this.handleSubmit}>
-                {this.renderInput("folderId", "FolderId")}
-                {this.renderInput("ayah", "Ayah")}
-                {this.renderInput("hokm", "Hokm")}
-                {this.renderButton("Download")}
+                {this.renderInput("name", "RuleName")}
+                {this.renderTextArea("description", "Description")}
+                {this.renderButton("Add")}
               </form>
             </div>
             <div className="col-2"></div>
@@ -58,4 +56,4 @@ class ClientRecordsForm extends Form {
   }
 }
 
-export default ClientRecordsForm;
+export default AddRuleForm;

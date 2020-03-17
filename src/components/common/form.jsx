@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import Joi from "joi-browser";
 import Input from "./input";
 import Select from "./select";
+import TextArea from "./textArea";
 
 class Form extends Component {
   state = {
     data: {},
-    errors: {}
+    errors: {},
+    shaikhName: ""
   };
 
   validate = () => {
@@ -43,12 +45,13 @@ class Form extends Component {
     else delete errors[input.name];
 
     const data = { ...this.state.data };
+    let shaikhName = "";
     data[input.name] = input.value;
-    if (data["link"]) {
-      data["link"] = "";
+    if (data["label"]) {
+      shaikhName = data["label"];
     }
 
-    this.setState({ data, errors });
+    this.setState({ data, errors, shaikhName });
   };
 
   renderButton(label) {
@@ -79,6 +82,21 @@ class Form extends Component {
 
     return (
       <Input
+        type={type}
+        name={name}
+        value={data[name]}
+        label={label}
+        onChange={this.handleChange}
+        error={errors[name]}
+      />
+    );
+  }
+
+  renderTextArea(name, label, type = "text") {
+    const { data, errors } = this.state;
+
+    return (
+      <TextArea
         type={type}
         name={name}
         value={data[name]}

@@ -45,8 +45,8 @@ class EditUserForm extends Form {
   };
 
   async componentDidMount() {
-    const { data } = await getUser(this.props.match.params.id);
     const jwt = localStorage.getItem("token");
+    const { data } = await getUser(this.props.match.params.id, jwt);
     const newUser = {
       name: data.name,
       email: data.email,
@@ -59,7 +59,7 @@ class EditUserForm extends Form {
 
   doSubmit = async () => {
     const user = { ...this.state.data };
-    const jwt = this.state.jwt;
+    const jwt = localStorage.getItem("token");
     const err = await updateUser(user, this.props.match.params.id, jwt);
     if (!err) {
       this.props.history.push("/adminPanel");

@@ -2,23 +2,19 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Table from "./common/table";
 
-class ShaikhTable extends Component {
+class VersesTable extends Component {
   columns = [
     {
-      label: "record",
+      label: "name",
       content: item => (
-        <audio controls>
-          <source src={item.link} type="audio/wav" />
-        </audio>
+        <a href={`/showClientRecords/${item._id}`}> {item.name}</a>
       )
     },
-    { label: "shaikhName" },
-    { label: "ayah" },
-    { label: "hokm" },
+    { label: "surah" },
     {
       label: "edit",
       content: item => (
-        <Link to={`/editShaikhRecord/${item._id}`}>
+        <Link to={`/editVerse/${item._id}`}>
           <button className="btn btn-info btn-sm">Edit</button>
         </Link>
       )
@@ -37,9 +33,9 @@ class ShaikhTable extends Component {
   ];
 
   render() {
-    const { shaikhRecords } = this.props;
-    return <Table columns={this.columns} data={shaikhRecords} />;
+    const { verses } = this.props;
+    return <Table columns={this.columns} data={verses} />;
   }
 }
 
-export default ShaikhTable;
+export default VersesTable;

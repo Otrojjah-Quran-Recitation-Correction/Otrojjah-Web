@@ -1,18 +1,20 @@
 import React, { Component } from "react";
-import Client from "./client";
 import User from "./user";
-import Shaikh from "./shaikh";
+import Rule from "./rule";
+import { getRoot } from "../services/rulesServices";
 
 class AdminPanel extends Component {
-  state = { jwt: "" };
+  state = { jwt: "", ruleId: "" };
 
-  componentDidMount() {
+  async componentDidMount() {
+    const { data: root } = await getRoot();
     const jwt = localStorage.getItem("token");
-    this.setState({ jwt });
+    const ruleId = root[0]._id;
+    this.setState({ jwt, ruleId });
   }
 
   render() {
-    const { jwt } = this.state;
+    const { jwt, ruleId } = this.state;
     return (
       <React.Fragment>
         <div className="my-4 mx-5">
@@ -36,28 +38,17 @@ class AdminPanel extends Component {
                   aria-controls="v-pills-users"
                   aria-selected="true"
                 >
-                  users
+                  Users
                 </a>
                 <a
                   className="nav-link my-2"
-                  id="v-pills-clients-tab"
-                  data-toggle="pill"
-                  href="#v-pills-clients"
-                  role="tab"
-                  aria-controls="v-pills-clients"
-                  aria-selected="false"
-                >
-                  Clients
-                </a>
-                <a
-                  className="nav-link my-2"
-                  id="v-pills-shaikh-tab"
+                  id="v-pills-rules-tab"
                   data-toggle="pill"
                   role="tab"
-                  aria-controls="v-pills-shaikh"
-                  href="#v-pills-shaikh"
+                  aria-controls="v-pills-rules"
+                  href="#v-pills-rules"
                 >
-                  Shaikh
+                  Rules
                 </a>
               </div>
             </div>
@@ -75,22 +66,12 @@ class AdminPanel extends Component {
                 </div>
                 <div
                   className="tab-pane fade"
-                  id="v-pills-clients"
+                  id="v-pills-rules"
                   role="tabpanel"
-                  aria-labelledby="v-pills-clients-tab"
+                  aria-labelledby="v-pills-rules-tab"
                 >
                   <div className="container">
-                    <Client jwt={jwt}></Client>
-                  </div>
-                </div>
-                <div
-                  className="tab-pane fade"
-                  id="v-pills-shaikh"
-                  role="tabpanel"
-                  aria-labelledby="v-pills-shaikh-tab"
-                >
-                  <div className="container">
-                    <Shaikh jwt={jwt}></Shaikh>
+                    <Rule ruleId={ruleId} jwt={jwt}></Rule>
                   </div>
                 </div>
               </div>

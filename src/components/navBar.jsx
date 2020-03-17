@@ -1,10 +1,18 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { getRules } from "../services/rulesServices";
 
 class NavBar extends Component {
-  state = {};
+  state = { rules: [] };
+
+  async componentDidUpdate(prevProps, prevState) {
+    const root = this.props.root;
+    const { data: rules } = await getRules(root[0]._id);
+    this.setState({ rules });
+  }
+
   render() {
     const { userRole } = this.props;
+    const { rules } = this.state;
     return (
       <nav className="navBar navbar navbar-expand-lg navbar-dark  fixed-top mb-5 ltr">
         <a className="navbar-brand ml-2" href="/">
@@ -15,6 +23,7 @@ class NavBar extends Component {
             onClick={this.props.handleLogOut}
             style={{ cursor: "pointer" }}
             className="navbar-brand "
+            href=""
           >
             تسجيل الخروج <span className="sr-only">(current)</span>
           </a>
@@ -61,30 +70,15 @@ class NavBar extends Component {
                 className="dropdown-menu a7kam-menu"
                 aria-labelledby="navbarDropdown"
               >
-                <a
-                  className="dropdown-item text-right a7kam-item"
-                  href="/احكام"
-                >
-                  الإظهار
-                </a>
-                <a
-                  className="dropdown-item text-right a7kam-item"
-                  href="/احكام"
-                >
-                  الإدغام
-                </a>
-                <a
-                  className="dropdown-item text-right a7kam-item"
-                  href="/احكام"
-                >
-                  الإقلاب
-                </a>
-                <a
-                  className="dropdown-item text-right a7kam-item"
-                  href="/احكام"
-                >
-                  الإخفاء
-                </a>
+                {rules.map(rule => (
+                  <a
+                    key={rule._id}
+                    className="dropdown-item text-right a7kam-item"
+                    href={`/احكام/${rule._id}`}
+                  >
+                    {rule.name}
+                  </a>
+                ))}
               </div>
             </li>
             <li className="nav-item">
