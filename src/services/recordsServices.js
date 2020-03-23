@@ -19,6 +19,11 @@ export function getRecord(id, jwt) {
   return http.get(recordQuery(Id), { headers: { "x-auth-token": jwt } });
 }
 
+export function getRandomRecord(type, jwt) {
+  const recordType = `random/${type}`;
+  return http.get(recordUrl(recordType), { headers: { "x-auth-token": jwt } });
+}
+
 export function deleteRecord(record, jwt) {
   return http.delete(recordUrl(record._id), record, {
     headers: { "x-auth-token": jwt }

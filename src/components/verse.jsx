@@ -8,10 +8,12 @@ class Verse extends Component {
     verses: []
   };
 
-  async componentDidUpdate() {
+  async componentDidUpdate(prevProps, prevState) {
     const ruleId = this.props.ruleId;
-    const { data: verses } = await getVerses(ruleId);
-    this.setState({ verses });
+    if (!prevState.verses[0]) {
+      const { data: verses } = await getVerses(ruleId);
+      this.setState({ verses });
+    }
   }
 
   handleDelete = async verse => {

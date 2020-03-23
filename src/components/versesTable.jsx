@@ -6,9 +6,7 @@ class VersesTable extends Component {
   columns = [
     {
       label: "name",
-      content: item => (
-        <a href={`/showClientRecords/${item._id}`}> {item.name}</a>
-      )
+      content: item => <a href={`/showRecords/${item._id}`}> {item.name}</a>
     },
     { label: "surah" },
     {

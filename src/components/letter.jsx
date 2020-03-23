@@ -8,10 +8,12 @@ class Letter extends Component {
     letters: []
   };
 
-  async componentDidUpdate() {
+  async componentDidUpdate(prevProps, prevState) {
     const ruleId = this.props.ruleId;
-    const { data: letters } = await getRules(ruleId);
-    this.setState({ letters });
+    if (!prevState.letters[0]) {
+      const { data: letters } = await getRules(ruleId);
+      this.setState({ letters });
+    }
   }
 
   render() {

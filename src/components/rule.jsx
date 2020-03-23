@@ -9,10 +9,12 @@ class Rule extends Component {
     ruleId: ""
   };
 
-  async componentDidUpdate() {
+  async componentDidUpdate(prevProps, prevState) {
     const ruleId = this.props.ruleId;
-    const { data: rules } = await getRules(ruleId);
-    this.setState({ rules, ruleId });
+    if (!prevState.rules[0]) {
+      const { data: rules } = await getRules(ruleId);
+      this.setState({ rules, ruleId });
+    }
   }
 
   render() {

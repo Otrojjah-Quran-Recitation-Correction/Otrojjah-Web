@@ -1,33 +1,33 @@
 import React, { Component } from "react";
 import Table from "./common/table";
-import { getRecord } from "../services/recordsServices";
+import { getUser } from "../services/usersServices";
 
 class RecordLabelTable extends Component {
   state = {
-    name: "",
-    l: []
+    shaikhLabels: []
   };
 
   async componentDidUpdate(prevProps, prevState) {
     const { labels } = this.props;
-    let l = [];
     const jwt = localStorage.getItem("token");
-    for (let i = 0; i < labels.length; i++) {
-      const { data } = await getRecord(labels[i].shaikhId, jwt);
-      l.push(data[0]);
-      this.setState({ l });
-    }
-    if (prevState.l !== this.state.l) {
-      console.log(l[0]["name"]);
-      this.setState({ l });
+    if (prevProps.labels[0]) {
+      let shaikhLabels = [];
+      for (let i = 0; i < labels.length; i++) {
+        const { data } = await getUser(labels[i].shaikhId, jwt);
+        let temp = {};
+        temp._id = labels[i]._id;
+        temp.name = data.name;
+        temp.label = labels[i].label;
+        shaikhLabels.push(temp);
+      }
+      this.setState({ shaikhLabels });
     }
   }
+
   columns = [
     {
       label: "shaikName",
-      content: item => (
-        <div>{this.state.l[0] && <p>{this.state.l[0].name}</p>}</div>
-      )
+      content: item => <p>{item.name}</p>
     },
     {
       label: "label",
@@ -41,10 +41,10 @@ class RecordLabelTable extends Component {
   ];
 
   render() {
-    const { labels } = this.props;
+    const { shaikhLabels } = this.state;
     return (
       <div>
-        <Table columns={this.columns} data={labels} />
+        <Table columns={this.columns} data={shaikhLabels} />
       </div>
     );
   }

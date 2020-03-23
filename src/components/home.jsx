@@ -1,16 +1,21 @@
 import React, { Component } from "react";
 import Mic from "./mic";
+import { getRandomRecord } from "../services/recordsServices";
 
 class Home extends Component {
   state = {
-    records: [],
-    record: { verseId: "5e6d3c353fac71001710ec3c", filePath: "" }
+    record: {},
+    jwt: ""
   };
 
-  async componentDidMount() {}
+  async componentDidMount() {
+    const jwt = localStorage.getItem("token");
+    const { data: record } = await getRandomRecord("shaikh", jwt);
+    this.setState({ jwt, record });
+  }
 
   render() {
-    const { verseId, filePath } = this.state.record;
+    const { fileURL, name, verseId } = this.state.record;
     return (
       <React.Fragment>
         <div className="py-5"></div>
@@ -22,7 +27,12 @@ class Home extends Component {
                 <h3>حكم:</h3>
                 <h3>اية :</h3>
               </div>
-              <audio className="Audio" src={filePath} controls></audio>
+              <audio
+                title={name}
+                className="Audio"
+                src={fileURL}
+                controls
+              ></audio>
               <Mic verseId={verseId}></Mic>
             </div>
             <div className="col-2"></div>

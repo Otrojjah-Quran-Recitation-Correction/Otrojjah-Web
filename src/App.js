@@ -35,7 +35,7 @@ class App extends Component {
       const user = jwt_decode(jwt);
       const userRole = user.isShaikh ? "shaikh" : "admin";
       const { data: root } = await getRoot();
-      this.setState({ jwt, userRole, user, root });
+      this.setState({ jwt, userRole, root });
     } catch (ex) {}
   }
 
@@ -95,7 +95,7 @@ class App extends Component {
             component={ShowVerses}
           ></ProtectedRoute>
           <ProtectedRoute
-            path="/showClientRecords/:id"
+            path="/showRecords/:id"
             component={ShowRecords}
           ></ProtectedRoute>
           <ProtectedRoute
@@ -108,7 +108,6 @@ class App extends Component {
           <Route path="/احكام" component={Rules}></Route>
           <Route path="/not-found" component={NotFound} />
           <Route exact path="/" component={Home}></Route>
-          <Redirect to="/not-found"></Redirect>
         </Switch>
       </React.Fragment>
     );

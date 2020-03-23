@@ -5,7 +5,7 @@ class RecordTable extends Component {
   labeled = [
     {
       label: "record",
-      content: item => <audio controls src={item.filePath}></audio>
+      content: item => <audio controls src={item.fileURL}></audio>
     },
     {
       label: "name"
@@ -19,7 +19,7 @@ class RecordTable extends Component {
   unLabeled = [
     {
       label: "record",
-      content: item => <audio controls src={item.filePath}></audio>
+      content: item => <audio controls src={item.fileURL}></audio>
     },
     {
       label: "name"
@@ -28,7 +28,7 @@ class RecordTable extends Component {
   shaikh = [
     {
       label: "record",
-      content: item => <audio controls src={item.filePath}></audio>
+      content: item => <audio controls src={item.fileURL}></audio>
     },
     { label: "ShaikhName", content: item => <p>{item.label}</p> }
   ];

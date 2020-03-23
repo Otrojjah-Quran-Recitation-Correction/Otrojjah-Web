@@ -1,21 +1,18 @@
 import React, { Component } from "react";
-import { getRecords, labelRecord } from "../services/recordsServices";
+import { getRandomRecord, labelRecord } from "../services/recordsServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 class Label extends Component {
   state = {
-    records: [],
     record: {},
     jwt: ""
   };
 
   async componentDidMount() {
     const jwt = localStorage.getItem("token");
-    const { data: records } = await getRecords("", jwt);
-    const randomNum = Math.floor(Math.random() * records.length);
-    const record = records[randomNum];
-    this.setState({ jwt, records, record });
+    const { data: record } = await getRandomRecord("client", jwt);
+    this.setState({ jwt, record });
   }
 
   handleLabel = async label => {
@@ -29,11 +26,11 @@ class Label extends Component {
   };
 
   render() {
-    const { filePath, name } = this.state.record;
+    const { fileURL, name } = this.state.record;
     return (
       <React.Fragment>
         <div className="container my-5 pt-5">
-          {this.state.record.filePath && (
+          {this.state.record.fileURL && (
             <div className="row  pt-5">
               <div className="col"></div>
               <div className="col label">
@@ -46,7 +43,7 @@ class Label extends Component {
                   className="Audio mt-3"
                   controls
                   style={{ display: "block" }}
-                  src={filePath}
+                  src={fileURL}
                 ></audio>
                 <div className="container my-2">
                   <div className="row">
@@ -67,7 +64,7 @@ class Label extends Component {
               <div className="col"></div>
             </div>
           )}
-          {!this.state.record.filePath && (
+          {!this.state.record.fileURL && (
             <h1 className="text-center py-5">
               لا يوجد تسجيلات الان ليتم تقييمها!
             </h1>

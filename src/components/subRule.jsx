@@ -8,10 +8,12 @@ class SubRule extends Component {
     subRules: []
   };
 
-  async componentDidUpdate() {
+  async componentDidUpdate(prevProps, prevState) {
     const ruleId = this.props.ruleId;
-    const { data: subRules } = await getRules(ruleId);
-    this.setState({ subRules });
+    if (!prevState.subRules[0]) {
+      const { data: subRules } = await getRules(ruleId);
+      this.setState({ subRules });
+    }
   }
 
   render() {

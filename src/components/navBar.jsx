@@ -6,8 +6,10 @@ class NavBar extends Component {
 
   async componentDidUpdate(prevProps, prevState) {
     const root = this.props.root;
-    const { data: rules } = await getRules(root[0]._id);
-    this.setState({ rules });
+    if (!prevState.rules[0]) {
+      const { data: rules } = await getRules(root[0]._id);
+      this.setState({ rules });
+    }
   }
 
   render() {
@@ -23,7 +25,7 @@ class NavBar extends Component {
             onClick={this.props.handleLogOut}
             style={{ cursor: "pointer" }}
             className="navbar-brand "
-            href=""
+            href="/"
           >
             تسجيل الخروج <span className="sr-only">(current)</span>
           </a>
