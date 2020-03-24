@@ -38,6 +38,7 @@ export function labelRecord(label, id, jwt) {
       console.log(response);
     })
     .catch(function(error) {
+      console.log(error.response.data);
       alert(error.response.data);
       return error.response.data;
     });

@@ -6,7 +6,8 @@ import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 class Label extends Component {
   state = {
     record: {},
-    jwt: ""
+    jwt: "",
+    labelAlert: ""
   };
 
   async componentDidMount() {
@@ -15,8 +16,19 @@ class Label extends Component {
     this.setState({ jwt, record });
   }
 
+  handleAlert = label => {
+    const labelAlert = label;
+    this.setState({ labelAlert });
+  };
+
+  handleClose = () => {
+    const labelAlert = "";
+    this.setState({ labelAlert });
+  };
+
   handleLabel = async label => {
     const record = { ...this.state.record };
+    console.log(label);
     const jwt = localStorage.getItem("token");
     const recordLabel = { label: label };
     const err = await labelRecord(recordLabel, record._id, jwt);
@@ -29,9 +41,53 @@ class Label extends Component {
     const { fileURL, name } = this.state.record;
     return (
       <React.Fragment>
-        <div className="container my-5 pt-5">
+        {this.state.labelAlert && (
+          <div
+            aria-live="polite"
+            aria-atomic="true"
+            className="d-flex justify-content-center align-items-center labelhead"
+            style={{ minHeight: 200 + "px" }}
+          >
+            <div
+              className="toast labelalert"
+              role="alert"
+              aria-live="assertive"
+              aria-atomic="true"
+            >
+              <div className="toast-header">
+                <button
+                  type="button"
+                  className="ml-2 mb-1 close"
+                  data-dismiss="toast"
+                  aria-label="Close"
+                  onClick={() => this.handleClose()}
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h6 className="m-auto">هل انت متأكد من هذا الأختيار؟</h6>
+              </div>
+              <div className="toast-body">
+                <button
+                  style={{ width: 50 + "px" }}
+                  className="mx-1 btn btn-success"
+                  onClick={() => this.handleLabel(this.state.labelAlert)}
+                >
+                  نعم
+                </button>
+                <button
+                  style={{ width: 50 + "px" }}
+                  className="mx-1 btn btn-danger"
+                  onClick={() => this.handleClose()}
+                >
+                  لا
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+        <div className="container  pt-5">
           {this.state.record.fileURL && (
-            <div className="row  pt-5">
+            <div className="row pt-5">
               <div className="col"></div>
               <div className="col label">
                 <div className="text-center mb-5">
@@ -49,13 +105,13 @@ class Label extends Component {
                   <div className="row">
                     <FontAwesomeIcon
                       className="labelicon ml-1 btn btn-success col"
-                      onClick={() => this.handleLabel("true")}
+                      onClick={() => this.handleAlert("true")}
                       icon={faCheck}
                     />
 
                     <FontAwesomeIcon
                       className="labelicon mr-1 btn btn-danger col"
-                      onClick={() => this.handleLabel("false")}
+                      onClick={() => this.handleAlert("false")}
                       icon={faTimes}
                     />
                   </div>
