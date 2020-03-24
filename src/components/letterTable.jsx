@@ -5,10 +5,12 @@ import Table from "./common/table";
 class LetterTable extends Component {
   columns = [
     {
+      path: "name",
       label: "name",
       content: item => <a href={`/showVerses/${item._id}`}> {item.name}</a>
     },
     {
+      key: "edit",
       label: "edit",
       content: item => (
         <Link to={`/editRule/${item._id}`}>
@@ -19,8 +21,15 @@ class LetterTable extends Component {
   ];
 
   render() {
-    const { letters } = this.props;
-    return <Table columns={this.columns} data={letters} />;
+    const { letters, onSort, sortColumn } = this.props;
+    return (
+      <Table
+        sortColumn={sortColumn}
+        onSort={onSort}
+        columns={this.columns}
+        data={letters}
+      />
+    );
   }
 }
 

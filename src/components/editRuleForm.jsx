@@ -39,7 +39,7 @@ class AddRuleForm extends Form {
     console.log(data);
     const err = await updateRule(data, this.props.match.params.id, jwt);
     if (!err) {
-      window.location = "/adminPanel";
+      this.props.history.goBack();
     }
   };
 

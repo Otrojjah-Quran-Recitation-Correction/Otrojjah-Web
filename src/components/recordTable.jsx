@@ -4,13 +4,16 @@ import Table from "./common/table";
 class RecordTable extends Component {
   labeled = [
     {
+      key: "record",
       label: "record",
       content: item => <audio controls src={item.fileURL}></audio>
     },
     {
+      path: "name",
       label: "name"
     },
     {
+      key: "labelBy",
       label: "labeledBy",
       content: item => <a href={`/showRecordLabel/${item._id}`}> LabeledBy</a>
     }
@@ -18,30 +21,52 @@ class RecordTable extends Component {
 
   unLabeled = [
     {
+      key: "record",
       label: "record",
       content: item => <audio controls src={item.fileURL}></audio>
     },
     {
+      path: "name",
       label: "name"
     }
   ];
   shaikh = [
     {
+      key: "record",
       label: "record",
       content: item => <audio controls src={item.fileURL}></audio>
     },
-    { label: "ShaikhName", content: item => <p>{item.label}</p> }
+    { path: "label", label: "ShaikhName", content: item => <p>{item.label}</p> }
   ];
 
   render() {
-    const { records, view } = this.props;
+    const { records, view, onSort, sortColumn } = this.props;
     return (
       <div>
-        {view === "labeled" && <Table columns={this.labeled} data={records} />}
-        {view === "unLabeled" && (
-          <Table columns={this.unLabeled} data={records} />
+        {view === "labeled" && (
+          <Table
+            sortColumn={sortColumn}
+            onSort={onSort}
+            columns={this.labeled}
+            data={records}
+          />
         )}
-        {view === "shaikh" && <Table columns={this.shaikh} data={records} />}
+        {view === "unLabeled" && (
+          <Table
+            sortColumn={sortColumn}
+            onSort={onSort}
+            columns={this.unLabeled}
+            data={records}
+          />
+        )}
+        {view === "shaikh" && (
+          <Table
+            sortColumn={sortColumn}
+            onSort={onSort}
+            columns={this.shaikh}
+            data={records}
+          />
+        )}
       </div>
     );
   }

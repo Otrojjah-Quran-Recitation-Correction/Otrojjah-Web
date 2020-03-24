@@ -26,10 +26,12 @@ class RecordLabelTable extends Component {
 
   columns = [
     {
+      paht: "name",
       label: "shaikName",
       content: item => <p>{item.name}</p>
     },
     {
+      path: "label",
       label: "label",
       content: item => (
         <div>
@@ -42,9 +44,15 @@ class RecordLabelTable extends Component {
 
   render() {
     const { shaikhLabels } = this.state;
+    const { onSort, sortColumn } = this.props;
     return (
       <div>
-        <Table columns={this.columns} data={shaikhLabels} />
+        <Table
+          sortColumn={sortColumn}
+          onSort={onSort}
+          columns={this.columns}
+          data={shaikhLabels}
+        />
       </div>
     );
   }

@@ -3,13 +3,15 @@ import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
 import RecordLabelTable from "./recordLabelTable";
 import { getRecord } from "../services/recordsServices";
+import _ from "lodash";
 
 class RecordLabel extends Component {
   state = {
     record: {},
     labels: [],
     currentPage: 1,
-    pageSize: 4
+    pageSize: 4,
+    sortColumn: { path: "name", order: "asc" }
   };
 
   async componentDidUpdate() {
@@ -20,23 +22,32 @@ class RecordLabel extends Component {
     this.setState({ record, labels });
   }
 
+  handleSort = sortColumn => {
+    this.setState({ sortColumn });
+  };
+
   handlePageChange = page => {
     this.setState({ currentPage: page });
   };
 
   getPagedData = () => {
-    const { labels: data, currentPage, pageSize } = this.state;
-    const labels = paginate(data, currentPage, pageSize);
+    const { labels: data, currentPage, pageSize, sortColumn } = this.state;
+    const sorted = _.orderBy(data, [sortColumn.path], [sortColumn.order]);
+    const labels = paginate(sorted, currentPage, pageSize);
     return { totalCount: data.length, data: labels };
   };
 
   render() {
-    const { pageSize, currentPage } = this.state;
+    const { pageSize, currentPage, sortColumn } = this.state;
 
     const { totalCount, data: labels } = this.getPagedData();
     return (
       <div>
-        <RecordLabelTable labels={labels}></RecordLabelTable>
+        <RecordLabelTable
+          sortColumn={sortColumn}
+          onSort={this.handleSort}
+          labels={labels}
+        ></RecordLabelTable>
         <Pagination
           itemsCount={totalCount}
           pageSize={pageSize}

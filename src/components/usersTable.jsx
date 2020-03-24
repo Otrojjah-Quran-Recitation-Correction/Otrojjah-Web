@@ -4,10 +4,11 @@ import Table from "./common/table";
 
 class UsersTable extends Component {
   columns = [
-    { label: "name" },
-    { label: "email" },
-    { label: "phoneNumber" },
+    { path: "name", label: "name" },
+    { path: "email", label: "email" },
+    { path: "phoneNumber", label: "phoneNumber" },
     {
+      key: "edit",
       label: "edit",
       content: item => (
         <Link to={`/editUser/${item._id}`}>
@@ -16,6 +17,7 @@ class UsersTable extends Component {
       )
     },
     {
+      key: "delete",
       label: "delete",
       content: item => (
         <button
@@ -29,8 +31,15 @@ class UsersTable extends Component {
   ];
 
   render() {
-    const { users } = this.props;
-    return <Table columns={this.columns} data={users} />;
+    const { users, onSort, sortColumn } = this.props;
+    return (
+      <Table
+        columns={this.columns}
+        data={users}
+        sortColumn={sortColumn}
+        onSort={onSort}
+      />
+    );
   }
 }
 

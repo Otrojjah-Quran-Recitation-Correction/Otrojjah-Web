@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import _ from "lodash";
 import Pagination from "./common/pagination";
 import UsersTable from "./usersTable";
 import SearchBox from "./common/searchBox";
@@ -12,7 +13,8 @@ class User extends Component {
     user: {},
     currentPage: 1,
     pageSize: 4,
-    searchQuery: ""
+    searchQuery: "",
+    sortColumn: { path: "name", order: "asc" }
   };
 
   async componentDidMount() {
@@ -32,14 +34,27 @@ class User extends Component {
     this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 });
   };
 
+  handleSort = sortColumn => {
+    this.setState({ sortColumn });
+  };
+
   getPagedData = () => {
-    const { users: data, currentPage, pageSize, searchQuery } = this.state;
+    const {
+      users: data,
+      currentPage,
+      pageSize,
+      searchQuery,
+      sortColumn
+    } = this.state;
+
     let filtered = data;
     if (searchQuery)
       filtered = data.filter(m =>
         m.name.toLowerCase().startsWith(searchQuery.toLowerCase())
       );
-    const users = paginate(filtered, currentPage, pageSize);
+
+    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+    const users = paginate(sorted, currentPage, pageSize);
     return { totalCount: filtered.length, data: users };
   };
 
@@ -51,7 +66,7 @@ class User extends Component {
   };
 
   render() {
-    const { pageSize, currentPage, searchQuery } = this.state;
+    const { pageSize, currentPage, searchQuery, sortColumn } = this.state;
 
     const { totalCount, data: users } = this.getPagedData();
 
@@ -62,7 +77,12 @@ class User extends Component {
           <button className="my-2 btn btn-warning">Add User</button>
         </Link>
         <SearchBox value={searchQuery} onChange={this.handleSearch} />
-        <UsersTable users={users} handleDelete={this.handleDelete}></UsersTable>
+        <UsersTable
+          sortColumn={sortColumn}
+          onSort={this.handleSort}
+          users={users}
+          handleDelete={this.handleDelete}
+        ></UsersTable>
         <Pagination
           itemsCount={totalCount}
           pageSize={pageSize}

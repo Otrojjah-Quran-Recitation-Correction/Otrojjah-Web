@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import LetterTable from "./letterTable";
 import { getRules } from "../services/rulesServices";
+import _ from "lodash";
 
 class Letter extends Component {
   state = {
-    letters: []
+    letters: [],
+    sortColumn: { path: "name", order: "asc" }
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -16,13 +18,29 @@ class Letter extends Component {
     }
   }
 
+  handleSort = sortColumn => {
+    this.setState({ sortColumn });
+  };
+
+  getSortedData = () => {
+    const { letters: data, sortColumn } = this.state;
+    const sorted = _.orderBy(data, [sortColumn.path], [sortColumn.order]);
+    return { data: sorted };
+  };
+
   render() {
+    const { sortColumn } = this.state;
+    const { data: letters } = this.getSortedData();
     return (
       <div>
         <Link to={`/addRule/${this.props.ruleId}`}>
           <button className="my-2 btn btn-warning">Add Rule</button>
         </Link>
-        <LetterTable letters={this.state.letters}></LetterTable>
+        <LetterTable
+          sortColumn={sortColumn}
+          onSort={this.handleSort}
+          letters={letters}
+        ></LetterTable>
       </div>
     );
   }

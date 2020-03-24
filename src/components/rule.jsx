@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import RuleTable from "./ruleTable";
 import { getRules } from "../services/rulesServices";
+import _ from "lodash";
 
 class Rule extends Component {
   state = {
     rules: [],
-    ruleId: ""
+    ruleId: "",
+    sortColumn: { path: "name", order: "asc" }
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -17,13 +19,29 @@ class Rule extends Component {
     }
   }
 
+  handleSort = sortColumn => {
+    this.setState({ sortColumn });
+  };
+
+  getSortedData = () => {
+    const { rules: data, sortColumn } = this.state;
+    const sorted = _.orderBy(data, [sortColumn.path], [sortColumn.order]);
+    return { data: sorted };
+  };
+
   render() {
+    const { sortColumn } = this.state;
+    const { data: rules } = this.getSortedData();
     return (
       <div>
         <Link to={`/addRule/${this.state.ruleId}`}>
           <button className="my-2 btn btn-warning">Add Rule</button>
         </Link>
-        <RuleTable rules={this.state.rules}></RuleTable>
+        <RuleTable
+          sortColumn={sortColumn}
+          onSort={this.handleSort}
+          rules={rules}
+        ></RuleTable>
       </div>
     );
   }

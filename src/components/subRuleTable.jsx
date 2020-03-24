@@ -5,10 +5,12 @@ import Table from "./common/table";
 class SubRuleTable extends Component {
   columns = [
     {
+      path: "name",
       label: "name",
       content: item => <a href={`/showLetters/${item._id}`}> {item.name}</a>
     },
     {
+      key: "edit",
       label: "edit",
       content: item => (
         <Link to={`/editRule/${item._id}`}>
@@ -19,8 +21,15 @@ class SubRuleTable extends Component {
   ];
 
   render() {
-    const { subRules } = this.props;
-    return <Table columns={this.columns} data={subRules} />;
+    const { subRules, onSort, sortColumn } = this.props;
+    return (
+      <Table
+        sortColumn={sortColumn}
+        onSort={onSort}
+        columns={this.columns}
+        data={subRules}
+      />
+    );
   }
 }
 

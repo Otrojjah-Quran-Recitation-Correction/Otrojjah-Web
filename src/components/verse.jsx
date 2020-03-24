@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import VersesTable from "./versesTable";
 import { getVerses, deleteVerse } from "../services/versesServices";
+import _ from "lodash";
 
 class Verse extends Component {
   state = {
-    verses: []
+    verses: [],
+    sortColumn: { path: "name", order: "asc" }
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -16,6 +18,16 @@ class Verse extends Component {
     }
   }
 
+  handleSort = sortColumn => {
+    this.setState({ sortColumn });
+  };
+
+  getSortedData = () => {
+    const { verses: data, sortColumn } = this.state;
+    const sorted = _.orderBy(data, [sortColumn.path], [sortColumn.order]);
+    return { data: sorted };
+  };
+
   handleDelete = async verse => {
     const verses = this.state.verses.filter(e => e._id !== verse._id);
     const jwt = this.props.jwt;
@@ -24,14 +36,18 @@ class Verse extends Component {
   };
 
   render() {
+    const { sortColumn } = this.state;
+    const { data: verses } = this.getSortedData();
     return (
       <div>
         <Link to={`/addVerse/${this.props.ruleId}`}>
           <button className="my-2 btn btn-warning">Add Verse</button>
         </Link>
         <VersesTable
+          sortColumn={sortColumn}
+          onSort={this.handleSort}
           handleDelete={this.handleDelete}
-          verses={this.state.verses}
+          verses={verses}
         ></VersesTable>
       </div>
     );

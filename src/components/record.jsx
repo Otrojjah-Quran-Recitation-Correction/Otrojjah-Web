@@ -4,13 +4,15 @@ import { paginate } from "../utils/paginate";
 import SearchBox from "./common/searchBox";
 import RecordTable from "./recordTable";
 import { getRecords } from "../services/recordsServices";
+import _ from "lodash";
 
 class Record extends Component {
   state = {
     records: [],
     currentPage: 1,
     pageSize: 4,
-    searchQuery: ""
+    searchQuery: "",
+    sortColumn: { path: "name", order: "asc" }
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -30,6 +32,10 @@ class Record extends Component {
     }
   }
 
+  handleSort = sortColumn => {
+    this.setState({ sortColumn });
+  };
+
   handleSearch = query => {
     this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 });
   };
@@ -42,18 +48,26 @@ class Record extends Component {
   };
 
   getPagedData = () => {
-    const { records: data, currentPage, pageSize, searchQuery } = this.state;
+    const {
+      records: data,
+      currentPage,
+      pageSize,
+      searchQuery,
+      sortColumn
+    } = this.state;
     let filtered = data;
     if (searchQuery)
       filtered = data.filter(m =>
         m.label.toLowerCase().startsWith(searchQuery.toLowerCase())
       );
-    const records = paginate(filtered, currentPage, pageSize);
+
+    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+    const records = paginate(sorted, currentPage, pageSize);
     return { totalCount: filtered.length, data: records };
   };
 
   render() {
-    const { pageSize, currentPage, searchQuery } = this.state;
+    const { pageSize, currentPage, searchQuery, sortColumn } = this.state;
 
     const { totalCount, data: records } = this.getPagedData();
     return (
@@ -61,7 +75,12 @@ class Record extends Component {
         {this.props.view && (
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
         )}
-        <RecordTable view={this.props.view} records={records}></RecordTable>
+        <RecordTable
+          sortColumn={sortColumn}
+          onSort={this.handleSort}
+          view={this.props.view}
+          records={records}
+        ></RecordTable>
         <Pagination
           itemsCount={totalCount}
           pageSize={pageSize}

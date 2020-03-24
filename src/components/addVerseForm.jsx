@@ -30,7 +30,7 @@ class AddVerseForm extends Form {
     data.ruleId = this.props.match.params.id;
     const err = await addVerse(data, jwt);
     if (!err) {
-      window.location = "/adminPanel";
+      this.props.history.goBack();
     }
   };
 

@@ -45,11 +45,11 @@ class App extends Component {
   };
 
   render() {
-    const { userRole } = this.state;
+    const { userRole, root } = this.state;
     return (
       <React.Fragment>
         <NavBar
-          root={this.state.root}
+          root={root}
           userRole={userRole}
           handleLogOut={this.handleLogOut}
         ></NavBar>

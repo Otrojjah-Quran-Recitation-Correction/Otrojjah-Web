@@ -24,13 +24,15 @@ class AddRuleForm extends Form {
     const jwt = localStorage.getItem("token");
     this.setState({ jwt });
   }
+
   doSubmit = async () => {
     const jwt = this.state.jwt;
     const data = { ...this.state.data };
     data.parentId = this.props.match.params.id;
+
     const err = await addRule(data, jwt);
     if (!err) {
-      window.location = "/adminPanel";
+      this.props.history.goBack();
     }
   };
 

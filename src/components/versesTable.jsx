@@ -5,11 +5,13 @@ import Table from "./common/table";
 class VersesTable extends Component {
   columns = [
     {
+      path: "name",
       label: "name",
       content: item => <a href={`/showRecords/${item._id}`}> {item.name}</a>
     },
-    { label: "surah" },
+    { path: "surah", label: "surah" },
     {
+      key: "edit",
       label: "edit",
       content: item => (
         <Link to={`/editVerse/${item._id}`}>
@@ -18,6 +20,7 @@ class VersesTable extends Component {
       )
     },
     {
+      key: "delete",
       label: "delete",
       content: item => (
         <button
@@ -31,8 +34,15 @@ class VersesTable extends Component {
   ];
 
   render() {
-    const { verses } = this.props;
-    return <Table columns={this.columns} data={verses} />;
+    const { verses, onSort, sortColumn } = this.props;
+    return (
+      <Table
+        sortColumn={sortColumn}
+        onSort={onSort}
+        columns={this.columns}
+        data={verses}
+      />
+    );
   }
 }
 

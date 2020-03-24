@@ -38,7 +38,7 @@ class EditVerseForm extends Form {
     data.ruleId = this.state.ruleId;
     const err = await updateVerse(data, this.props.match.params.id, jwt);
     if (!err) {
-      window.location = "/adminPanel";
+      this.props.history.goBack();
     }
   };
 

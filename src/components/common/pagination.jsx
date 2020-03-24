@@ -4,16 +4,15 @@ import _ from "lodash";
 
 const Pagination = ({ itemsCount, pageSize, currentPage, onPageChange }) => {
   const pagesCount = Math.ceil(itemsCount / pageSize);
-  let firstPage = currentPage;
-  let lastPage = currentPage + 3;
+  const numberOfPages = pagesCount === 2 ? 2 : 3;
+  let firstPage = 1;
+  let lastPage = firstPage + numberOfPages;
   if (pagesCount <= 1) return null;
-  else {
-    const numberOfPages = pagesCount === 2 ? 2 : 3;
-    console.log(numberOfPages);
-    if (lastPage >= pagesCount + 1) lastPage = pagesCount + 1;
-    if (lastPage - firstPage < numberOfPages)
-      firstPage = pagesCount - (numberOfPages - 1);
+  else if (currentPage >= 4) {
+    lastPage = currentPage + 1;
+    firstPage = lastPage - 3;
   }
+
   const pages = _.range(firstPage, lastPage);
 
   return (

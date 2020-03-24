@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import SubRuleTable from "./subRuleTable";
 import { getRules } from "../services/rulesServices";
+import _ from "lodash";
 
 class SubRule extends Component {
   state = {
-    subRules: []
+    subRules: [],
+    sortColumn: { path: "name", order: "asc" }
   };
 
   async componentDidUpdate(prevProps, prevState) {
@@ -16,13 +18,29 @@ class SubRule extends Component {
     }
   }
 
+  handleSort = sortColumn => {
+    this.setState({ sortColumn });
+  };
+
+  getSortedData = () => {
+    const { subRules: data, sortColumn } = this.state;
+    const sorted = _.orderBy(data, [sortColumn.path], [sortColumn.order]);
+    return { data: sorted };
+  };
+
   render() {
+    const { sortColumn } = this.state;
+    const { data: subRules } = this.getSortedData();
     return (
       <div>
         <Link to={`/addRule/${this.props.ruleId}`}>
           <button className="my-2 btn btn-warning">Add Rule</button>
         </Link>
-        <SubRuleTable subRules={this.state.subRules}></SubRuleTable>
+        <SubRuleTable
+          sortColumn={sortColumn}
+          onSort={this.handleSort}
+          subRules={subRules}
+        ></SubRuleTable>
       </div>
     );
   }
