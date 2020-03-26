@@ -71,6 +71,7 @@ class NavBar extends Component {
               <div
                 className="dropdown-menu a7kam-menu"
                 aria-labelledby="navbarDropdown"
+                style={{ minWidth: 15 + "rem" }}
               >
                 {rules.map(rule => (
                   <a
