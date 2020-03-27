@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Table from "./common/table";
+import Table from "../../common/table";
 
-class LetterTable extends Component {
+class SubRuleTable extends Component {
   columns = [
     {
       path: "name",
       label: "name",
-      content: item => <a href={`/showVerses/${item._id}`}> {item.name}</a>
+      content: item => <a href={`/showLetters/${item._id}`}> {item.name}</a>
     },
     {
       key: "edit",
@@ -21,16 +21,16 @@ class LetterTable extends Component {
   ];
 
   render() {
-    const { letters, onSort, sortColumn } = this.props;
+    const { subRules, onSort, sortColumn } = this.props;
     return (
       <Table
         sortColumn={sortColumn}
         onSort={onSort}
         columns={this.columns}
-        data={letters}
+        data={subRules}
       />
     );
   }
 }
 
-export default LetterTable;
+export default SubRuleTable;

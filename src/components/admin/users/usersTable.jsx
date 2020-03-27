@@ -1,20 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Table from "./common/table";
+import Table from "../../common/table";
 
-class VersesTable extends Component {
+class UsersTable extends Component {
   columns = [
-    {
-      path: "name",
-      label: "name",
-      content: item => <a href={`/showRecords/${item._id}`}> {item.name}</a>
-    },
-    { path: "surah", label: "surah" },
+    { path: "name", label: "name" },
+    { path: "email", label: "email" },
+    { path: "phoneNumber", label: "phoneNumber" },
     {
       key: "edit",
       label: "edit",
       content: item => (
-        <Link to={`/editVerse/${item._id}`}>
+        <Link to={`/editUser/${item._id}`}>
           <button className="btn btn-info btn-sm">Edit</button>
         </Link>
       )
@@ -34,16 +31,16 @@ class VersesTable extends Component {
   ];
 
   render() {
-    const { verses, onSort, sortColumn } = this.props;
+    const { users, onSort, sortColumn } = this.props;
     return (
       <Table
+        columns={this.columns}
+        data={users}
         sortColumn={sortColumn}
         onSort={onSort}
-        columns={this.columns}
-        data={verses}
       />
     );
   }
 }
 
-export default VersesTable;
+export default UsersTable;

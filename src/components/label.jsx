@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { getRandomRecord, labelRecord } from "../services/recordsServices";
+import { getVerse } from "../services/versesServices";
+import { getRule } from "../services/rulesServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -7,7 +9,10 @@ class Label extends Component {
   state = {
     record: {},
     jwt: "",
-    labelAlert: ""
+    labelAlert: "",
+    verse: {},
+    letter: {},
+    subRule: {}
   };
 
   async componentDidMount() {
@@ -15,6 +20,37 @@ class Label extends Component {
     const { data: record } = await getRandomRecord("client", jwt);
     this.setState({ jwt, record });
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { verse, letter, subRule } = this.state;
+    if (verse._id !== prevState.verse._id) {
+      this.setState({ verse });
+    }
+    if (letter._id !== prevState.letter._id) {
+      this.setState({ letter });
+    }
+    if (subRule._id !== prevState.subRule._id) {
+      this.setState({ subRule });
+    }
+  }
+
+  getVerse = async verseId => {
+    const { data } = await getVerse(verseId);
+    const verse = data[0];
+    if (verse._id !== this.state.verse._id) this.setState({ verse });
+  };
+
+  getLetter = async ruleId => {
+    const { data } = await getRule(ruleId);
+    const letter = data[0];
+    if (letter._id !== this.state.letter._id) this.setState({ letter });
+  };
+
+  getSubRule = async ruleId => {
+    const { data } = await getRule(ruleId);
+    const subRule = data[0];
+    if (subRule._id !== this.state.subRule._id) this.setState({ subRule });
+  };
 
   handleAlert = label => {
     const labelAlert = label;
@@ -38,7 +74,11 @@ class Label extends Component {
   };
 
   render() {
-    const { fileURL, name } = this.state.record;
+    const { fileURL, name, verseId } = this.state.record;
+    const { verse, letter, subRule } = this.state;
+    if (verseId) this.getVerse(verseId);
+    if (verse._id) this.getLetter(verse.ruleId);
+    if (letter._id) this.getSubRule(letter.parentId);
     return (
       <React.Fragment>
         {this.state.labelAlert && (
@@ -91,8 +131,10 @@ class Label extends Component {
               <div className="col"></div>
               <div className="col label">
                 <div className="text-center mb-5">
-                  <h5>الحكم:</h5>
-                  <h5>الاية:</h5>
+                  <h3>الحكم:{subRule.name}</h3>
+                  <h3>الحكم المفصل:{letter.name}</h3>
+                  <h3>اية :{verse.name}</h3>
+                  <h3>سورة :{verse.surah}</h3>
                 </div>
                 <audio
                   title={name}

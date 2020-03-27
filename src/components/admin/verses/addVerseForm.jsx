@@ -1,9 +1,9 @@
 import React from "react";
 import Joi from "joi-browser";
-import { updateVerse, getVerse } from "../services/versesServices";
-import Form from "./common/form";
+import { addVerse } from "../../../services/versesServices";
+import Form from "../../common/form";
 
-class EditVerseForm extends Form {
+class AddVerseForm extends Form {
   state = {
     data: {
       name: "",
@@ -13,30 +13,22 @@ class EditVerseForm extends Form {
       name: "",
       surah: ""
     },
-    jwt: "",
-    ruleId: ""
+    jwt: ""
   };
   schema = {
     name: Joi.string().required(),
     surah: Joi.string()
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     const jwt = localStorage.getItem("token");
-    const { data } = await getVerse(this.props.match.params.id);
-    const newVerse = {
-      name: data[0].name,
-      surah: data[0].surah
-    };
-    const ruleId = data[0].ruleId;
-    this.setState({ data: newVerse, jwt, ruleId });
+    this.setState({ jwt });
   }
-
   doSubmit = async () => {
     const jwt = this.state.jwt;
     const data = { ...this.state.data };
-    data.ruleId = this.state.ruleId;
-    const err = await updateVerse(data, this.props.match.params.id, jwt);
+    data.ruleId = this.props.match.params.id;
+    const err = await addVerse(data, jwt);
     if (!err) {
       this.props.history.goBack();
     }
@@ -49,11 +41,11 @@ class EditVerseForm extends Form {
           <div className="row">
             <div className="col-2"></div>
             <div className="col-8 my-5">
-              <h1>Edit Verse</h1>
+              <h1>Add Verse</h1>
               <form onSubmit={this.handleSubmit}>
                 {this.renderInput("name", "VerseName")}
                 {this.renderInput("surah", "Surah")}
-                {this.renderButton("Edit")}
+                {this.renderButton("Add")}
               </form>
             </div>
             <div className="col-2"></div>
@@ -64,4 +56,4 @@ class EditVerseForm extends Form {
   }
 }
 
-export default EditVerseForm;
+export default AddVerseForm;

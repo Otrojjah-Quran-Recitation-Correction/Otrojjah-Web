@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import VersesTable from "./versesTable";
-import { getVerses, deleteVerse } from "../services/versesServices";
+import { getVerses, deleteVerse } from "../../../services/versesServices";
 import _ from "lodash";
 
 class Verse extends Component {

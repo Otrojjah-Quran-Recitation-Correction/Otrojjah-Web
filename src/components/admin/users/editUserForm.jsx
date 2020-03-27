@@ -1,9 +1,9 @@
 import React from "react";
 import Joi from "joi-browser";
-import { addUser } from "../services/usersServices";
-import Form from "./common/form";
+import { updateUser, getUser } from "../../../services/usersServices";
+import Form from "../../common/form";
 
-class RegisterUserForm extends Form {
+class EditUserForm extends Form {
   state = {
     data: {
       name: "",
@@ -44,16 +44,25 @@ class RegisterUserForm extends Form {
     isShaikh: Joi.boolean()
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const jwt = localStorage.getItem("token");
-    this.setState({ jwt });
+    const { data } = await getUser(this.props.match.params.id, jwt);
+    const newUser = {
+      name: data.name,
+      email: data.email,
+      password: "",
+      phoneNumber: data.phoneNumber,
+      isShaikh: true
+    };
+    this.setState({ data: newUser, jwt });
   }
 
   doSubmit = async () => {
-    const jwt = this.state.jwt;
-    const err = await addUser(this.state.data, jwt);
+    const user = { ...this.state.data };
+    const jwt = localStorage.getItem("token");
+    const err = await updateUser(user, this.props.match.params.id, jwt);
     if (!err) {
-      window.location = "/adminPanel";
+      this.props.history.push("/adminPanel");
     }
   };
 
@@ -64,13 +73,13 @@ class RegisterUserForm extends Form {
           <div className="row">
             <div className="col-2"></div>
             <div className="col-8 my-5">
-              <h1>Regiseration Form</h1>
+              <h1>Edit Form</h1>
               <form onSubmit={this.handleSubmit}>
                 {this.renderInput("name", "Name")}
                 {this.renderInput("email", "Email", "email")}
-                {this.renderInput("password", "Password", "password")}
+                {this.renderInput("password", "Password")}
                 {this.renderInput("phoneNumber", "PhoneNumber", "number")}
-                {this.renderButton("Add")}
+                {this.renderButton("Edit")}
               </form>
             </div>
             <div className="col-2"></div>
@@ -81,4 +90,4 @@ class RegisterUserForm extends Form {
   }
 }
 
-export default RegisterUserForm;
+export default EditUserForm;

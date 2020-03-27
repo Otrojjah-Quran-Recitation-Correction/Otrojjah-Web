@@ -1,7 +1,7 @@
 import React from "react";
 import Joi from "joi-browser";
-import { addRule } from "../services/rulesServices";
-import Form from "./common/form";
+import { updateRule, getRule } from "../../../services/rulesServices";
+import Form from "../../common/form";
 
 class AddRuleForm extends Form {
   state = {
@@ -13,24 +13,31 @@ class AddRuleForm extends Form {
       name: "",
       description: ""
     },
-    jwt: ""
+    jwt: "",
+    parentId: ""
   };
   schema = {
     name: Joi.string().required(),
     description: Joi.string()
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const jwt = localStorage.getItem("token");
-    this.setState({ jwt });
+    const { data } = await getRule(this.props.match.params.id);
+    const newRule = {
+      name: data[0].name,
+      description: data[0].description
+    };
+    const parentId = data[0].parentId;
+    this.setState({ data: newRule, jwt, parentId });
   }
 
   doSubmit = async () => {
     const jwt = this.state.jwt;
     const data = { ...this.state.data };
-    data.parentId = this.props.match.params.id;
-
-    const err = await addRule(data, jwt);
+    data.parentId = this.state.parentId;
+    console.log(data);
+    const err = await updateRule(data, this.props.match.params.id, jwt);
     if (!err) {
       this.props.history.goBack();
     }
@@ -47,7 +54,7 @@ class AddRuleForm extends Form {
               <form onSubmit={this.handleSubmit}>
                 {this.renderInput("name", "RuleName")}
                 {this.renderTextArea("description", "Description")}
-                {this.renderButton("Add")}
+                {this.renderButton("Edit")}
               </form>
             </div>
             <div className="col-2"></div>

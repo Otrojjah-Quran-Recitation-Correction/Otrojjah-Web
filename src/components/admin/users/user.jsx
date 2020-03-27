@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import _ from "lodash";
-import Pagination from "./common/pagination";
+import Pagination from "../../common/pagination";
 import UsersTable from "./usersTable";
-import SearchBox from "./common/searchBox";
-import { paginate } from "../utils/paginate";
-import { getUsers, deleteUser } from "../services/usersServices";
+import SearchBox from "../../common/searchBox";
+import { paginate } from "../../../utils/paginate";
+import { getUsers, deleteUser } from "../../../services/usersServices";
 
 class User extends Component {
   state = {

@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import Table from "./common/table";
-import { getUser } from "../services/usersServices";
+import Table from "../../common/table";
+import { getUser } from "../../../services/usersServices";
 
 class RecordLabelTable extends Component {
   state = {
     shaikhLabels: []
   };
 
-  async componentDidUpdate(prevProps, prevState) {
-    const { labels } = this.props;
-    const jwt = localStorage.getItem("token");
-    if (prevProps.labels[0]) {
+  getShaikhNames = async () => {
+    if (!this.state.shaikhLabels[0]) {
+      const { labels } = this.props;
+      const jwt = localStorage.getItem("token");
       let shaikhLabels = [];
       for (let i = 0; i < labels.length; i++) {
         const { data } = await getUser(labels[i].shaikhId, jwt);
@@ -22,7 +22,7 @@ class RecordLabelTable extends Component {
       }
       this.setState({ shaikhLabels });
     }
-  }
+  };
 
   columns = [
     {
@@ -45,6 +45,7 @@ class RecordLabelTable extends Component {
   render() {
     const { shaikhLabels } = this.state;
     const { onSort, sortColumn } = this.props;
+    if (this.props.labels[0]) this.getShaikhNames();
     return (
       <div>
         <Table

@@ -1,24 +1,25 @@
 import React, { Component } from "react";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import "./components/navBar";
 import Home from "./components/home";
 import Rules from "./components/rules";
 import Login from "./components/login";
 import NotFound from "./components/notFound";
-import AdminPanel from "./components/adminPanel";
-import ShowLetters from "./components/showLetters";
-import ShowSubRules from "./components/showSubRules";
-import ShowVerses from "./components/showVerses";
-import ShowRecords from "./components/showRecords";
-import ShowRecordLabel from "./components/showRecordLabel";
+import AdminPanel from "./components/admin/adminPanel";
+import ShowLetters from "./components/admin/rules/showLetters";
+import ShowSubRules from "./components/admin/rules/showSubRules";
+import ShowVerses from "./components/admin/verses/showVerses";
+import ShowRecords from "./components/admin/records/showRecords";
+import ShowRecordLabel from "./components/admin/records/showRecordLabel";
 import Label from "./components/label";
-import RegisterUserForm from "./components/registerUserForm";
-import EditUserForm from "./components/editUserForm";
-import AddRuleForm from "./components/addRuleForm";
-import EditRuleForm from "./components/editRuleForm";
-import AddVerseForm from "./components/addVerseForm";
-import EditVerseForm from "./components/editVerseForm";
+import RegisterUserForm from "./components/admin/users/registerUserForm";
+import EditUserForm from "./components/admin/users/editUserForm";
+import AddRuleForm from "./components/admin/rules/addRuleForm";
+import EditRuleForm from "./components/admin/rules/editRuleForm";
+import AddVerseForm from "./components/admin/verses/addVerseForm";
+import EditVerseForm from "./components/admin/verses/editVerseForm";
+import AddRecordForm from "./components/admin/records/addRecordForm";
 import ProtectedRoute from "./components/common/protectedRoute";
 import ShaikhRoute from "./components/common/shaikhRoute";
 import LoginRoute from "./components/common/loginRoute";
@@ -81,6 +82,10 @@ class App extends Component {
           <ProtectedRoute
             path="/editVerse/:id"
             component={EditVerseForm}
+          ></ProtectedRoute>
+          <ProtectedRoute
+            path="/addRecord/:id"
+            component={AddRecordForm}
           ></ProtectedRoute>
           <ProtectedRoute
             path="/showLetters/:id"

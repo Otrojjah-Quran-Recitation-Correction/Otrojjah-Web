@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Pagination from "./common/pagination";
-import { paginate } from "../utils/paginate";
+import Pagination from "../../common/pagination";
+import { paginate } from "../../../utils/paginate";
 import RecordLabelTable from "./recordLabelTable";
-import { getRecord } from "../services/recordsServices";
+import { getRecord } from "../../../services/recordsServices";
 import _ from "lodash";
 
 class RecordLabel extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import User from "./user";
-import Rule from "./rule";
-import { getRoot } from "../services/rulesServices";
+import User from "./users/user";
+import Rule from "./rules/rule";
+import { getRoot } from "../../services/rulesServices";
 
 class AdminPanel extends Component {
   state = { jwt: "", ruleId: "" };

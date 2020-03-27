@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import Pagination from "./common/pagination";
-import { paginate } from "../utils/paginate";
-import SearchBox from "./common/searchBox";
+import { Link } from "react-router-dom";
+import Pagination from "../../common/pagination";
+import { paginate } from "../../../utils/paginate";
+import SearchBox from "../../common/searchBox";
 import RecordTable from "./recordTable";
-import { getRecords } from "../services/recordsServices";
+import { getRecords } from "../../../services/recordsServices";
 import _ from "lodash";
 
 class Record extends Component {
@@ -72,6 +73,11 @@ class Record extends Component {
     const { totalCount, data: records } = this.getPagedData();
     return (
       <div>
+        {this.props.view === "shaikh" && (
+          <Link to={`/addRecord/${this.props.verseId}`}>
+            <button className="my-2 btn btn-warning">Add Record</button>
+          </Link>
+        )}
         {this.props.view && (
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
         )}

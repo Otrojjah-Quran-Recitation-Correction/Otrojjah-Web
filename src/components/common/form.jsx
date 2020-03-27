@@ -8,7 +8,8 @@ class Form extends Component {
   state = {
     data: {},
     errors: {},
-    shaikhName: ""
+    shaikhName: "",
+    record: null
   };
 
   validate = () => {
@@ -46,12 +47,16 @@ class Form extends Component {
 
     const data = { ...this.state.data };
     let shaikhName = "";
+    let record = null;
+    if (input.name === "record") record = input.files[0];
     data[input.name] = input.value;
+
     if (data["label"]) {
       shaikhName = data["label"];
     }
 
-    this.setState({ data, errors, shaikhName });
+    console.log(data);
+    this.setState({ data, errors, record, shaikhName });
   };
 
   renderButton(label) {

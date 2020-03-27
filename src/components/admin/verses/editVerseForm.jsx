@@ -1,9 +1,9 @@
 import React from "react";
 import Joi from "joi-browser";
-import { addVerse } from "../services/versesServices";
-import Form from "./common/form";
+import { updateVerse, getVerse } from "../../../services/versesServices";
+import Form from "../../common/form";
 
-class AddVerseForm extends Form {
+class EditVerseForm extends Form {
   state = {
     data: {
       name: "",
@@ -13,22 +13,30 @@ class AddVerseForm extends Form {
       name: "",
       surah: ""
     },
-    jwt: ""
+    jwt: "",
+    ruleId: ""
   };
   schema = {
     name: Joi.string().required(),
     surah: Joi.string()
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const jwt = localStorage.getItem("token");
-    this.setState({ jwt });
+    const { data } = await getVerse(this.props.match.params.id);
+    const newVerse = {
+      name: data[0].name,
+      surah: data[0].surah
+    };
+    const ruleId = data[0].ruleId;
+    this.setState({ data: newVerse, jwt, ruleId });
   }
+
   doSubmit = async () => {
     const jwt = this.state.jwt;
     const data = { ...this.state.data };
-    data.ruleId = this.props.match.params.id;
-    const err = await addVerse(data, jwt);
+    data.ruleId = this.state.ruleId;
+    const err = await updateVerse(data, this.props.match.params.id, jwt);
     if (!err) {
       this.props.history.goBack();
     }
@@ -41,11 +49,11 @@ class AddVerseForm extends Form {
           <div className="row">
             <div className="col-2"></div>
             <div className="col-8 my-5">
-              <h1>Add Verse</h1>
+              <h1>Edit Verse</h1>
               <form onSubmit={this.handleSubmit}>
                 {this.renderInput("name", "VerseName")}
                 {this.renderInput("surah", "Surah")}
-                {this.renderButton("Add")}
+                {this.renderButton("Edit")}
               </form>
             </div>
             <div className="col-2"></div>
@@ -56,4 +64,4 @@ class AddVerseForm extends Form {
   }
 }
 
-export default AddVerseForm;
+export default EditVerseForm;

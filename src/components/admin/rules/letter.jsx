@@ -1,21 +1,20 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import RuleTable from "./ruleTable";
-import { getRules } from "../services/rulesServices";
+import LetterTable from "./letterTable";
+import { getRules } from "../../../services/rulesServices";
 import _ from "lodash";
 
-class Rule extends Component {
+class Letter extends Component {
   state = {
-    rules: [],
-    ruleId: "",
+    letters: [],
     sortColumn: { path: "name", order: "asc" }
   };
 
   async componentDidUpdate(prevProps, prevState) {
     const ruleId = this.props.ruleId;
-    if (!prevState.rules[0]) {
-      const { data: rules } = await getRules(ruleId);
-      this.setState({ rules, ruleId });
+    if (!prevState.letters[0]) {
+      const { data: letters } = await getRules(ruleId);
+      this.setState({ letters });
     }
   }
 
@@ -24,27 +23,27 @@ class Rule extends Component {
   };
 
   getSortedData = () => {
-    const { rules: data, sortColumn } = this.state;
+    const { letters: data, sortColumn } = this.state;
     const sorted = _.orderBy(data, [sortColumn.path], [sortColumn.order]);
     return { data: sorted };
   };
 
   render() {
     const { sortColumn } = this.state;
-    const { data: rules } = this.getSortedData();
+    const { data: letters } = this.getSortedData();
     return (
       <div>
-        <Link to={`/addRule/${this.state.ruleId}`}>
+        <Link to={`/addRule/${this.props.ruleId}`}>
           <button className="my-2 btn btn-warning">Add Rule</button>
         </Link>
-        <RuleTable
+        <LetterTable
           sortColumn={sortColumn}
           onSort={this.handleSort}
-          rules={rules}
-        ></RuleTable>
+          letters={letters}
+        ></LetterTable>
       </div>
     );
   }
 }
 
-export default Rule;
+export default Letter;

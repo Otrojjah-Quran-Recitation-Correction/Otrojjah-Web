@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import SubRuleTable from "./subRuleTable";
-import { getRules } from "../services/rulesServices";
+import { getRules } from "../../../services/rulesServices";
 import _ from "lodash";
 
 class SubRule extends Component {
