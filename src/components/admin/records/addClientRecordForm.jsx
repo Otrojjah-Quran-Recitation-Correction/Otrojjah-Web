@@ -3,7 +3,7 @@ import Joi from "joi-browser";
 import { addRecord } from "../../../services/recordsServices";
 import Form from "../../common/form";
 
-class AddRecordForm extends Form {
+class AddClientRecordForm extends Form {
   state = {
     data: {
       label: ""
@@ -32,7 +32,7 @@ class AddRecordForm extends Form {
     data.append("verseId", this.props.match.params.id);
     for (let i = 0; i < this.state.record.length; i++)
       data.append("record", this.state.record[i]);
-    data.append("isShaikh", true);
+    data.append("isShaikh", false);
     const err = await addRecord(data, jwt);
     if (!err) {
       this.props.history.goBack();
@@ -61,4 +61,4 @@ class AddRecordForm extends Form {
   }
 }
 
-export default AddRecordForm;
+export default AddClientRecordForm;

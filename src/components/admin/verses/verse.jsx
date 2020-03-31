@@ -29,15 +29,15 @@ class Verse extends Component {
   };
 
   handleDelete = async verse => {
-    const verses = this.state.verses.filter(e => e._id !== verse._id);
     const jwt = this.props.jwt;
-    this.setState({ verses });
     await deleteVerse(verse, jwt);
+    window.location = `/showVerses/${this.props.ruleId}`;
   };
 
   render() {
     const { sortColumn } = this.state;
     const { data: verses } = this.getSortedData();
+    if (this.props.deleteVerse) this.handleDelete(this.props.verse);
     return (
       <div>
         <Link to={`/addVerse/${this.props.ruleId}`}>
@@ -46,7 +46,7 @@ class Verse extends Component {
         <VersesTable
           sortColumn={sortColumn}
           onSort={this.handleSort}
-          handleDelete={this.handleDelete}
+          handleAlert={this.props.handleAlert}
           verses={verses}
         ></VersesTable>
       </div>

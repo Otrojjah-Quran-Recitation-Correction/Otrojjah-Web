@@ -1,42 +1,38 @@
 import React from "react";
 import Joi from "joi-browser";
-import { updateRule, getRule } from "../../../services/rulesServices";
+import { updateRecord, getRecord } from "../../../services/recordsServices";
 import Form from "../../common/form";
 
-class EditRuleForm extends Form {
+class EditRecordForm extends Form {
   state = {
     data: {
-      name: "",
-      description: ""
+      label: ""
     },
     errors: {
-      name: "",
-      description: ""
+      label: ""
     },
     jwt: "",
-    parentId: ""
+    verseId: ""
   };
   schema = {
-    name: Joi.string().required(),
-    description: Joi.string()
+    label: Joi.string().required()
   };
 
   async componentDidMount() {
     const jwt = localStorage.getItem("token");
-    const { data } = await getRule(this.props.match.params.id);
-    const newRule = {
-      name: data[0].name,
-      description: data[0].description
+    const { data } = await getRecord(this.props.match.params.id);
+    const newRecord = {
+      label: data[0].label
     };
-    const parentId = data[0].parentId;
-    this.setState({ data: newRule, jwt, parentId });
+    const verseId = data[0].verseId;
+    this.setState({ data: newRecord, jwt, verseId });
   }
 
   doSubmit = async () => {
     const jwt = this.state.jwt;
     const data = { ...this.state.data };
-    data.parentId = this.state.parentId;
-    const err = await updateRule(data, this.props.match.params.id, jwt);
+    data.verseId = this.state.verseId;
+    const err = await updateRecord(data, this.props.match.params.id, jwt);
     if (!err) {
       this.props.history.goBack();
     }
@@ -49,10 +45,9 @@ class EditRuleForm extends Form {
           <div className="row">
             <div className="col-2"></div>
             <div className="col-8 my-5">
-              <h1>Edit Rule</h1>
+              <h1>Edit Record</h1>
               <form onSubmit={this.handleSubmit}>
-                {this.renderInput("name", "RuleName")}
-                {this.renderTextArea("description", "Description")}
+                {this.renderInput("label", "Label")}
                 {this.renderButton("Edit")}
               </form>
             </div>
@@ -64,4 +59,4 @@ class EditRuleForm extends Form {
   }
 }
 
-export default EditRuleForm;
+export default EditRecordForm;

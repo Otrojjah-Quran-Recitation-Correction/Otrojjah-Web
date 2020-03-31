@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import User from "./users/user";
 import Rule from "./rules/rule";
 import { getRoot } from "../../services/rulesServices";
+import Alert from "../common/alert";
 
 class AdminPanel extends Component {
-  state = { jwt: "", ruleId: "" };
+  state = { jwt: "", ruleId: "", labelAlert: "", deleteUser: false };
 
   async componentDidMount() {
     const { data: root } = await getRoot();
@@ -13,10 +14,32 @@ class AdminPanel extends Component {
     this.setState({ jwt, ruleId });
   }
 
+  handleAlert = user => {
+    const labelAlert = user;
+    this.setState({ labelAlert });
+  };
+
+  handleUserDelete = async () => {
+    const deleteUser = true;
+    this.setState({ deleteUser });
+  };
+
+  handleClose = () => {
+    const labelAlert = "";
+    this.setState({ labelAlert });
+  };
+
   render() {
-    const { jwt, ruleId } = this.state;
+    const { jwt, ruleId, labelAlert, deleteUser } = this.state;
     return (
       <React.Fragment>
+        {labelAlert && (
+          <Alert
+            label={labelAlert}
+            handleClose={this.handleClose}
+            handleAccept={this.handleUserDelete}
+          ></Alert>
+        )}
         <div className="my-4 mx-5">
           <div className="row ml-0">
             <div className="col-3 my-5 py-5 mainComponent">
@@ -61,7 +84,12 @@ class AdminPanel extends Component {
                   aria-labelledby="v-pills-users-tab"
                 >
                   <div className="container">
-                    <User jwt={jwt}></User>
+                    <User
+                      deleteUser={deleteUser}
+                      user={labelAlert}
+                      handleAlert={this.handleAlert}
+                      jwt={jwt}
+                    ></User>
                   </div>
                 </div>
                 <div

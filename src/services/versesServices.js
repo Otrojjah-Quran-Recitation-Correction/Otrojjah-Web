@@ -1,12 +1,13 @@
 import http from "./httpServices";
-import { versesUrl } from "../config.json";
+
+const apiEndPoint = "/verse";
 
 function verseUrl(id) {
-  return `${versesUrl}/${id}`;
+  return `${apiEndPoint}/${id}`;
 }
 
 function verseQuery(id) {
-  return `${versesUrl}?${id}`;
+  return `${apiEndPoint}?${id}`;
 }
 
 export function getVerses(id) {
@@ -39,7 +40,7 @@ export function updateVerse(verse, id, jwt) {
 
 export function addVerse(verse, jwt) {
   return http
-    .post(versesUrl, verse, { headers: { "x-auth-token": jwt } })
+    .post(apiEndPoint, verse, { headers: { "x-auth-token": jwt } })
     .then(function(response) {
       console.log(response);
     })

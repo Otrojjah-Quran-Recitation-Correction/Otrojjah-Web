@@ -1,14 +1,14 @@
 import http from "./httpServices";
-import { loginUrl } from "../config.json";
+
+const apiEndPoint = "/auth";
 
 export function loginUser(email, password) {
   return http
-    .post(loginUrl, {
+    .post(apiEndPoint, {
       email,
       password
     })
     .then(function(response) {
-      //console.log(response);
       return response;
     })
     .catch(function(error) {

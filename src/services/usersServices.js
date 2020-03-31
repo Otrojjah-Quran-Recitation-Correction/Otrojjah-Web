@@ -1,13 +1,14 @@
 import http from "./httpServices";
-import { usersUrl } from "../config.json";
 import jwt_decode from "jwt-decode";
 
+const apiEndPoint = "/user";
+
 function userUrl(id) {
-  return `${usersUrl}/${id}`;
+  return `${apiEndPoint}/${id}`;
 }
 
 export function getUsers(jwt) {
-  return http.get(usersUrl, {
+  return http.get(apiEndPoint, {
     headers: { "x-auth-token": jwt }
   });
 }
@@ -18,8 +19,10 @@ export function getUser(id, jwt) {
   });
 }
 
-export function getUserData(user) {
-  return http.get(userUrl("me"), user);
+export function getUserData(jwt) {
+  return http.get(userUrl("me"), {
+    headers: { "x-auth-token": jwt }
+  });
 }
 
 export function deleteUser(user, jwt) {

@@ -45,7 +45,6 @@ export default class Mic extends Component {
       const { verseId } = this.props;
       const name = `record-${Date.now()}.wav`;
       const data = new FormData();
-      data.append("name", name);
       data.append("label", name);
       data.append("verseId", verseId);
       data.append("record", recordedBlob.blob);
@@ -54,6 +53,7 @@ export default class Mic extends Component {
       const blobUrl = "";
       const btnClass = "btn btn-info disabled normalcursor";
       recordedBlob = "";
+      this.props.handleAlert();
       this.setState({ blobUrl, recordedBlob, btnClass });
     }
   };

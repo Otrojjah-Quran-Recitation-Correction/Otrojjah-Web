@@ -59,17 +59,16 @@ class User extends Component {
   };
 
   handleDelete = async user => {
-    const users = this.state.users.filter(e => e._id !== user._id);
     const jwt = this.props.jwt;
-    this.setState({ users });
     await deleteUser(user, jwt);
+    window.location = "/adminPanel";
   };
 
   render() {
     const { pageSize, currentPage, searchQuery, sortColumn } = this.state;
 
     const { totalCount, data: users } = this.getPagedData();
-
+    if (this.props.deleteUser) this.handleDelete(this.props.user);
     return (
       <div>
         <p>Showing {totalCount} users in the database.</p>
@@ -81,7 +80,7 @@ class User extends Component {
           sortColumn={sortColumn}
           onSort={this.handleSort}
           users={users}
-          handleDelete={this.handleDelete}
+          handleAlert={this.props.handleAlert}
         ></UsersTable>
         <Pagination
           itemsCount={totalCount}

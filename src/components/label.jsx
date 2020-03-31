@@ -4,6 +4,7 @@ import { getVerse } from "../services/versesServices";
 import { getRule } from "../services/rulesServices";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import Alert from "./common/alert";
 
 class Label extends Component {
   state = {
@@ -62,9 +63,8 @@ class Label extends Component {
     this.setState({ labelAlert });
   };
 
-  handleLabel = async label => {
+  handleAccept = async label => {
     const record = { ...this.state.record };
-    console.log(label);
     const jwt = localStorage.getItem("token");
     const recordLabel = { label: label };
     const err = await labelRecord(recordLabel, record._id, jwt);
@@ -75,67 +75,32 @@ class Label extends Component {
 
   render() {
     const { fileURL, name, verseId } = this.state.record;
-    const { verse, letter, subRule } = this.state;
+    const { verse, letter, subRule, labelAlert } = this.state;
     if (verseId) this.getVerse(verseId);
     if (verse._id) this.getLetter(verse.ruleId);
     if (letter._id) this.getSubRule(letter.parentId);
     return (
       <React.Fragment>
-        {this.state.labelAlert && (
-          <div
-            aria-live="polite"
-            aria-atomic="true"
-            className="d-flex justify-content-center align-items-center labelhead"
-            style={{ minHeight: 200 + "px" }}
-          >
-            <div
-              className="toast labelalert"
-              role="alert"
-              aria-live="assertive"
-              aria-atomic="true"
-            >
-              <div className="toast-header">
-                <button
-                  type="button"
-                  className="ml-2 mb-1 close"
-                  data-dismiss="toast"
-                  aria-label="Close"
-                  onClick={() => this.handleClose()}
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <h6 className="m-auto">هل انت متأكد من هذا الأختيار؟</h6>
-              </div>
-              <div className="toast-body">
-                <button
-                  style={{ width: 50 + "px" }}
-                  className="mx-1 btn btn-success"
-                  onClick={() => this.handleLabel(this.state.labelAlert)}
-                >
-                  نعم
-                </button>
-                <button
-                  style={{ width: 50 + "px" }}
-                  className="mx-1 btn btn-danger"
-                  onClick={() => this.handleClose()}
-                >
-                  لا
-                </button>
-              </div>
-            </div>
-          </div>
+        {labelAlert && (
+          <Alert
+            label={labelAlert}
+            handleClose={this.handleClose}
+            handleAccept={this.handleAccept}
+          ></Alert>
         )}
         <div className="container  pt-5">
           {this.state.record.fileURL && (
             <div className="row pt-5">
               <div className="col"></div>
               <div className="col label">
-                <div className="text-center mb-5">
-                  <h3>الحكم:{subRule.name}</h3>
-                  <h3>الحكم المفصل:{letter.name}</h3>
-                  <h3>اية :{verse.name}</h3>
-                  <h3>سورة :{verse.surah}</h3>
-                </div>
+                {subRule.name && (
+                  <div className="text-center mb-5">
+                    <h3>الحكم:{subRule.name}</h3>
+                    <h3>الحكم المفصل:{letter.name}</h3>
+                    <h3>اية :﴿{verse.name}﴾</h3>
+                    <h3>سورة :{verse.surah}</h3>
+                  </div>
+                )}
                 <audio
                   title={name}
                   className="Audio mt-3"

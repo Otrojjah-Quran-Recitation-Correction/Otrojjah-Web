@@ -47,16 +47,19 @@ class Form extends Component {
 
     const data = { ...this.state.data };
     let shaikhName = "";
-    let record = null;
-    if (input.name === "record") record = input.files[0];
+    let record = [];
+
+    if (input.name === "record") {
+      record = input.files;
+      this.setState({ record });
+    }
     data[input.name] = input.value;
 
     if (data["label"]) {
       shaikhName = data["label"];
     }
 
-    console.log(data);
-    this.setState({ data, errors, record, shaikhName });
+    this.setState({ data, errors, shaikhName });
   };
 
   renderButton(label) {

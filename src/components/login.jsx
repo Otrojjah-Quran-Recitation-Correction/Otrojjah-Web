@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { loginUser } from "../services/loginServices";
+import { loginUser } from "../services/authServices";
 import Joi from "joi-browser";
 import jwt_decode from "jwt-decode";
 
@@ -47,7 +47,6 @@ class Login extends Component {
       this.state.login.password
     );
     if (jwt) {
-      console.log(jwt.data);
       localStorage.setItem("token", jwt.data);
       const login = {
         email: "",

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Table from "../../common/table";
 
 class RecordTable extends Component {
@@ -6,7 +7,9 @@ class RecordTable extends Component {
     {
       key: "record",
       label: "record",
-      content: item => <audio controls src={item.fileURL}></audio>
+      content: item => (
+        <audio title={item.name} controls src={item.fileURL}></audio>
+      )
     },
     {
       path: "name",
@@ -16,6 +19,18 @@ class RecordTable extends Component {
       key: "labelBy",
       label: "labeledBy",
       content: item => <a href={`/showRecordLabel/${item._id}`}> LabeledBy</a>
+    },
+    {
+      key: "delete",
+      label: "delete",
+      content: item => (
+        <button
+          className="btn btn-danger btn-sm"
+          onClick={() => this.props.handleAlert(item)}
+        >
+          Delete
+        </button>
+      )
     }
   ];
 
@@ -23,20 +38,61 @@ class RecordTable extends Component {
     {
       key: "record",
       label: "record",
-      content: item => <audio controls src={item.fileURL}></audio>
+      content: item => (
+        <audio title={item.name} controls src={item.fileURL}></audio>
+      )
     },
     {
-      path: "name",
-      label: "name"
+      path: "label",
+      label: "label"
+    },
+    {
+      key: "delete",
+      label: "delete",
+      content: item => (
+        <button
+          className="btn btn-danger btn-sm"
+          onClick={() => this.props.handleAlert(item)}
+        >
+          Delete
+        </button>
+      )
     }
   ];
   shaikh = [
     {
       key: "record",
       label: "record",
-      content: item => <audio controls src={item.fileURL}></audio>
+      content: item => (
+        <audio title={item.name} controls src={item.fileURL}></audio>
+      )
     },
-    { path: "label", label: "ShaikhName", content: item => <p>{item.label}</p> }
+    {
+      path: "label",
+      label: "ShaikhName",
+      content: item => <p>{item.label}</p>
+    },
+    {
+      key: "edit",
+      label: "edit",
+      content: item => (
+        <Link to={`/editRecord/${item._id}`}>
+          <button className="btn btn-info btn-sm">Edit</button>
+        </Link>
+      )
+    },
+    {
+      key: "delete",
+      label: "delete",
+      content: item => (
+        <button
+          className="btn btn-danger btn-sm"
+          onClick={() => this.props.handleAlert(item)}
+        >
+          Delete
+        </button>
+      )
+    }
   ];
 
   render() {

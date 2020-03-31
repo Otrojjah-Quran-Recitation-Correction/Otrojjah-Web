@@ -15,6 +15,7 @@ body {
   background-size: 100% 100%;
   text-align: right !important;
   direction: rtl;
+  font-family: "Amiri", serif !important;
 }
 
 .ltr {
@@ -75,7 +76,7 @@ body {
   border: 1px solid black;
   border-radius: 45px 0 45px 0;
   padding: 50px;
-  background-color: rgba(255, 255, 255, 0.6) !important;
+  background-color: rgba(255, 255, 255) !important;
 }
 
 .navBar {
@@ -98,7 +99,7 @@ body {
 .login {
   border: 1px solid black;
   border-radius: 45px 0 45px 0;
-  background-color: rgba(255, 255, 255, 0.6) !important;
+  background-color: rgba(255, 255, 255) !important;
 }
 
 .normalcursor {
@@ -110,7 +111,7 @@ body {
 }
 
 .labelhead {
-  position: absolute !important;
+  position: fixed !important;
   width: 100%;
   height: 100%;
   background-color: rgba(1, 1, 1, 0.6) !important;
@@ -122,4 +123,8 @@ body {
   z-index: 5651;
   width: 450px !important;
   opacity: 5 !important;
+}
+
+.ql-editor {
+  white-space: normal !important;
 }

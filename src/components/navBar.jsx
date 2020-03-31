@@ -1,8 +1,16 @@
 import React, { Component } from "react";
 import { getRules } from "../services/rulesServices";
+import { getUserData } from "../services/usersServices";
 
 class NavBar extends Component {
-  state = { rules: [] };
+  state = { rules: [], user: {} };
+
+  // async componentDidMount() {
+  //   const jwt = localStorage.getItem("token");
+  //   const { data: user } = await getUserData(jwt);
+  //   console.log(user);
+  //   this.setState({ user });
+  // }
 
   async componentDidUpdate(prevProps, prevState) {
     const root = this.props.root;

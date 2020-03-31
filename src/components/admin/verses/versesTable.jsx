@@ -25,7 +25,7 @@ class VersesTable extends Component {
       content: item => (
         <button
           className="btn btn-danger btn-sm"
-          onClick={() => this.props.handleDelete(item)}
+          onClick={() => this.props.handleAlert(item)}
         >
           Delete
         </button>

@@ -20,6 +20,8 @@ import EditRuleForm from "./components/admin/rules/editRuleForm";
 import AddVerseForm from "./components/admin/verses/addVerseForm";
 import EditVerseForm from "./components/admin/verses/editVerseForm";
 import AddRecordForm from "./components/admin/records/addRecordForm";
+import AddClientRecordForm from "./components/admin/records/addClientRecordForm";
+import EditRecordForm from "./components/admin/records/editRecordForm";
 import ProtectedRoute from "./components/common/protectedRoute";
 import ShaikhRoute from "./components/common/shaikhRoute";
 import LoginRoute from "./components/common/loginRoute";
@@ -33,8 +35,10 @@ class App extends Component {
   async componentDidMount() {
     try {
       const jwt = localStorage.getItem("token");
-      const user = jwt_decode(jwt);
-      const userRole = user.isShaikh ? "shaikh" : "admin";
+      let user = "";
+      let userRole = "";
+      if (jwt) user = jwt_decode(jwt);
+      if (user) userRole = user.isShaikh ? "shaikh" : "admin";
       const { data: root } = await getRoot();
       this.setState({ jwt, userRole, root });
     } catch (ex) {}
@@ -86,6 +90,14 @@ class App extends Component {
           <ProtectedRoute
             path="/addRecord/:id"
             component={AddRecordForm}
+          ></ProtectedRoute>
+          <ProtectedRoute
+            path="/addClientRecord/:id"
+            component={AddClientRecordForm}
+          ></ProtectedRoute>
+          <ProtectedRoute
+            path="/editRecord/:id"
+            component={EditRecordForm}
           ></ProtectedRoute>
           <ProtectedRoute
             path="/showLetters/:id"

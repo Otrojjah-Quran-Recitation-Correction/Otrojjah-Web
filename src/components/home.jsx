@@ -3,6 +3,9 @@ import Mic from "./mic";
 import { getRandomRecord } from "../services/recordsServices";
 import { getVerse } from "../services/versesServices";
 import { getRule } from "../services/rulesServices";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMicrophone, faStopCircle } from "@fortawesome/free-solid-svg-icons";
+import Alert from "./common/alert";
 
 class Home extends Component {
   state = {
@@ -10,7 +13,8 @@ class Home extends Component {
     jwt: "",
     verse: {},
     letter: {},
-    subRule: {}
+    subRule: {},
+    labelAlert: ""
   };
 
   async componentDidMount() {
@@ -50,33 +54,61 @@ class Home extends Component {
     if (subRule._id !== this.state.subRule._id) this.setState({ subRule });
   };
 
+  handleAlert = () => {
+    const labelAlert = "success";
+    this.setState({ labelAlert });
+  };
+
+  handleClose = () => {
+    const labelAlert = "";
+    this.setState({ labelAlert });
+    window.location = "/";
+  };
+
   render() {
     const { fileURL, name, verseId } = this.state.record;
-    const { verse, letter, subRule } = this.state;
+    const { verse, letter, subRule, labelAlert } = this.state;
     if (verseId) this.getVerse(verseId);
     if (verse._id) this.getLetter(verse.ruleId);
     if (letter._id) this.getSubRule(letter.parentId);
 
     return (
       <React.Fragment>
+        {labelAlert && (
+          <Alert
+            label={labelAlert}
+            handleClose={this.handleClose}
+            handleAccept={this.handleAccept}
+          ></Alert>
+        )}
         <div className="py-5"></div>
         <main className="mainComponent container my-5 py-5">
           <div className="row">
             <div className="col-2"></div>
             <div className="col-8 text-center">
-              <div>
-                <h3>الحكم:{subRule.name}</h3>
-                <h3>الحكم المفصل:{letter.name}</h3>
-                <h3>اية :{verse.name}</h3>
-                <h3>سورة :{verse.surah}</h3>
-              </div>
+              {subRule.name && (
+                <div>
+                  <h3>الحكم:{subRule.name}</h3>
+                  <h3>الحكم المفصل:{letter.name}</h3>
+                  <h3>اية :﴿{verse.name}﴾</h3>
+                  <h3>سورة :{verse.surah}</h3>
+                </div>
+              )}
+              <p className="pt-3">استمع جيدا الى التسجيل الاتى.</p>
               <audio
                 title={name}
                 className="Audio"
                 src={fileURL}
                 controls
               ></audio>
-              <Mic verseId={verseId}></Mic>
+              <p className="my-2">
+                الان اضغط على
+                {<FontAwesomeIcon className="mx-1" icon={faMicrophone} />} وابدء
+                بالقراءة كما سمعت فى التسجيل ثم اضغط على
+                {<FontAwesomeIcon className="mx-1" icon={faStopCircle} />} بعد
+                انتهائك من التسجيل.
+              </p>
+              <Mic handleAlert={this.handleAlert} verseId={verseId}></Mic>
             </div>
             <div className="col-2"></div>
           </div>

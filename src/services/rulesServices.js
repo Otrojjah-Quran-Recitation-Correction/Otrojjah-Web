@@ -1,12 +1,13 @@
 import http from "./httpServices";
-import { rulesUrl } from "../config.json";
+
+const apiEndPoint = "/rule";
 
 function ruleUrl(id) {
-  return `${rulesUrl}/${id}`;
+  return `${apiEndPoint}/${id}`;
 }
 
 function ruleQuery(id) {
-  return `${rulesUrl}?${id}`;
+  return `${apiEndPoint}?${id}`;
 }
 
 export function getRoot() {
@@ -44,7 +45,7 @@ export function updateRule(rule, id, jwt) {
 
 export function addRule(rule, jwt) {
   return http
-    .post(rulesUrl, rule, { headers: { "x-auth-token": jwt } })
+    .post(apiEndPoint, rule, { headers: { "x-auth-token": jwt } })
     .then(function(response) {
       console.log(response);
     })
