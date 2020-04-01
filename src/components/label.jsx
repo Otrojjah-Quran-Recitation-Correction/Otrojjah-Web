@@ -91,8 +91,8 @@ class Label extends Component {
         <div className="container  pt-5">
           {this.state.record.fileURL && (
             <div className="row pt-5">
-              <div className="col"></div>
-              <div className="col label">
+              <div className="col-3"></div>
+              <div className="col-6 label">
                 {subRule.name && (
                   <div className="text-center mb-5">
                     <h3>الحكم:{subRule.name}</h3>
@@ -124,7 +124,7 @@ class Label extends Component {
                   </div>
                 </div>
               </div>
-              <div className="col"></div>
+              <div className="col-3"></div>
             </div>
           )}
           {!this.state.record.fileURL && (

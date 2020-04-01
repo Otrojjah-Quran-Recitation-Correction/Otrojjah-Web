@@ -1,12 +1,13 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import { getUserRole } from "../../services/usersServices";
 
 const ShaikhRoute = ({ path, component: Component, render, ...rest }) => {
   return (
     <Route
       {...rest}
       render={props => {
-        if (!localStorage.getItem("token")) {
+        if (!(getUserRole() === "admin" || "shaikh")) {
           return (
             <Redirect
               to={{

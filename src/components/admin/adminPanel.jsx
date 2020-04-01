@@ -42,7 +42,7 @@ class AdminPanel extends Component {
         )}
         <div className="my-4 mx-5">
           <div className="row ml-0">
-            <div className="col-3 my-5 py-5 mainComponent">
+            <div className="col-3 my-5 py-5 rule">
               <div>
                 <h3>Admin Panel</h3>
               </div>
@@ -75,7 +75,7 @@ class AdminPanel extends Component {
                 </a>
               </div>
             </div>
-            <div className="col-9 my-5 py-5 mainComponent">
+            <div className="col-9 my-5 py-5 rule">
               <div className="tab-content" id="v-pills-tabContent">
                 <div
                   className="tab-pane fade show active"

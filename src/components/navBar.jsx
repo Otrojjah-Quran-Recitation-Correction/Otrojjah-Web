@@ -32,7 +32,7 @@ class NavBar extends Component {
           <a
             onClick={this.props.handleLogOut}
             style={{ cursor: "pointer" }}
-            className="navbar-brand "
+            className="navitem"
             href="/"
           >
             تسجيل الخروج <span className="sr-only">(current)</span>
@@ -51,22 +51,15 @@ class NavBar extends Component {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto rtl">
-            <li className="nav-item active">
+            <li className="nav-item active navitem">
               <a className="nav-link" href="/">
                 الرئيسية <span className="sr-only">(current)</span>
               </a>
             </li>
-            <li className="nav-item">
-              {!userRole && (
-                <a className="nav-link" href="/login">
-                  تسجيل الدخول
-                </a>
-              )}
-            </li>
 
             <li className="nav-item dropdown">
               <a
-                className="nav-link dropdown-toggle"
+                className="nav-link navitem dropdown-toggle"
                 href="#"
                 id="navbarDropdown"
                 role="button"
@@ -93,15 +86,22 @@ class NavBar extends Component {
               </div>
             </li>
             <li className="nav-item">
+              {!userRole && (
+                <a className="nav-link navitem" href="/login">
+                  تسجيل الدخول
+                </a>
+              )}
+            </li>
+            <li className="nav-item">
               {userRole && (
-                <a className="nav-link" href="/label">
+                <a className="nav-link navitem" href="/label">
                   تقييم
                 </a>
               )}
             </li>
             <li className="nav-item">
               {userRole === "admin" && (
-                <a className="nav-link" href="/adminPanel">
+                <a className="nav-link navitem" href="/adminPanel">
                   Admin Panel
                 </a>
               )}

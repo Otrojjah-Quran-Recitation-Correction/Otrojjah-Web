@@ -78,12 +78,12 @@ class Login extends Component {
         <div className="py-5 mt-5">
           <div className="container">
             <div className="row">
-              <div className="col"></div>
+              <div className="col-3"></div>
               <form
                 onSubmit={this.handleLogin}
-                className="login p-4 col m-auto"
+                className="login p-4 col-6 m-auto"
               >
-                <h1>تسجيل الدخول</h1>
+                <h1 className="pt-4">تسجيل الدخول</h1>
                 <div className="form-group pt-4">
                   <label htmlFor="exampleDropdownFormEmail2">
                     البريد الالكترونى
@@ -133,7 +133,7 @@ class Login extends Component {
                   دخول
                 </button>
               </form>
-              <div className="col"></div>
+              <div className="col-3"></div>
             </div>
           </div>
         </div>

@@ -82,7 +82,7 @@ class Home extends Component {
           ></Alert>
         )}
         <div className="py-5"></div>
-        <main className="mainComponent container my-5 py-5">
+        <main className="rule container my-5 py-5">
           <div className="row">
             <div className="col-2"></div>
             <div className="col-8 text-center">

@@ -120,10 +120,7 @@ class Rules extends Form {
           ></Alert>
         )}
         <div className="pt-5">
-          <div
-            className="container mt-5 pt-5 pb-2 "
-            style={{ backgroundColor: "black" }}
-          >
+          <div className="container mt-5 pt-5 pb-2 rule">
             <h1>{rule.name}</h1>
             <p>___________________________________</p>
             {rule.description && (
@@ -178,7 +175,7 @@ class Rules extends Form {
                             className="collapse mt-2"
                             id={`subRule${subRule._id}`}
                           >
-                            <div className="card card-body">
+                            <div className="card mainComponent card-body">
                               {subRule.description && (
                                 <div>
                                   {subRule.description.split("\n").map(line => (
@@ -191,8 +188,8 @@ class Rules extends Form {
                         </h6>{" "}
                       </div>
                       <div className="container row">
-                        <div className="col-2"></div>
-                        <div className="card-body text-center col-8">
+                        <div className="col-1"></div>
+                        <div className="card-body text-center col-10">
                           <div>
                             <div
                               className="accordion pt-3 mb-5 container "
@@ -381,7 +378,7 @@ class Rules extends Form {
                             </div>
                           </div>
                         </div>
-                        <div className="col-2"></div>
+                        <div className="col-1"></div>
                       </div>
                     </div>
                   </div>

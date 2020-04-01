@@ -39,7 +39,7 @@ export default class Mic extends Component {
     this.setState({ recordedBlob, blobUrl, btnClass });
   };
 
-  saveRecord = () => {
+  saveRecord = async () => {
     let recordedBlob = this.state.recordedBlob;
     if (recordedBlob) {
       const { verseId } = this.props;
@@ -49,12 +49,14 @@ export default class Mic extends Component {
       data.append("verseId", verseId);
       data.append("record", recordedBlob.blob);
       data.append("isShaikh", false);
-      addRecord(data);
-      const blobUrl = "";
-      const btnClass = "btn btn-info disabled normalcursor";
-      recordedBlob = "";
-      this.props.handleAlert();
-      this.setState({ blobUrl, recordedBlob, btnClass });
+      const err = await addRecord(data);
+      if (!err) {
+        const blobUrl = "";
+        const btnClass = "btn btn-info disabled normalcursor";
+        recordedBlob = "";
+        this.props.handleAlert();
+        this.setState({ blobUrl, recordedBlob, btnClass });
+      }
     }
   };
 
@@ -66,9 +68,9 @@ export default class Mic extends Component {
           className="block record"
           onStop={this.onStop}
           onData={this.onData}
-          strokeColor="#fff"
+          strokeColor="#010a15"
           mimeType="audio/wav"
-          backgroundColor="#000"
+          backgroundColor="#011224"
         />
 
         <form encType="multipart/form-data" method="post" action="#" id="#">
