@@ -35,7 +35,7 @@ export function updateUser(user, id, jwt) {
   return http
     .put(userUrl(id), user, { headers: { "x-auth-token": jwt } })
     .then(function(response) {
-      console.log(response);
+      // console.log(response);
     })
     .catch(function(error) {
       alert(error.response.data);
@@ -47,7 +47,19 @@ export function addUser(user, jwt) {
   return http
     .post(userUrl("shaikh"), user, { headers: { "x-auth-token": jwt } })
     .then(function(response) {
-      console.log(response);
+      // console.log(response);
+    })
+    .catch(function(error) {
+      alert(error.response.data);
+      return error.response.data;
+    });
+}
+
+export function addClient(user) {
+  return http
+    .post(apiEndPoint, user)
+    .then(function(response) {
+      //console.log(response);
     })
     .catch(function(error) {
       alert(error.response.data);
@@ -59,7 +71,9 @@ export function getUserRole() {
   const jwt = localStorage.getItem("token");
   if (jwt) {
     const user = jwt_decode(jwt);
-    return user.isShaikh ? "shaikh" : "admin";
-  }
-  return "client";
+    console.log(user);
+    if (user.isShaikh) return "shaikh";
+    else if (user.isAdmin) return "admin";
+    else return "client";
+  } else return "not_loggedin";
 }

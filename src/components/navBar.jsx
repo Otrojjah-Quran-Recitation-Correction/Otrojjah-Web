@@ -93,7 +93,7 @@ class NavBar extends Component {
               )}
             </li>
             <li className="nav-item">
-              {userRole && (
+              {userRole && userRole !== "client" && (
                 <a className="nav-link navitem" href="/label">
                   تقييم
                 </a>

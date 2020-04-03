@@ -127,11 +127,6 @@ class Label extends Component {
               <div className="col-3"></div>
             </div>
           )}
-          {!this.state.record.fileURL && (
-            <h1 className="text-center py-5">
-              لا يوجد تسجيلات الان ليتم تقييمها!
-            </h1>
-          )}
         </div>
       </React.Fragment>
     );

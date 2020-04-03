@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { loginUser } from "../services/authServices";
 import Joi from "joi-browser";
 import jwt_decode from "jwt-decode";
@@ -56,9 +57,9 @@ class Login extends Component {
       this.setState({
         login
       });
-      user.isShaikh
-        ? (window.location = "/label")
-        : (window.location = "/adminPanel");
+      if (user.isShaikh) window.location = "/label";
+      else if (user.isAdmin) window.location = "/adminPanel";
+      else window.location = "/";
     }
   };
 
@@ -128,10 +129,16 @@ class Login extends Component {
                 <button
                   type="submit"
                   style={{ width: "100%" }}
-                  className="btn btn-primary"
+                  className="btn btn-primary mb-4"
                 >
                   دخول
                 </button>
+
+                <Link style={{ color: "white" }} to="/register">
+                  <button style={{ width: "100%" }} className="btn btn-primary">
+                    تسجيل
+                  </button>
+                </Link>
               </form>
               <div className="col-3"></div>
             </div>

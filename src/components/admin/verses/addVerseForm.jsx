@@ -37,7 +37,7 @@ class AddVerseForm extends Form {
   render() {
     return (
       <div className=" py-5">
-        <div className="container mainComponent my-5 bt-5">
+        <div className="container rule my-5 bt-5">
           <div className="row">
             <div className="col-2"></div>
             <div className="col-8 my-5">

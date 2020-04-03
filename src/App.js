@@ -2,17 +2,19 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 import "./components/navBar";
+import NavBar from "./components/navBar";
 import Home from "./components/home";
 import Rules from "./components/rules";
 import Login from "./components/login";
+import RegisterForm from "./components/registerForm";
 import NotFound from "./components/notFound";
+import Label from "./components/label";
 import AdminPanel from "./components/admin/adminPanel";
 import ShowLetters from "./components/admin/rules/showLetters";
 import ShowSubRules from "./components/admin/rules/showSubRules";
 import ShowVerses from "./components/admin/verses/showVerses";
 import ShowRecords from "./components/admin/records/showRecords";
 import ShowRecordLabel from "./components/admin/records/showRecordLabel";
-import Label from "./components/label";
 import RegisterUserForm from "./components/admin/users/registerUserForm";
 import EditUserForm from "./components/admin/users/editUserForm";
 import AddRuleForm from "./components/admin/rules/addRuleForm";
@@ -25,9 +27,8 @@ import EditRecordForm from "./components/admin/records/editRecordForm";
 import ProtectedRoute from "./components/common/protectedRoute";
 import ShaikhRoute from "./components/common/shaikhRoute";
 import LoginRoute from "./components/common/loginRoute";
-import NavBar from "./components/navBar";
 import { getRoot } from "./services/rulesServices";
-import jwt_decode from "jwt-decode";
+import { getUserRole } from "./services/usersServices";
 
 class App extends Component {
   state = { jwt: "", userRole: "", root: {} };
@@ -35,10 +36,10 @@ class App extends Component {
   async componentDidMount() {
     try {
       const jwt = localStorage.getItem("token");
-      let user = "";
       let userRole = "";
-      if (jwt) user = jwt_decode(jwt);
-      if (user) userRole = user.isShaikh ? "shaikh" : "admin";
+      if (jwt) {
+        userRole = await getUserRole();
+      }
       const { data: root } = await getRoot();
       this.setState({ jwt, userRole, root });
     } catch (ex) {}
@@ -121,6 +122,7 @@ class App extends Component {
           ></ProtectedRoute>
           <ShaikhRoute path="/label" component={Label}></ShaikhRoute>
           <LoginRoute path="/login" component={Login}></LoginRoute>
+          <LoginRoute path="/register" component={RegisterForm}></LoginRoute>
           <Route path="/احكام/:id" component={Rules}></Route>
           <Route path="/احكام" component={Rules}></Route>
           <Route path="/not-found" component={NotFound} />

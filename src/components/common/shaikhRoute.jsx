@@ -7,7 +7,7 @@ const ShaikhRoute = ({ path, component: Component, render, ...rest }) => {
     <Route
       {...rest}
       render={props => {
-        if (!(getUserRole() === "admin" || "shaikh")) {
+        if (!(getUserRole() === "admin") && !(getUserRole() === "shaikh")) {
           return (
             <Redirect
               to={{

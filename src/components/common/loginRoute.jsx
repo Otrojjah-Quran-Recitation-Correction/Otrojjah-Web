@@ -7,7 +7,7 @@ const LoginRoute = ({ path, component: Component, render, ...rest }) => {
     <Route
       {...rest}
       render={props => {
-        if (!(getUserRole() === "client")) {
+        if (!(getUserRole() === "not_loggedin")) {
           return (
             <Redirect
               to={{
