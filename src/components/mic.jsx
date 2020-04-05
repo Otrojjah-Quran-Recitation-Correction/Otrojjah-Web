@@ -16,11 +16,15 @@ export default class Mic extends Component {
   }
 
   startRecording = () => {
-    const btnClass = "btn btn-info disabled normalcursor";
-    this.setState({
-      record: true,
-      btnClass
-    });
+    const jwt = localStorage.getItem("token");
+    if (!jwt) window.location = "/login";
+    else {
+      const btnClass = "btn btn-info disabled normalcursor";
+      this.setState({
+        record: true,
+        btnClass
+      });
+    }
   };
 
   stopRecording = () => {
@@ -41,9 +45,7 @@ export default class Mic extends Component {
 
   saveRecord = async () => {
     let recordedBlob = this.state.recordedBlob;
-    const jwt = localStorage.getItem("token");
-    if (!jwt) window.location = "/login";
-    else if (recordedBlob) {
+    if (recordedBlob) {
       const { verseId } = this.props;
       const name = `record-${Date.now()}.wav`;
       const data = new FormData();

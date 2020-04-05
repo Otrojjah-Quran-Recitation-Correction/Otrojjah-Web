@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Mic from "./mic";
 import { getRandomRecord } from "../services/recordsServices";
 import { getVerse } from "../services/versesServices";
@@ -14,13 +15,15 @@ class Home extends Component {
     verse: {},
     letter: {},
     subRule: {},
-    labelAlert: ""
+    labelAlert: "",
+    loginClass: "none"
   };
 
   async componentDidMount() {
     const jwt = localStorage.getItem("token");
     const { data: record } = await getRandomRecord("shaikh", jwt);
-    this.setState({ jwt, record });
+    const loginClass = "block";
+    this.setState({ jwt, record, loginClass });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -67,7 +70,7 @@ class Home extends Component {
 
   render() {
     const { fileURL, name, verseId } = this.state.record;
-    const { verse, letter, subRule, labelAlert } = this.state;
+    const { verse, letter, subRule, labelAlert, jwt, loginClass } = this.state;
     if (verseId) this.getVerse(verseId);
     if (verse._id) this.getLetter(verse.ruleId);
     if (letter._id) this.getSubRule(letter.parentId);
@@ -106,8 +109,17 @@ class Home extends Component {
                 {<FontAwesomeIcon className="mx-1" icon={faMicrophone} />} وابدء
                 بالقراءة كما سمعت فى التسجيل ثم اضغط على
                 {<FontAwesomeIcon className="mx-1" icon={faStopCircle} />} بعد
-                انتهائك من التسجيل.
+                انتهائك من التسجيل ثم اضغط على{" "}
+                <span className="btn-info btn" style={{ cursor: "auto" }}>
+                  تقييم
+                </span>
               </p>
+              {!jwt && (
+                <p style={{ display: loginClass }}>
+                  انت لم تقم بتسجيل الدخول. قم بتسجيل الدخول من{" "}
+                  <Link to="/login">هنا</Link> حتى تتمكن من استخدام البرنامج.
+                </p>
+              )}
               <Mic handleAlert={this.handleAlert} verseId={verseId}></Mic>
             </div>
             <div className="col-2"></div>

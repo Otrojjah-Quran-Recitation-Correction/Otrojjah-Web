@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Mic from "./mic";
 import Joi from "joi-browser";
 import Form from "./common/form";
@@ -36,7 +37,9 @@ class Rules extends Form {
     verseKey: "",
     recordKey: "",
     noRecord: false,
-    labelAlert: ""
+    labelAlert: "",
+    jwt: "",
+    loginClass: "none"
   };
 
   schema = {
@@ -45,10 +48,12 @@ class Rules extends Form {
   };
 
   async componentDidMount() {
+    const jwt = localStorage.getItem("token");
+    const loginClass = "block";
     const ruleId = this.props.match.params.id;
     let { data: rule } = await getRule(ruleId);
     const { data: subRules } = await getRules(ruleId);
-    this.setState({ subRules, rule: rule[0] });
+    this.setState({ subRules, rule: rule[0], jwt, loginClass });
   }
 
   getLetters = async subRule => {
@@ -108,7 +113,9 @@ class Rules extends Form {
       verseKey,
       recordKey,
       noRecord,
-      labelAlert
+      labelAlert,
+      jwt,
+      loginClass
     } = this.state;
     return (
       <React.Fragment>
@@ -352,8 +359,32 @@ class Rules extends Form {
                                                               />
                                                             }{" "}
                                                             بعد انتهائك من
-                                                            التسجيل.
+                                                            التسجيل ثم اضغط على{" "}
+                                                            <span
+                                                              className="btn-info btn"
+                                                              style={{
+                                                                cursor: "auto"
+                                                              }}
+                                                            >
+                                                              تقييم
+                                                            </span>
                                                           </p>
+                                                          {!jwt && (
+                                                            <p
+                                                              style={{
+                                                                display: loginClass
+                                                              }}
+                                                            >
+                                                              انت لم تقم بتسجيل
+                                                              الدخول. قم بتسجيل
+                                                              الدخول من{" "}
+                                                              <Link to="/login">
+                                                                هنا
+                                                              </Link>{" "}
+                                                              حتى تتمكن من
+                                                              استخدام البرنامج.
+                                                            </p>
+                                                          )}
                                                           <Mic
                                                             className="mt-2"
                                                             handleAlert={
