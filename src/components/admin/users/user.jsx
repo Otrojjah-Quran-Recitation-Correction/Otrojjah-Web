@@ -71,9 +71,9 @@ class User extends Component {
     if (this.props.deleteUser) this.handleDelete(this.props.user);
     return (
       <div>
-        <p>Showing {totalCount} users in the database.</p>
+        <p>.Showing {totalCount} users in the database</p>
         <Link to={`/registerUser`}>
-          <button className="my-2 btn btn-warning">Add User</button>
+          <button className="my-2 action_btn">Add Shaikh</button>
         </Link>
         <SearchBox value={searchQuery} onChange={this.handleSearch} />
         <UsersTable

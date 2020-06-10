@@ -53,20 +53,20 @@ class RegisterForm extends Form {
 
   render() {
     return (
-      <div className=" py-5">
-        <div className="container rule my-5 bt-5">
+      <div className=" pb-5">
+        <div className="container text-center rule mb-5 bt-5">
           <div className="row">
-            <div className="col-2"></div>
-            <div className="col-8 my-5">
-              <h1>التسجيل</h1>
-              <form onSubmit={this.handleSubmit}>
+            <div className="col-md-2"></div>
+            <div className="col-md-8 my-5">
+              <form className="p-4" onSubmit={this.handleSubmit}>
+                <h1 className="mb-5">التسجيل</h1>
                 {this.renderInput("name", "الاسم")}
-                {this.renderInput("email", "الايميل", "email")}
+                {this.renderInput("email", "البريد الالكترونى", "email")}
                 {this.renderInput("password", "كلمة السر", "password")}
-                {this.renderButton("نسجيل")}
+                {this.renderButton("تسجيل")}
               </form>
             </div>
-            <div className="col-2"></div>
+            <div className="col-md-2"></div>
           </div>
         </div>
       </div>

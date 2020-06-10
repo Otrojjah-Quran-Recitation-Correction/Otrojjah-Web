@@ -1,3 +1,13 @@
+@font-face {
+  font-family: mainFont;
+  src: url(./fonts/a-jannat-lt-bold.ttf);
+}
+
+@font-face {
+  font-family: ayah;
+  src: url(./fonts/Al-QuranAlKareem.ttf);
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -10,11 +20,40 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #011224 !important;
-  color: white !important;
+  background-color: #253b49 !important;
+  color: #253b49 !important;
   text-align: right !important;
+
   direction: rtl;
-  font-family: "Amiri", serif !important;
+  font-family: mainFont !important;
+}
+
+audio::-webkit-media-controls-panel {
+  background-color: #efede8;
+}
+
+*:focus {
+  outline: 0 !important;
+}
+
+form {
+  border: 2px solid #253b49;
+  border-radius: 45px;
+}
+
+table {
+  border-color: #253b49 !important;
+}
+
+input,
+select,
+textarea {
+  background-color: #efede8 !important;
+  text-align: center !important;
+}
+
+a:hover {
+  text-decoration: none !important;
 }
 
 .ltr {
@@ -25,94 +64,183 @@ body {
   direction: rtl !important;
 }
 
-.mainComponent {
-  background-color: #011224 !important;
-  border-radius: 20px;
+.ayah {
+  font-family: ayah !important;
+  font-weight: 900 !important;
 }
 
-.block {
-  display: block;
+.text_bg {
+  background-color: #efede8;
+  border-radius: 50px;
+  padding: 7px 25px !important;
+  text-align: center;
 }
 
-.record {
-  width: 100%;
+.text_title {
+  background-color: #253b49;
+  color: #efede8;
+  border-radius: 50px;
+  padding: 12px 20px 12px 25px !important;
+  text-align: center;
+}
+
+.result_btn {
+  background-color: #253b49;
+  color: #d3c6b3;
+  padding: 10px 30px;
+  border: 0;
+  border-radius: 50px;
+}
+
+.result_btn:hover {
+  color: #efede8;
+  background-color: #bf8e4b;
+}
+
+.btn_active {
+  color: #efede8 !important;
+  background-color: #bf8e4b !important;
+}
+
+.action_btn {
+  background-color: #253b49;
+  color: #d3c6b3;
+  padding: 5px 15px;
+  border: 0;
+  border-radius: 5px;
+}
+
+.action_btn:hover {
+  background-color: #bf8e4b;
+  color: #efede8;
+}
+
+.disabled_btn {
+  color: #d3c6b3 !important;
+  background-color: rgba(37, 59, 73, 0.5) !important;
+}
+
+.nav_bg {
+  border-radius: 20px 20px 0 0;
+  background-color: #d3c6b3;
+}
+
+.nav_line {
+  background-color: #bf8e4b;
+  height: 10px;
+  width: 200%;
+  position: absolute;
+  left: 0;
+  z-index: 5;
+}
+
+.displayNone {
+  display: none !important;
+}
+
+.navlogo {
+  position: absolute;
+  box-shadow: 10px 0 0 0 #bf8e4b;
+  top: 0;
+  right: 90px;
+  background-color: #253b49;
+  width: 100px;
   height: 200px;
-  border: 1px solid black;
-  border-bottom: none;
-  margin: auto;
+  z-index: 585415;
+}
+
+.navlogo img {
+  position: relative;
+  top: 60px;
+  right: 19px;
+  width: 60px;
+  height: 125px;
+  z-index: 5854151545;
+  cursor: pointer;
+}
+
+.navlogominmizer {
+  position: absolute;
+  box-shadow: 10px 0 0 0 #bf8e4b;
+  background-color: #253b49;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  right: 90px;
+  top: 150px;
+  z-index: 58541;
+}
+
+@media only screen and (max-width: 860px) {
+  .navlogo {
+    height: 100px;
+  }
+  .navlogominmizer {
+    top: 50px;
+  }
+  .navlogo img {
+    top: 0;
+  }
+}
+
+@media only screen and (max-width: 1325px) {
+  .navlogo {
+    right: 50px;
+  }
+  .navlogominmizer {
+    right: 50px;
+  }
+}
+
+@media only screen and (max-width: 1250px) {
+  .navlogo {
+    right: 30px;
+  }
+  .navlogominmizer {
+    right: 30px;
+  }
+}
+
+.rule {
+  border-radius: 0 0 20px 20px;
+  background-color: #d3c6b3 !important;
+  color: #253b49 !important;
+}
+
+.mainComponent {
+  background-color: #253b49 !important;
+  color: #d3c6b3;
+  border-radius: 20px !important;
 }
 
 .Audio {
   margin: auto;
   width: 100%;
-  position: relative;
-  background-color: #f1f3f4;
-  border: 1px solid black;
-  border-top: none;
 }
 
-.recordAudio {
-  top: -45px;
-}
-
-.aya {
-  font-family: "Amiri", serif;
-}
 .recordicon {
-  border-radius: 50%;
-  background-color: #011224;
-  margin: 5px;
-  padding: 5px;
-  color: white;
   cursor: pointer;
   width: 30px !important;
   height: 30px;
-  position: relative;
-  top: -40px;
+}
+
+.recordicon:hover {
+  color: #bf8e4b;
+}
+
+.disabled_icon {
+  color: rgba(37, 59, 73, 0.5) !important;
+  cursor: auto !important;
+}
+
+.active_icon {
+  color: #bf8e4b !important;
 }
 
 .labelicon {
+  cursor: pointer;
   font-size: 35px !important;
-  border-radius: 10px !important;
-}
-
-.label {
-  border: 1px solid black;
-  border-radius: 45px;
-  padding: 50px;
-  background-color: #010a15 !important;
-}
-
-.navBar {
-  background-color: rgba(0, 0, 0, 0.6);
-}
-
-.a7kam-menu {
-  right: 0 !important;
-  margin-top: 7px !important;
-  background-color: rgba(0, 0, 0, 0.6) !important;
-}
-
-.a7kam-item {
-  color: #f1f3f4 !important;
-}
-.a7kam-item:hover {
-  background-color: rgba(0, 0, 0, 0.6) !important;
-}
-
-.login {
-  border: 1px solid black;
-  border-radius: 45px;
-  background-color: #010a15 !important;
-}
-
-.navitem {
-  color: white !important;
-}
-
-.navitem:hover {
-  text-decoration: none;
-  color: rgb(189, 183, 183) !important;
+  border-radius: 15px !important;
 }
 
 .normalcursor {
@@ -125,10 +253,12 @@ body {
 
 .labelhead {
   position: fixed !important;
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(1, 1, 1, 0.6) !important;
-  z-index: 5651;
+  z-index: 5655262321;
 }
 
 .labelalert {
@@ -138,10 +268,29 @@ body {
   opacity: 5 !important;
 }
 
-.ql-editor {
-  white-space: normal !important;
+.nav-pills .nav-link.active {
+  color: #d3c6b3 !important;
+  background-color: #253b49 !important;
+  border-radius: 5px;
 }
-.rule {
-  background-color: #010a15;
-  border-radius: 20px;
+
+.form-control {
+  color: #253b49 !important;
+}
+
+.toast-header {
+  color: #253b49 !important;
+  background-color: #efede8 !important;
+}
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: #efede8 !important;
+  background-color: #253b49 !important;
+  border-color: #253b49 !important;
+}
+
+.page-link {
+  color: #253b49 !important;
+  background-color: #efede8 !important;
 }

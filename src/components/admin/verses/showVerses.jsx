@@ -37,8 +37,8 @@ class ShowVerses extends Component {
             handleAccept={this.handleVerseDelete}
           ></Alert>
         )}
-        <div className="py-5">
-          <div className="mainComponent container my-5 py-5">
+        <div>
+          <div className="rule container mb-5 py-5">
             <Verse
               deleteVerse={deleteVerse}
               verse={labelAlert}

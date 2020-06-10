@@ -7,14 +7,19 @@ class SubRuleTable extends Component {
     {
       path: "name",
       label: "name",
-      content: item => <a href={`/showLetters/${item._id}`}> {item.name}</a>
+      content: item => (
+        <Link style={{ color: "#bf8e4b" }} to={`/showLetters/${item._id}`}>
+          {" "}
+          {item.name}
+        </Link>
+      )
     },
     {
       key: "edit",
       label: "edit",
       content: item => (
         <Link to={`/editRule/${item._id}`}>
-          <button className="btn btn-info btn-sm">Edit</button>
+          <button className="action_btn">Edit</button>
         </Link>
       )
     }

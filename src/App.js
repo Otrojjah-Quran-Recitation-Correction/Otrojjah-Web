@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 import "./components/navBar";
 import NavBar from "./components/navBar";
@@ -127,6 +127,7 @@ class App extends Component {
           <Route path="/احكام" component={Rules}></Route>
           <Route path="/not-found" component={NotFound} />
           <Route exact path="/" component={Home}></Route>
+          <Redirect to="/not-found" />
         </Switch>
       </React.Fragment>
     );

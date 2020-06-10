@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import Mic from "./mic";
 import { getRandomRecord } from "../services/recordsServices";
 import { getVerse } from "../services/versesServices";
@@ -15,15 +14,13 @@ class Home extends Component {
     verse: {},
     letter: {},
     subRule: {},
-    labelAlert: "",
-    loginClass: "none"
+    labelAlert: ""
   };
 
   async componentDidMount() {
     const jwt = localStorage.getItem("token");
     const { data: record } = await getRandomRecord("shaikh", jwt);
-    const loginClass = "block";
-    this.setState({ jwt, record, loginClass });
+    this.setState({ jwt, record });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -70,7 +67,7 @@ class Home extends Component {
 
   render() {
     const { fileURL, name, verseId } = this.state.record;
-    const { verse, letter, subRule, labelAlert, jwt, loginClass } = this.state;
+    const { verse, letter, subRule, labelAlert } = this.state;
     if (verseId) this.getVerse(verseId);
     if (verse._id) this.getLetter(verse.ruleId);
     if (letter._id) this.getSubRule(letter.parentId);
@@ -84,45 +81,66 @@ class Home extends Component {
             handleAccept={this.handleAccept}
           ></Alert>
         )}
-        <div className="py-5"></div>
-        <main className="rule container my-5 py-5">
-          <div className="row">
-            <div className="col-2"></div>
-            <div className="col-8 text-center">
-              {subRule.name && (
-                <div>
-                  <h3>الحكم:{subRule.name}</h3>
-                  <h3>الحكم المفصل:{letter.name}</h3>
-                  <h3>اية :﴿{verse.name}﴾</h3>
-                  <h3>سورة :{verse.surah}</h3>
-                </div>
-              )}
-              <p className="pt-3">استمع جيدا الى التسجيل الاتى.</p>
+        <main className="container rule mb-5 py-5">
+          <div className="row mb-5 pt-5">
+            <div className="col-md-2"></div>
+            <div className="col-md-8 text-center">
+              <p>
+                <span className="text_bg">استمع جيدا الى التسجيل الاتى..</span>
+              </p>
               <audio
                 title={name}
-                className="Audio"
+                className="Audio mt-5"
                 src={fileURL}
                 controls
               ></audio>
+            </div>
+            <div className="col-md-2"></div>
+          </div>
+          {subRule.name && (
+            <div
+              className="m-auto text-center"
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center"
+              }}
+            >
+              <span className="text_bg mb-1 pr-0 mx-3">
+                <span className="text_title"> الآية</span>
+                <span className="ayah mr-3">{verse.name}</span>
+              </span>
+
+              <span className="text_bg mb-1 pr-0 mx-3">
+                <span className="text_title"> السورة</span>{" "}
+                <span className="mr-3"> {verse.surah}</span>
+              </span>
+
+              <span className="text_bg mb-1 pr-0 mx-3">
+                <span className="text_title"> الحكم</span>
+                <span className="mr-3"> {subRule.name}</span>
+              </span>
+
+              <span className="text_bg mb-1 pr-0 mx-3">
+                <span className="text_title"> الحكم المفصل</span>
+                <span className="mr-3"> {letter.name}</span>
+              </span>
+            </div>
+          )}
+          <div className="row my-5">
+            <div className="col-md-2"></div>
+            <div className="col-md-8 text-center">
               <p className="my-2">
                 الان اضغط على
                 {<FontAwesomeIcon className="mx-1" icon={faMicrophone} />} وابدء
-                بالقراءة كما سمعت فى التسجيل ثم اضغط على
+                بالقراءة كما سمعت فى التسجيل
+                <br /> ثم اضغط على
                 {<FontAwesomeIcon className="mx-1" icon={faStopCircle} />} بعد
-                انتهائك من التسجيل ثم اضغط على{" "}
-                <span className="btn-info btn" style={{ cursor: "auto" }}>
-                  تقييم
-                </span>
+                انتهائك من التسجيل ثم اضغط على تقييم
               </p>
-              {!jwt && (
-                <p style={{ display: loginClass }}>
-                  انت لم تقم بتسجيل الدخول. قم بتسجيل الدخول من{" "}
-                  <Link to="/login">هنا</Link> حتى تتمكن من استخدام البرنامج.
-                </p>
-              )}
               <Mic handleAlert={this.handleAlert} verseId={verseId}></Mic>
             </div>
-            <div className="col-2"></div>
+            <div className="col-md-2"></div>
           </div>
         </main>
       </React.Fragment>

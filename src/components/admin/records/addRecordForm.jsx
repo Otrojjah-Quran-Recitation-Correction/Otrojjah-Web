@@ -41,13 +41,17 @@ class AddRecordForm extends Form {
 
   render() {
     return (
-      <div className=" py-5">
-        <div className="container rule my-5 bt-5">
+      <div>
+        <div className="container rule mb-5 bt-5">
           <div className="row">
             <div className="col-2"></div>
             <div className="col-8 my-5">
-              <h1>Add Record</h1>
-              <form encType="multipart/form-data" onSubmit={this.handleSubmit}>
+              <form
+                className="text-center p-4  m-auto"
+                encType="multipart/form-data"
+                onSubmit={this.handleSubmit}
+              >
+                <h1 className="mb-5">Add Record</h1>
                 {this.renderInput("label", "Label")}
                 {this.renderInput("record", "Record", "file")}
                 {this.renderButton("Add")}

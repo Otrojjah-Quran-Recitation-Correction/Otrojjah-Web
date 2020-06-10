@@ -1,114 +1,182 @@
 import React, { Component } from "react";
 import { getRules } from "../services/rulesServices";
-import { getUserData } from "../services/usersServices";
+import { Link } from "react-router-dom";
 
 class NavBar extends Component {
-  state = { rules: [], user: {} };
-
-  // async componentDidMount() {
-  //   const jwt = localStorage.getItem("token");
-  //   const { data: user } = await getUserData(jwt);
-  //   console.log(user);
-  //   this.setState({ user });
-  // }
+  state = {
+    rules: [],
+    user: {},
+    rulesClass: "displayNone",
+    activePage: "home",
+    activeRule: "",
+    loginAlert: "none"
+  };
 
   async componentDidUpdate(prevProps, prevState) {
     const root = this.props.root;
-    if (!prevState.rules[0]) {
+    let loginAlert = "flex";
+    if (root[0] && !prevState.rules[0]) {
       const { data: rules } = await getRules(root[0]._id);
-      this.setState({ rules });
+      if (this.props.userRole) loginAlert = "none";
+      this.setState({ rules, loginAlert });
     }
   }
 
+  showRules = page => {
+    let rulesClass = this.state.rulesClass;
+    let activePage = page;
+    rulesClass = rulesClass ? "" : "displayNone";
+    this.setState({ rulesClass, activePage });
+  };
+
+  activateButton = (page, rule = "") => {
+    const activePage = page;
+    const activeRule = rule;
+    let rulesClass = rule ? "" : "displayNone";
+    this.setState({ activePage, activeRule, rulesClass });
+  };
+
   render() {
     const { userRole } = this.props;
-    const { rules } = this.state;
+    const {
+      rules,
+      rulesClass,
+      activePage,
+      activeRule,
+      loginAlert
+    } = this.state;
     return (
-      <nav className="navBar navbar navbar-expand-lg navbar-dark  fixed-top mb-5 ltr">
-        <a className="navbar-brand ml-2" href="/">
-          اترجة
-        </a>
-        {userRole && (
-          <a
-            onClick={this.props.handleLogOut}
-            style={{ cursor: "pointer" }}
-            className="navitem"
-            href="/"
+      <React.Fragment>
+        {!userRole && (
+          <div
+            style={{
+              display: `${loginAlert}`,
+              position: "fixed",
+              top: "0",
+              width: "100%",
+              zIndex: "13121352136"
+            }}
+            className="rule"
           >
-            تسجيل الخروج <span className="sr-only">(current)</span>
-          </a>
-        )}
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ml-auto rtl">
-            <li className="nav-item active navitem">
-              <a className="nav-link" href="/">
-                الرئيسية <span className="sr-only">(current)</span>
-              </a>
-            </li>
+            <p className="pt-3 mr-5" style={{ display: "inline-block" }}>
+              انت لست مشترك فى الأترجة . قم بالأشتراك حتى تتمكن من استخدام
+              البرنامج.
+            </p>
 
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link navitem dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
+            <Link to="/register" className="result_btn ltr  mr-auto m-2">
+              اشترك الان
+            </Link>
+          </div>
+        )}
+        <div className="container px-0">
+          <div className="rule mb-5" style={{ height: "20px" }}></div>
+          <div className="nav_bg ltr">
+            <div style={{ display: "flex", flexWrap: "wrap" }}>
+              {!userRole && (
+                <Link
+                  onClick={() => this.activateButton("login")}
+                  to="/login"
+                  className={`ltr result_btn mx-2 my-4 ml-4 ${
+                    activePage === "login" ? "btn_active" : ""
+                  }`}
+                >
+                  تسجيل الدخول
+                </Link>
+              )}
+              {userRole && (
+                <Link
+                  onClick={this.props.handleLogOut}
+                  to="/"
+                  className="ltr result_btn mx-2 my-4 ml-4"
+                >
+                  تسجيل الخروج
+                </Link>
+              )}
+              <Link
+                onClick={() => this.activateButton("home")}
+                to="/"
+                className={`ltr result_btn mx-2 my-4 `}
               >
-                الاحكام
-              </a>
+                الأترجة
+              </Link>
               <div
-                className="dropdown-menu a7kam-menu"
-                aria-labelledby="navbarDropdown"
-                style={{ minWidth: 15 + "rem" }}
+                className="ml-auto"
+                style={{ display: "flex", marginRight: "100px" }}
               >
-                {rules.map(rule => (
-                  <a
+                {userRole === "admin" && (
+                  <Link
+                    onClick={() => this.activateButton("admin")}
+                    to="/adminPanel"
+                    className={`result_btn mx-2 my-4 ${
+                      activePage === "admin" ? "btn_active" : ""
+                    }`}
+                  >
+                    AdminPanel
+                  </Link>
+                )}
+                {userRole && userRole !== "client" && (
+                  <Link
+                    onClick={() => this.activateButton("label")}
+                    to="/label"
+                    className={`result_btn mx-2 my-4 ${
+                      activePage === "label" ? "btn_active" : ""
+                    }`}
+                  >
+                    تقييم
+                  </Link>
+                )}
+                <Link
+                  onClick={() => this.showRules("rules")}
+                  className={`result_btn mx-2 my-4 ${
+                    activePage === "rules" ? "btn_active" : ""
+                  }`}
+                >
+                  الأحكام
+                </Link>
+                <Link
+                  onClick={() => this.activateButton("home")}
+                  to="/"
+                  className={`result_btn mx-2 my-4 ${
+                    activePage === "home" ? "btn_active" : ""
+                  }`}
+                >
+                  الرئيسية
+                </Link>
+              </div>
+            </div>
+            <div
+              className={`ml-auto rtl ${rulesClass}`}
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                marginRight: "100px"
+              }}
+            >
+              {rules &&
+                rules.map(rule => (
+                  <Link
                     key={rule._id}
-                    className="dropdown-item text-right a7kam-item"
-                    href={`/احكام/${rule._id}`}
+                    onClick={() => this.activateButton("rules", rule.name)}
+                    className={`result_btn mx-2 mb-1 ${
+                      activeRule === rule.name ? "btn_active" : ""
+                    }`}
+                    to={`/احكام/${rule._id}`}
                   >
                     {rule.name}
-                  </a>
+                  </Link>
                 ))}
-              </div>
-            </li>
-            <li className="nav-item">
-              {!userRole && (
-                <a className="nav-link navitem" href="/login">
-                  تسجيل الدخول
-                </a>
-              )}
-            </li>
-            <li className="nav-item">
-              {userRole && userRole !== "client" && (
-                <a className="nav-link navitem" href="/label">
-                  تقييم
-                </a>
-              )}
-            </li>
-            <li className="nav-item">
-              {userRole === "admin" && (
-                <a className="nav-link navitem" href="/adminPanel">
-                  Admin Panel
-                </a>
-              )}
-            </li>
-          </ul>
+            </div>
+            <div className="nav_line mt-2 mb-1"></div>
+            <div className="nav_line" style={{ height: "5px" }}></div>
+          </div>
+          <div className="navlogo">
+            <Link onClick={() => this.activateButton("home")} to="/">
+              <img alt="اترجة" src="../photos/logo3.png" />
+            </Link>
+          </div>
+          <div className="navlogominmizer"></div>
         </div>
-      </nav>
+      </React.Fragment>
     );
   }
 }

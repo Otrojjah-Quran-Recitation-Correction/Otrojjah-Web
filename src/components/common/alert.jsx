@@ -16,6 +16,7 @@ class Alert extends Component {
           role="alert"
           aria-live="assertive"
           aria-atomic="true"
+          style={{ borderRadius: "15px" }}
         >
           <div className="toast-header">
             <button
@@ -35,17 +36,18 @@ class Alert extends Component {
             )}
           </div>
           {label !== "success" && (
-            <div className="toast-body">
+            <div
+              className="toast-body text-center"
+              style={{ backgroundColor: "#efede8" }}
+            >
               <button
-                style={{ width: 50 + "px" }}
-                className="mx-1 btn btn-success"
+                className="mx-1 result_btn"
                 onClick={() => this.props.handleAccept(label)}
               >
                 نعم
               </button>
               <button
-                style={{ width: 50 + "px" }}
-                className="mx-1 btn btn-danger"
+                className="mx-1 result_btn"
                 onClick={() => this.props.handleClose()}
               >
                 لا
@@ -55,8 +57,7 @@ class Alert extends Component {
           {label === "success" && (
             <div className="toast-body text-center">
               <button
-                style={{ width: 50 + "px" }}
-                className="mx-1 btn btn-success"
+                className="mx-1 result_btn"
                 onClick={() => this.props.handleClose()}
               >
                 تم

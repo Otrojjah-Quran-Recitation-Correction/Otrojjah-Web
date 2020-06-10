@@ -71,7 +71,6 @@ export function getUserRole() {
   const jwt = localStorage.getItem("token");
   if (jwt) {
     const user = jwt_decode(jwt);
-    console.log(user);
     if (user.isShaikh) return "shaikh";
     else if (user.isAdmin) return "admin";
     else return "client";

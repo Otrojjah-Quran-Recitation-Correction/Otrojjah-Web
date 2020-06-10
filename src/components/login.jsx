@@ -76,13 +76,13 @@ class Login extends Component {
   render() {
     return (
       <React.Fragment>
-        <div className="py-5 mt-5">
-          <div className="container">
-            <div className="row">
-              <div className="col-3"></div>
+        <div className="pb-5 ">
+          <div className="container pb-5 rule">
+            <div className="row pt-5">
+              <div className="col-md-3"></div>
               <form
                 onSubmit={this.handleLogin}
-                className="login p-4 col-6 m-auto"
+                className="text-center p-4  m-auto col-md-6"
               >
                 <h1 className="pt-4">تسجيل الدخول</h1>
                 <div className="form-group pt-4">
@@ -91,7 +91,7 @@ class Login extends Component {
                   </label>
                   <input
                     placeholder="البريد الالكترونى"
-                    className="form-control mb-3"
+                    className="form-control mb-3 text-center"
                     type="text"
                     id="email"
                     name="email"
@@ -111,7 +111,7 @@ class Login extends Component {
                   </label>
                   <input
                     placeholder="كلمة السر"
-                    className="form-control mb-3"
+                    className="form-control mb-3 text-center"
                     type="password"
                     id="password"
                     name="password"
@@ -129,18 +129,18 @@ class Login extends Component {
                 <button
                   type="submit"
                   style={{ width: "100%" }}
-                  className="btn btn-primary mb-4"
+                  className="result_btn mb-4"
                 >
                   دخول
                 </button>
 
                 <Link style={{ color: "white" }} to="/register">
-                  <button style={{ width: "100%" }} className="btn btn-primary">
+                  <button style={{ width: "100%" }} className="result_btn">
                     تسجيل
                   </button>
                 </Link>
               </form>
-              <div className="col-3"></div>
+              <div className="col-md-3"></div>
             </div>
           </div>
         </div>

@@ -71,9 +71,9 @@ export function updateRecord(record, id, jwt) {
     });
 }
 
-export function addRecord(record, jwt) {
+export function addRecord(record) {
   return http
-    .post(apiEndPoint, record, { headers: { "x-auth-token": jwt } })
+    .post(apiEndPoint, record)
     .then(function(response) {
       //console.log(response);
     })

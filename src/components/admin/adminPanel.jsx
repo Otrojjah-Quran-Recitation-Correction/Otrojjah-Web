@@ -40,11 +40,11 @@ class AdminPanel extends Component {
             handleAccept={this.handleUserDelete}
           ></Alert>
         )}
-        <div className="my-4 mx-5">
-          <div className="row ml-0">
-            <div className="col-3 my-5 py-5 rule">
-              <div>
-                <h3>Admin Panel</h3>
+        <div className="mb-5 container">
+          <div className="row ">
+            <div className="col-3 mb-5 py-5 rule">
+              <div className="pt-5 mt-3 pb-3">
+                <h3 className="text_bg">Admin Panel</h3>
               </div>
               <div
                 className="nav flex-column nav-pills"
@@ -60,6 +60,7 @@ class AdminPanel extends Component {
                   role="tab"
                   aria-controls="v-pills-users"
                   aria-selected="true"
+                  style={{ color: "#253B49" }}
                 >
                   Users
                 </a>
@@ -70,13 +71,14 @@ class AdminPanel extends Component {
                   role="tab"
                   aria-controls="v-pills-rules"
                   href="#v-pills-rules"
+                  style={{ color: "#253B49" }}
                 >
                   Rules
                 </a>
               </div>
             </div>
-            <div className="col-9 my-5 py-5 rule">
-              <div className="tab-content" id="v-pills-tabContent">
+            <div className="col-9 mb-5 py-5 rule">
+              <div className="tab-content pt-5 mt-3" id="v-pills-tabContent">
                 <div
                   className="tab-pane fade show active"
                   id="v-pills-users"

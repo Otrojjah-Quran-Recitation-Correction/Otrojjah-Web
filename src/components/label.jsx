@@ -88,43 +88,68 @@ class Label extends Component {
             handleAccept={this.handleAccept}
           ></Alert>
         )}
-        <div className="container  pt-5">
+        <div className="container rule pt-5">
           {this.state.record.fileURL && (
-            <div className="row pt-5">
-              <div className="col-3"></div>
-              <div className="col-6 label">
-                {subRule.name && (
-                  <div className="text-center mb-5">
-                    <h3>الحكم:{subRule.name}</h3>
-                    <h3>الحكم المفصل:{letter.name}</h3>
-                    <h3>اية :﴿{verse.name}﴾</h3>
-                    <h3>سورة :{verse.surah}</h3>
-                  </div>
-                )}
-                <audio
-                  title={name}
-                  className="Audio mt-3"
-                  controls
-                  style={{ display: "block" }}
-                  src={fileURL}
-                ></audio>
-                <div className="container my-2">
-                  <div className="row">
-                    <FontAwesomeIcon
-                      className="labelicon ml-1 btn btn-success col"
-                      onClick={() => this.handleAlert("true")}
-                      icon={faCheck}
-                    />
+            <div className="pt-5">
+              {subRule.name && (
+                <div
+                  className="m-auto text-center"
+                  style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "center"
+                  }}
+                >
+                  <span className="text_bg mb-1 pr-0 mx-3">
+                    <span className="text_title"> الآية</span>
+                    <span className="ayah mr-3">{verse.name}</span>
+                  </span>
 
-                    <FontAwesomeIcon
-                      className="labelicon mr-1 btn btn-danger col"
-                      onClick={() => this.handleAlert("false")}
-                      icon={faTimes}
-                    />
+                  <span className="text_bg mb-1 pr-0 mx-3">
+                    <span className="text_title"> السورة</span>{" "}
+                    <span className="mr-3"> {verse.surah}</span>
+                  </span>
+
+                  <span className="text_bg mb-1 pr-0 mx-3">
+                    <span className="text_title"> الحكم</span>
+                    <span className="mr-3"> {subRule.name}</span>
+                  </span>
+
+                  <span className="text_bg mb-1 pr-0 mx-3">
+                    <span className="text_title"> الحكم المفصل</span>
+                    <span className="mr-3"> {letter.name}</span>
+                  </span>
+                </div>
+              )}
+
+              <div className="row pt-5">
+                <div className="col-2"></div>
+                <div className="col-8 ">
+                  <audio
+                    title={name}
+                    className="Audio mt-3"
+                    controls
+                    style={{ display: "block" }}
+                    src={fileURL}
+                  ></audio>
+                  <div className="container my-5">
+                    <div className="row">
+                      <FontAwesomeIcon
+                        className="labelicon ml-1 result_btn col"
+                        onClick={() => this.handleAlert("true")}
+                        icon={faCheck}
+                      />
+
+                      <FontAwesomeIcon
+                        className="labelicon mr-1 result_btn col"
+                        onClick={() => this.handleAlert("false")}
+                        icon={faTimes}
+                      />
+                    </div>
                   </div>
                 </div>
+                <div className="col-3"></div>
               </div>
-              <div className="col-3"></div>
             </div>
           )}
         </div>

@@ -6,13 +6,24 @@ class UsersTable extends Component {
   columns = [
     { path: "name", label: "name" },
     { path: "email", label: "email" },
+    {
+      key: "role",
+      label: "role",
+      content: item => (
+        <React.Fragment>
+          {item.isAdmin && <p>admin</p>}
+          {item.isShaikh && <p>shaikh</p>}
+          {!item.isAdmin && !item.isShaikh && <p>client</p>}
+        </React.Fragment>
+      )
+    },
     { path: "phoneNumber", label: "phoneNumber" },
     {
       key: "edit",
       label: "edit",
       content: item => (
         <Link to={`/editUser/${item._id}`}>
-          <button className="btn btn-info btn-sm">Edit</button>
+          <button className="action_btn">Edit</button>
         </Link>
       )
     },
@@ -21,7 +32,7 @@ class UsersTable extends Component {
       label: "delete",
       content: item => (
         <button
-          className="btn btn-danger btn-sm"
+          className="action_btn"
           onClick={() => this.props.handleAlert(item)}
         >
           Delete

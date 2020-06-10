@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Mic from "./mic";
 import Joi from "joi-browser";
 import Form from "./common/form";
@@ -38,8 +37,7 @@ class Rules extends Form {
     recordKey: "",
     noRecord: false,
     labelAlert: "",
-    jwt: "",
-    loginClass: "none"
+    jwt: ""
   };
 
   schema = {
@@ -47,13 +45,22 @@ class Rules extends Form {
     label: Joi.string().required()
   };
 
+  async componentDidUpdate(prevProps, prevState) {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      const jwt = localStorage.getItem("token");
+      const ruleId = this.props.match.params.id;
+      let { data: rule } = await getRule(ruleId);
+      const { data: subRules } = await getRules(ruleId);
+      this.setState({ subRules, rule: rule[0], jwt });
+    }
+  }
+
   async componentDidMount() {
     const jwt = localStorage.getItem("token");
-    const loginClass = "block";
     const ruleId = this.props.match.params.id;
     let { data: rule } = await getRule(ruleId);
     const { data: subRules } = await getRules(ruleId);
-    this.setState({ subRules, rule: rule[0], jwt, loginClass });
+    this.setState({ subRules, rule: rule[0], jwt });
   }
 
   getLetters = async subRule => {
@@ -71,13 +78,22 @@ class Rules extends Form {
   getRecords = async verse => {
     const verseKey = verse._id;
     const shaikhName = "";
+    const recordKey = "";
     let noRecord = false;
     const jwt = localStorage.getItem("token");
     const { data } = await getRecords(verse._id, jwt);
     const records = data.filter(e => e.isShaikh === true);
     data.label = "";
     if (!records[0]) noRecord = true;
-    this.setState({ records, verse, verseKey, shaikhName, data, noRecord });
+    this.setState({
+      records,
+      verse,
+      verseKey,
+      shaikhName,
+      data,
+      noRecord,
+      recordKey
+    });
   };
 
   filterRecord = shaikhName => {
@@ -113,9 +129,7 @@ class Rules extends Form {
       verseKey,
       recordKey,
       noRecord,
-      labelAlert,
-      jwt,
-      loginClass
+      labelAlert
     } = this.state;
     return (
       <React.Fragment>
@@ -126,9 +140,17 @@ class Rules extends Form {
             handleAccept={this.handleAccept}
           ></Alert>
         )}
-        <div className="pt-5">
-          <div className="container mt-5 pt-5 pb-2 rule">
-            <h1>{rule.name}</h1>
+        <div className="pb-5">
+          <div className="container  pt-5 pb-2 rule">
+            <div
+              className="pt-5"
+              style={{ display: "flex", flexWrap: "wrap", fontSize: "25px" }}
+            >
+              <span className="text_bg mb-1 pr-0 ">
+                <span className="text_title"> أحكام</span>
+                <span className="mr-3"> {rule.name}</span>
+              </span>
+            </div>
             <p>___________________________________</p>
             {rule.description && (
               <div>
@@ -148,6 +170,7 @@ class Rules extends Form {
                       <h2 className="mb-0">
                         <button
                           className="btn btn-link"
+                          style={{ color: "#d3c6b3" }}
                           type="button"
                           data-toggle="collapse"
                           data-target={`#hokm1${subRule._id}`}
@@ -172,6 +195,7 @@ class Rules extends Form {
                           <a
                             data-toggle="collapse"
                             href={`#subRule${subRule._id}`}
+                            style={{ color: "#bf8e4b" }}
                             role="button"
                             aria-expanded="false"
                             aria-controls={`subRule${subRule._id}`}
@@ -195,8 +219,8 @@ class Rules extends Form {
                         </h6>{" "}
                       </div>
                       <div className="container row">
-                        <div className="col-1"></div>
-                        <div className="card-body text-center col-10">
+                        <div className="col-md-1"></div>
+                        <div className="card-body text-center col-md-10">
                           <div>
                             <div
                               className="accordion pt-3 mb-5 container "
@@ -207,7 +231,8 @@ class Rules extends Form {
                                   {letters.map(letter => (
                                     <div
                                       key={letter._id}
-                                      className="card mainComponent my-2"
+                                      className="card rule my-2"
+                                      style={{ borderRadius: "20px" }}
                                     >
                                       <div
                                         className="card-header"
@@ -216,6 +241,7 @@ class Rules extends Form {
                                         <h2 className="mb-0">
                                           <button
                                             className="btn btn-link"
+                                            style={{ color: "#253B49" }}
                                             type="button"
                                             data-toggle="collapse"
                                             data-target={`#hokm1${letter._id}`}
@@ -267,8 +293,8 @@ class Rules extends Form {
                                           </h6>{" "}
                                         </div> */}
                                         <div className="container row">
-                                          <div className="col-2"></div>
-                                          <div className="card-body text-center col-8">
+                                          <div className="col-md-2"></div>
+                                          <div className="card-body text-center col-md-8">
                                             {letterKey === letter._id && (
                                               <div>
                                                 <p>اختر الاية</p>
@@ -276,12 +302,12 @@ class Rules extends Form {
                                                   <div key={verse._id}>
                                                     <button
                                                       key={verse.name}
-                                                      className="btn btn-info  m-2 aya"
+                                                      className=" m-2 ayah result_btn"
                                                       onClick={() =>
                                                         this.getRecords(verse)
                                                       }
                                                     >
-                                                      ﴿{verse.name}﴾
+                                                      {verse.name}
                                                     </button>
                                                     {noRecord &&
                                                       verseKey ===
@@ -297,6 +323,9 @@ class Rules extends Form {
                                                         <form
                                                           key={verse.surah}
                                                           className="mt-3"
+                                                          style={{
+                                                            border: "none"
+                                                          }}
                                                         >
                                                           {this.renderSelect(
                                                             "label",
@@ -312,7 +341,7 @@ class Rules extends Form {
                                                             this.state
                                                               .shaikhName
                                                           }
-                                                          className="btn btn-dark my-2"
+                                                          className="result_btn my-2"
                                                           onClick={() =>
                                                             this.filterRecord(
                                                               this.state
@@ -328,9 +357,16 @@ class Rules extends Form {
                                                       shaikhName ===
                                                         recordKey && (
                                                         <div key={verse._id}>
-                                                          <p>
-                                                            استمع جيدا الى
-                                                            التسجيل الاتى.
+                                                          <p className="py-5">
+                                                            <span
+                                                              style={{
+                                                                fontSize: "15px"
+                                                              }}
+                                                              className="text_bg"
+                                                            >
+                                                              استمع جيدا الى
+                                                              التسجيل الاتى..
+                                                            </span>
                                                           </p>
                                                           <audio
                                                             className="Audio"
@@ -360,31 +396,9 @@ class Rules extends Form {
                                                             }{" "}
                                                             بعد انتهائك من
                                                             التسجيل ثم اضغط على{" "}
-                                                            <span
-                                                              className="btn-info btn"
-                                                              style={{
-                                                                cursor: "auto"
-                                                              }}
-                                                            >
-                                                              تقييم
-                                                            </span>
+                                                            تقييم
                                                           </p>
-                                                          {!jwt && (
-                                                            <p
-                                                              style={{
-                                                                display: loginClass
-                                                              }}
-                                                            >
-                                                              انت لم تقم بتسجيل
-                                                              الدخول. قم بتسجيل
-                                                              الدخول من{" "}
-                                                              <Link to="/login">
-                                                                هنا
-                                                              </Link>{" "}
-                                                              حتى تتمكن من
-                                                              استخدام البرنامج.
-                                                            </p>
-                                                          )}
+
                                                           <Mic
                                                             className="mt-2"
                                                             handleAlert={
@@ -399,7 +413,7 @@ class Rules extends Form {
                                               </div>
                                             )}
                                           </div>
-                                          <div className="col-2"></div>
+                                          <div className="col-md-2"></div>
                                         </div>
                                       </div>
                                     </div>
@@ -409,7 +423,7 @@ class Rules extends Form {
                             </div>
                           </div>
                         </div>
-                        <div className="col-1"></div>
+                        <div className="col-md-1"></div>
                       </div>
                     </div>
                   </div>

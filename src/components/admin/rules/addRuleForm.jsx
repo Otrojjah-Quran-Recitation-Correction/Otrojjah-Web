@@ -38,13 +38,16 @@ class AddRuleForm extends Form {
 
   render() {
     return (
-      <div className=" py-5">
-        <div className="container rule my-5 bt-5">
+      <div>
+        <div className="container rule mb-5 bt-5">
           <div className="row">
             <div className="col-2"></div>
             <div className="col-8 my-5">
-              <h1>Add Rule</h1>
-              <form onSubmit={this.handleSubmit}>
+              <form
+                className="text-center p-4  m-auto"
+                onSubmit={this.handleSubmit}
+              >
+                <h1 className="mb-5">Add Rule</h1>
                 {this.renderInput("name", "RuleName")}
                 {this.renderTextArea("description", "Description")}
                 {this.renderButton("Add")}

@@ -62,25 +62,25 @@ class ShowRecords extends Component {
             handleAccept={this.handleRecordDelete}
           ></Alert>
         )}
-        <div className="py-5">
-          <div className="mainComponent container my-5 py-5">
-            <div className="container">
+        <div>
+          <div className="rule container mb-5 py-5">
+            <div className="container mt-5">
               <div className="row">
                 <button
                   onClick={this.showShaikhRecords}
-                  className="col btn btn-primary m-2"
+                  className="col action_btn  m-2"
                 >
                   Shaikh Records
                 </button>
                 <button
                   onClick={this.showLabeledRecords}
-                  className="col btn btn-primary m-2"
+                  className="col action_btn m-2"
                 >
                   Labeled Records
                 </button>
                 <button
                   onClick={this.showUnLabeledRecords}
-                  className="col btn btn-primary m-2"
+                  className="col action_btn m-2"
                 >
                   UnLabeled Records
                 </button>

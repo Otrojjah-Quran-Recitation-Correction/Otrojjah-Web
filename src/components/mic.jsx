@@ -11,7 +11,9 @@ export default class Mic extends Component {
       record: false,
       blobUrl: "",
       recordedBlob: "",
-      btnClass: "btn btn-info disabled normalcursor"
+      btnClass: "result_btn disabled_btn normalcursor",
+      startIconClass: "",
+      stopIconClass: "disabled_icon"
     };
   }
 
@@ -19,10 +21,14 @@ export default class Mic extends Component {
     const jwt = localStorage.getItem("token");
     if (!jwt) window.location = "/login";
     else {
-      const btnClass = "btn btn-info disabled normalcursor";
+      const btnClass = "result_btn disabled_btn normalcursor";
+      const startIconClass = "active_icon";
+      const stopIconClass = "";
       this.setState({
         record: true,
-        btnClass
+        btnClass,
+        startIconClass,
+        stopIconClass
       });
     }
   };
@@ -39,8 +45,16 @@ export default class Mic extends Component {
 
   onStop = recordedBlob => {
     const blobUrl = URL.createObjectURL(recordedBlob.blob);
-    const btnClass = "btn btn-info";
-    this.setState({ recordedBlob, blobUrl, btnClass });
+    const btnClass = "result_btn";
+    const startIconClass = "";
+    const stopIconClass = "disabled_icon";
+    this.setState({
+      recordedBlob,
+      blobUrl,
+      btnClass,
+      startIconClass,
+      stopIconClass
+    });
   };
 
   saveRecord = async () => {
@@ -56,7 +70,7 @@ export default class Mic extends Component {
       const err = await addRecord(data);
       if (!err) {
         const blobUrl = "";
-        const btnClass = "btn btn-info disabled normalcursor";
+        const btnClass = "result_btn disabled_btn normalcursor";
         recordedBlob = "";
         this.props.handleAlert();
         this.setState({ blobUrl, recordedBlob, btnClass });
@@ -66,31 +80,37 @@ export default class Mic extends Component {
 
   render() {
     return (
-      <div>
+      <div className="my-5">
         <ReactMic
           record={this.state.record}
-          className="block record"
+          className="displayNone"
           onStop={this.onStop}
           onData={this.onData}
           strokeColor="#010a15"
           mimeType="audio/wav"
-          backgroundColor="#011224"
+          backgroundColor="#253B49"
         />
 
-        <form encType="multipart/form-data" method="post" action="#" id="#">
+        <form
+          encType="multipart/form-data"
+          method="post"
+          action="#"
+          id="#"
+          style={{ border: "none" }}
+        >
           <FontAwesomeIcon
-            className="ml-2 recordicon"
+            className={`ml-3 recordicon ${this.state.startIconClass}`}
             onClick={this.startRecording}
             icon={faMicrophone}
           />
           <FontAwesomeIcon
-            className="ml-2 recordicon"
+            className={`ml-3 recordicon ${this.state.stopIconClass}`}
             onClick={this.stopRecording}
             icon={faStopCircle}
           />
         </form>
         <audio
-          className="Audio recordAudio"
+          className="Audio recordAudio mt-3"
           controls
           src={this.state.blobUrl}
         ></audio>

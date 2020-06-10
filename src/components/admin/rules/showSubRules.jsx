@@ -13,8 +13,8 @@ class ShowSubRules extends Component {
   render() {
     const { jwt, ruleId } = this.state;
     return (
-      <div className="py-5">
-        <div className="mainComponent container my-5 py-5">
+      <div>
+        <div className="rule container mb-5 py-5">
           <SubRule jwt={jwt} ruleId={ruleId}></SubRule>
         </div>
       </div>

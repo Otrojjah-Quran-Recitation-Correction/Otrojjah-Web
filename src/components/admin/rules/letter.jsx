@@ -32,9 +32,9 @@ class Letter extends Component {
     const { sortColumn } = this.state;
     const { data: letters } = this.getSortedData();
     return (
-      <div>
+      <div className="mt-5">
         <Link to={`/addRule/${this.props.ruleId}`}>
-          <button className="my-2 btn btn-warning">Add Rule</button>
+          <button className="my-2 action_btn">Add Rule</button>
         </Link>
         <LetterTable
           sortColumn={sortColumn}

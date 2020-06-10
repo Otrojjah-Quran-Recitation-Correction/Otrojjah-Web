@@ -11,7 +11,7 @@ const LoginRoute = ({ path, component: Component, render, ...rest }) => {
           return (
             <Redirect
               to={{
-                pathname: "/not-found",
+                pathname: "/",
                 state: { from: props.location }
               }}
             />

@@ -140,10 +140,10 @@ class Record extends Component {
         {this.props.view === "shaikh" && (
           <div>
             <Link to={`/addRecord/${this.props.verseId}`}>
-              <button className="my-2 btn btn-warning">Add Record</button>
+              <button className="my-2 action_btn">Add Record</button>
             </Link>
             <button
-              className="btn btn-danger mx-2"
+              className="action_btn mx-2"
               onClick={() => this.props.handleAlert("shaikh")}
             >
               Delete All
@@ -154,7 +154,7 @@ class Record extends Component {
         {this.props.view === "unLabeled" && (
           <div>
             <Link to={`/addClientRecord/${this.props.verseId}`}>
-              <button className="my-2 btn btn-warning">Add Record</button>
+              <button className="my-2 action_btn">Add Record</button>
             </Link>
             {/* <button
               className="btn btn-danger mx-2"

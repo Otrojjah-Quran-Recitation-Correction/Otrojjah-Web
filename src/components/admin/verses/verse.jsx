@@ -39,9 +39,9 @@ class Verse extends Component {
     const { data: verses } = this.getSortedData();
     if (this.props.deleteVerse) this.handleDelete(this.props.verse);
     return (
-      <div>
+      <div className="mt-5">
         <Link to={`/addVerse/${this.props.ruleId}`}>
-          <button className="my-2 btn btn-warning">Add Verse</button>
+          <button className="my-2 action_btn">Add Verse</button>
         </Link>
         <VersesTable
           sortColumn={sortColumn}

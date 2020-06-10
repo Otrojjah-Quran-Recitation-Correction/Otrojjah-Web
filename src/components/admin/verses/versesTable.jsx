@@ -7,7 +7,12 @@ class VersesTable extends Component {
     {
       path: "name",
       label: "name",
-      content: item => <a href={`/showRecords/${item._id}`}> {item.name}</a>
+      content: item => (
+        <Link style={{ color: "#bf8e4b" }} to={`/showRecords/${item._id}`}>
+          {" "}
+          {item.name}
+        </Link>
+      )
     },
     { path: "surah", label: "surah" },
     {
@@ -15,7 +20,7 @@ class VersesTable extends Component {
       label: "edit",
       content: item => (
         <Link to={`/editVerse/${item._id}`}>
-          <button className="btn btn-info btn-sm">Edit</button>
+          <button className="action_btn">Edit</button>
         </Link>
       )
     },
@@ -24,7 +29,7 @@ class VersesTable extends Component {
       label: "delete",
       content: item => (
         <button
-          className="btn btn-danger btn-sm"
+          className="action_btn"
           onClick={() => this.props.handleAlert(item)}
         >
           Delete

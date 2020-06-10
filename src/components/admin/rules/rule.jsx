@@ -35,7 +35,7 @@ class Rule extends Component {
     return (
       <div>
         <Link to={`/addRule/${this.state.ruleId}`}>
-          <button className="my-2 btn btn-warning">Add Rule</button>
+          <button className="my-2 action_btn">Add Rule</button>
         </Link>
         <RuleTable
           sortColumn={sortColumn}

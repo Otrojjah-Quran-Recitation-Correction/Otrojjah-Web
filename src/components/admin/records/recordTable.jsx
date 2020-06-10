@@ -18,14 +18,19 @@ class RecordTable extends Component {
     {
       key: "labelBy",
       label: "labeledBy",
-      content: item => <a href={`/showRecordLabel/${item._id}`}> LabeledBy</a>
+      content: item => (
+        <Link style={{ color: "#bf8e4b" }} to={`/showRecordLabel/${item._id}`}>
+          {" "}
+          LabeledBy
+        </Link>
+      )
     },
     {
       key: "delete",
       label: "delete",
       content: item => (
         <button
-          className="btn btn-danger btn-sm"
+          className="action_btn"
           onClick={() => this.props.handleAlert(item)}
         >
           Delete
@@ -51,7 +56,7 @@ class RecordTable extends Component {
       label: "delete",
       content: item => (
         <button
-          className="btn btn-danger btn-sm"
+          className="action_btn"
           onClick={() => this.props.handleAlert(item)}
         >
           Delete
@@ -77,7 +82,7 @@ class RecordTable extends Component {
       label: "edit",
       content: item => (
         <Link to={`/editRecord/${item._id}`}>
-          <button className="btn btn-info btn-sm">Edit</button>
+          <button className="action_btn">Edit</button>
         </Link>
       )
     },
@@ -86,7 +91,7 @@ class RecordTable extends Component {
       label: "delete",
       content: item => (
         <button
-          className="btn btn-danger btn-sm"
+          className="action_btn"
           onClick={() => this.props.handleAlert(item)}
         >
           Delete

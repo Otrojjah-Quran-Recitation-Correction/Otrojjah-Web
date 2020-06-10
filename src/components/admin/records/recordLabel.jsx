@@ -42,7 +42,7 @@ class RecordLabel extends Component {
 
     const { totalCount, data: labels } = this.getPagedData();
     return (
-      <div>
+      <div className="mt-5">
         <RecordLabelTable
           sortColumn={sortColumn}
           onSort={this.handleSort}
