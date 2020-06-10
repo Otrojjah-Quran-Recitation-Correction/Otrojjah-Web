@@ -72,7 +72,9 @@ a:hover {
 .text_bg {
   background-color: #efede8;
   border-radius: 50px;
-  padding: 7px 25px !important;
+  padding-left: 25px;
+  padding-top: 7px;
+  padding-bottom: 7px;
   text-align: center;
 }
 

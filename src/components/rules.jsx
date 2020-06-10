@@ -360,7 +360,10 @@ class Rules extends Form {
                                                           <p className="py-5">
                                                             <span
                                                               style={{
-                                                                fontSize: "15px"
+                                                                fontSize:
+                                                                  "15px",
+                                                                paddingRight:
+                                                                  "25px"
                                                               }}
                                                               className="text_bg"
                                                             >

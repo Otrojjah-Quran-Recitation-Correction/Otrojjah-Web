@@ -86,7 +86,9 @@ class Home extends Component {
             <div className="col-md-2"></div>
             <div className="col-md-8 text-center">
               <p>
-                <span className="text_bg">استمع جيدا الى التسجيل الاتى..</span>
+                <span className="text_bg" style={{ paddingRight: "25px" }}>
+                  استمع جيدا الى التسجيل الاتى..
+                </span>
               </p>
               <audio
                 title={name}
@@ -106,22 +108,22 @@ class Home extends Component {
                 justifyContent: "center"
               }}
             >
-              <span className="text_bg mb-1 pr-0 mx-3">
+              <span className="text_bg mb-1  mx-3">
                 <span className="text_title"> الآية</span>
                 <span className="ayah mr-3">{verse.name}</span>
               </span>
 
-              <span className="text_bg mb-1 pr-0 mx-3">
+              <span className="text_bg mb-1 mx-3">
                 <span className="text_title"> السورة</span>{" "}
                 <span className="mr-3"> {verse.surah}</span>
               </span>
 
-              <span className="text_bg mb-1 pr-0 mx-3">
+              <span className="text_bg mb-1 mx-3">
                 <span className="text_title"> الحكم</span>
                 <span className="mr-3"> {subRule.name}</span>
               </span>
 
-              <span className="text_bg mb-1 pr-0 mx-3">
+              <span className="text_bg mb-1 mx-3">
                 <span className="text_title"> الحكم المفصل</span>
                 <span className="mr-3"> {letter.name}</span>
               </span>
