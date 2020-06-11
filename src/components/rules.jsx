@@ -170,7 +170,7 @@ class Rules extends Form {
                       <h2 className="mb-0">
                         <button
                           className="btn btn-link"
-                          style={{ color: "#d3c6b3" }}
+                          style={{ color: "#faeed6" }}
                           type="button"
                           data-toggle="collapse"
                           data-target={`#hokm1${subRule._id}`}
@@ -195,7 +195,7 @@ class Rules extends Form {
                           <a
                             data-toggle="collapse"
                             href={`#subRule${subRule._id}`}
-                            style={{ color: "#bf8e4b" }}
+                            style={{ color: "#c09048" }}
                             role="button"
                             aria-expanded="false"
                             aria-controls={`subRule${subRule._id}`}
@@ -241,7 +241,7 @@ class Rules extends Form {
                                         <h2 className="mb-0">
                                           <button
                                             className="btn btn-link"
-                                            style={{ color: "#253B49" }}
+                                            style={{ color: "#233a48" }}
                                             type="button"
                                             data-toggle="collapse"
                                             data-target={`#hokm1${letter._id}`}

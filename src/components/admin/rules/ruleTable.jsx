@@ -8,7 +8,7 @@ class RuleTable extends Component {
       path: "name",
       label: "name",
       content: item => (
-        <Link style={{ color: "#bf8e4b" }} to={`/showSubRules/${item._id}`}>
+        <Link style={{ color: "#c09048" }} to={`/showSubRules/${item._id}`}>
           {" "}
           {item.name}
         </Link>

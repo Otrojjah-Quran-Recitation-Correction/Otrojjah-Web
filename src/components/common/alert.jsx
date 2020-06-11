@@ -38,7 +38,7 @@ class Alert extends Component {
           {label !== "success" && (
             <div
               className="toast-body text-center"
-              style={{ backgroundColor: "#efede8" }}
+              style={{ backgroundColor: "#ffffff" }}
             >
               <button
                 className="mx-1 result_btn"

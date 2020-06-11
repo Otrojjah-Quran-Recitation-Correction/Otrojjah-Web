@@ -88,7 +88,7 @@ export default class Mic extends Component {
           onData={this.onData}
           strokeColor="#010a15"
           mimeType="audio/wav"
-          backgroundColor="#253B49"
+          backgroundColor="#233a48"
         />
 
         <form

@@ -19,7 +19,7 @@ class RecordTable extends Component {
       key: "labelBy",
       label: "labeledBy",
       content: item => (
-        <Link style={{ color: "#bf8e4b" }} to={`/showRecordLabel/${item._id}`}>
+        <Link style={{ color: "#c09048" }} to={`/showRecordLabel/${item._id}`}>
           {" "}
           LabeledBy
         </Link>

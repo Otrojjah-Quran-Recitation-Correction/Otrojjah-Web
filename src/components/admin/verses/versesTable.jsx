@@ -8,7 +8,7 @@ class VersesTable extends Component {
       path: "name",
       label: "name",
       content: item => (
-        <Link style={{ color: "#bf8e4b" }} to={`/showRecords/${item._id}`}>
+        <Link style={{ color: "#c09048" }} to={`/showRecords/${item._id}`}>
           {" "}
           {item.name}
         </Link>

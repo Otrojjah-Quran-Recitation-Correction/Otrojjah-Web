@@ -171,7 +171,7 @@ class NavBar extends Component {
           </div>
           <div className="navlogo">
             <Link onClick={() => this.activateButton("home")} to="/">
-              <img alt="اترجة" src="../photos/logo3.png" />
+              <img alt="اترجة" src="../photos/logo4.png" />
             </Link>
           </div>
           <div className="navlogominmizer"></div>

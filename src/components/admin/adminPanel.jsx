@@ -62,7 +62,7 @@ class AdminPanel extends Component {
                   role="tab"
                   aria-controls="v-pills-users"
                   aria-selected="true"
-                  style={{ color: "#253B49" }}
+                  style={{ color: "#233a48" }}
                 >
                   Users
                 </a>
@@ -73,7 +73,7 @@ class AdminPanel extends Component {
                   role="tab"
                   aria-controls="v-pills-rules"
                   href="#v-pills-rules"
-                  style={{ color: "#253B49" }}
+                  style={{ color: "#233a48" }}
                 >
                   Rules
                 </a>

@@ -20,8 +20,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #253b49 !important;
-  color: #253b49 !important;
+  background-color: #233a48 !important;
+  color: #233a48 !important;
   text-align: right !important;
 
   direction: rtl;
@@ -29,7 +29,7 @@ body {
 }
 
 audio::-webkit-media-controls-panel {
-  background-color: #efede8;
+  background-color: #ffffff;
 }
 
 *:focus {
@@ -37,18 +37,18 @@ audio::-webkit-media-controls-panel {
 }
 
 form {
-  border: 2px solid #253b49;
+  border: 2px solid #233a48;
   border-radius: 45px;
 }
 
 table {
-  border-color: #253b49 !important;
+  border-color: #233a48 !important;
 }
 
 input,
 select,
 textarea {
-  background-color: #efede8 !important;
+  background-color: #ffffff !important;
   text-align: center !important;
 }
 
@@ -70,7 +70,7 @@ a:hover {
 }
 
 .text_bg {
-  background-color: #efede8;
+  background-color: #ffffff;
   border-radius: 50px;
   padding-left: 25px;
   padding-top: 7px;
@@ -79,56 +79,56 @@ a:hover {
 }
 
 .text_title {
-  background-color: #253b49;
-  color: #efede8;
+  background-color: #233a48;
+  color: #ffffff;
   border-radius: 50px;
   padding: 12px 20px 12px 25px !important;
   text-align: center;
 }
 
 .result_btn {
-  background-color: #253b49;
-  color: #d3c6b3;
+  background-color: #233a48;
+  color: #faeed6;
   padding: 10px 30px;
   border: 0;
   border-radius: 50px;
 }
 
 .result_btn:hover {
-  color: #efede8;
-  background-color: #bf8e4b;
+  color: #ffffff;
+  background-color: #c09048;
 }
 
 .btn_active {
-  color: #efede8 !important;
-  background-color: #bf8e4b !important;
+  color: #ffffff !important;
+  background-color: #c09048 !important;
 }
 
 .action_btn {
-  background-color: #253b49;
-  color: #d3c6b3;
+  background-color: #233a48;
+  color: #faeed6;
   padding: 5px 15px;
   border: 0;
   border-radius: 5px;
 }
 
 .action_btn:hover {
-  background-color: #bf8e4b;
-  color: #efede8;
+  background-color: #c09048;
+  color: #ffffff;
 }
 
 .disabled_btn {
-  color: #d3c6b3 !important;
-  background-color: rgba(37, 59, 73, 0.5) !important;
+  color: #faeed6 !important;
+  background-color: rgba(35, 58, 72, 0.5) !important;
 }
 
 .nav_bg {
   border-radius: 20px 20px 0 0;
-  background-color: #d3c6b3;
+  background-color: #faeed6;
 }
 
 .nav_line {
-  background-color: #bf8e4b;
+  background-color: #c09048;
   height: 10px;
   width: 200%;
   position: absolute;
@@ -142,10 +142,10 @@ a:hover {
 
 .navlogo {
   position: absolute;
-  box-shadow: 10px 0 0 0 #bf8e4b;
+  box-shadow: 10px 0 0 0 #c09048;
   top: 0;
   right: 90px;
-  background-color: #253b49;
+  background-color: #233a48;
   width: 100px;
   height: 200px;
   z-index: 585415;
@@ -163,8 +163,8 @@ a:hover {
 
 .navlogominmizer {
   position: absolute;
-  box-shadow: 10px 0 0 0 #bf8e4b;
-  background-color: #253b49;
+  box-shadow: 10px 0 0 0 #c09048;
+  background-color: #233a48;
   border-radius: 50%;
   width: 100px;
   height: 100px;
@@ -205,13 +205,13 @@ a:hover {
 
 .rule {
   border-radius: 0 0 20px 20px;
-  background-color: #d3c6b3 !important;
-  color: #253b49 !important;
+  background-color: #faeed6 !important;
+  color: #233a48 !important;
 }
 
 .mainComponent {
-  background-color: #253b49 !important;
-  color: #d3c6b3;
+  background-color: #233a48 !important;
+  color: #faeed6;
   border-radius: 20px !important;
 }
 
@@ -227,7 +227,7 @@ a:hover {
 }
 
 .recordicon:hover {
-  color: #bf8e4b;
+  color: #c09048;
 }
 
 .disabled_icon {
@@ -236,7 +236,7 @@ a:hover {
 }
 
 .active_icon {
-  color: #bf8e4b !important;
+  color: #c09048 !important;
 }
 
 .labelicon {
@@ -271,28 +271,28 @@ a:hover {
 }
 
 .nav-pills .nav-link.active {
-  color: #d3c6b3 !important;
-  background-color: #253b49 !important;
+  color: #faeed6 !important;
+  background-color: #233a48 !important;
   border-radius: 5px;
 }
 
 .form-control {
-  color: #253b49 !important;
+  color: #233a48 !important;
 }
 
 .toast-header {
-  color: #253b49 !important;
-  background-color: #efede8 !important;
+  color: #233a48 !important;
+  background-color: #ffffff !important;
 }
 
 .page-item.active .page-link {
   z-index: 3;
-  color: #efede8 !important;
-  background-color: #253b49 !important;
-  border-color: #253b49 !important;
+  color: #ffffff !important;
+  background-color: #233a48 !important;
+  border-color: #233a48 !important;
 }
 
 .page-link {
-  color: #253b49 !important;
-  background-color: #efede8 !important;
+  color: #233a48 !important;
+  background-color: #ffffff !important;
 }
