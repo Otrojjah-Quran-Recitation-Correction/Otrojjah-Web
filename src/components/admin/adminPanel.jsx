@@ -44,7 +44,7 @@ class AdminPanel extends Component {
           <div className="row ">
             <div className="col-3 mb-5 py-5 rule">
               <div className="pt-5 mt-3 pb-3">
-                <h3 style={{ paddingRight: "25px" }} className="text_bg">
+                <h3 style={{ paddingRight: "25px" }} className="text_bg admin">
                   Admin Panel
                 </h3>
               </div>
