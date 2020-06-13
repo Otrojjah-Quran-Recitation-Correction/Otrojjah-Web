@@ -304,3 +304,8 @@ a:hover {
   color: #233a48 !important;
   background-color: #ffffff !important;
 }
+
+select:focus > option:checked {
+  background: #233a48 !important;
+  color: #ffffff !important;
+}
