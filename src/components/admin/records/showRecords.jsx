@@ -68,19 +68,25 @@ class ShowRecords extends Component {
               <div className="row">
                 <button
                   onClick={this.showShaikhRecords}
-                  className="col action_btn  m-2"
+                  className={`col action_btn  m-2 ${
+                    view === "shaikh" ? "btn_active" : ""
+                  }`}
                 >
                   Shaikh Records
                 </button>
                 <button
                   onClick={this.showLabeledRecords}
-                  className="col action_btn m-2"
+                  className={`col action_btn  m-2 ${
+                    view === "labeled" ? "btn_active" : ""
+                  }`}
                 >
                   Labeled Records
                 </button>
                 <button
                   onClick={this.showUnLabeledRecords}
-                  className="col action_btn m-2"
+                  className={`col action_btn  m-2 ${
+                    view === "unLabeled" ? "btn_active" : ""
+                  }`}
                 >
                   UnLabeled Records
                 </button>

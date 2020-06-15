@@ -6,7 +6,7 @@ import SearchBox from "../../common/searchBox";
 import RecordTable from "./recordTable";
 import {
   getRecords,
-  updateRecord,
+  // updateRecord,
   deleteGSCRecord,
   deleteGSCRecords
 } from "../../../services/recordsServices";
